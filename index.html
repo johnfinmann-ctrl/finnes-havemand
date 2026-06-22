@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- ── TILPAS: Titel og beskrivelse ── -->
+<title>Finnes Entreprise — Haveservice og Gravearbejde</title>
+<!-- v1.1 — Admin via admin.html -->
+<meta name="description" content="Professionelt havearbejde, græsslåning, hækklipning, minigraver og gravearbejde til private og erhverv i Vejle-området.">
+<meta name="theme-color" content="#2E6F40">
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<!-- ── TILPAS: Erstat logo-placeholder.png med dit rigtige logo ── -->
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<link rel="icon" type="image/png" href="assets/icon-192.png">
+
+<!-- Styles -->
+<link rel="stylesheet" href="styles.css">
+
+<!-- Open Graph (sociale medier) -->
+<meta property="og:type"        content="website">
+<meta property="og:title"       content="Finnes Entreprise — Haveservice og Gravearbejde">
+<meta property="og:description" content="Professionelt havearbejde, græsslåning, hækklipning og minigraver i Vejle-området.">
+<meta property="og:image"       content="assets/logo-placeholder.png">
+
+<!-- Schema.org -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Finnes Entreprise",
+  "telephone": "+4540137370",
+  "email": "finmann1@gmail.com",
+  "areaServed": ["Vejle", "Kolding", "Egtved", "Jelling", "Børkop"],
+  "priceRange": "$$"
+}
+</script>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════
+     NAVIGATION
+     ════════════════════════════════════════ -->
+<nav class="site-nav" aria-label="Primær navigation">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <!-- ── TILPAS: Erstat src med stien til dit logo ── -->
+      <img src="assets/logo-placeholder.png" alt="Finnes Entreprise logo">
+      <!-- ── TILPAS: Virksomhedsnavn ── -->
+      <span class="nav-logo-text">Finnes Entreprise</span>
+    </a>
+    <div class="nav-links">
+      <a href="#ydelser">Ydelser</a>
+      <a href="#prisliste">Priser</a>
+      <a href="#prisberegner">Beregner</a>
+      <a href="#tilbud">Tilbud</a>
+      <a href="#kontakt">Kontakt</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════════
+     HERO
+     ════════════════════════════════════════ -->
+<section class="hero" id="top">
+  <div class="container hero-inner">
+    <!-- ── TILPAS: Erstat src med dit logo ── -->
+    <img class="hero-logo" src="assets/logo-placeholder.png" alt="Finnes Entreprise logo">
+
+    <!-- ── TILPAS: Virksomhedsnavn og undertekst ── -->
+    <h1 id="hero-firmanavn">Finnes Entreprise</h1>
+    <p class="tagline" id="hero-slogan">Have · Anlæg · Minigraver</p>
+    <p class="sub" id="hero-sub">Vi passer din have og løser dine graveog anlægsopgaver — professionelt, pålideligt og til konkurrencedygtige priser.</p>
+
+    <div class="hero-buttons">
+      <!-- ── TILPAS: Telefonnummer i href ── -->
+      <a href="tel:+4540137370" id="btn-ring" class="btn btn-primary">📞 Ring nu</a>
+      <a href="sms:+4540137370" id="btn-sms" class="btn btn-ghost">💬 Send SMS</a>
+      <a href="mailto:finmann1@gmail.com" id="btn-mail" class="btn btn-ghost">✉️ Send mail</a>
+      <a href="#tilbud" class="btn btn-accent">📋 Få tilbud</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     YDELSER
+     ════════════════════════════════════════ -->
+<section id="ydelser">
+  <div class="container">
+    <h2 class="section-title">Vores ydelser</h2>
+    <p class="section-sub">Vi løser store og små opgaver — til private, sommerhuse og erhverv.</p>
+
+    <div class="cards-grid" id="ydelser-grid">
+      <div class="card">
+        <span class="icon">🌿</span>
+        <h3>Græsslåning</h3>
+        <p>Regelmæssig eller enkeltstående klipning. Fast aftale giver rabat.</p>
+      </div>
+      <div class="card">
+        <span class="icon">✂️</span>
+        <h3>Hækklipning</h3>
+        <p>Professionel klipning og formgivning — hæk og buske.</p>
+      </div>
+      <div class="card">
+        <span class="icon">🍂</span>
+        <h3>Haveoprydning</h3>
+        <p>Rydning, beskæring og oprydning — hele haven gøres klar.</p>
+      </div>
+      <div class="card">
+        <span class="icon">🚛</span>
+        <h3>Bortkørsel</h3>
+        <p>Vi kører haveaffald og overskudsjord bort — korrekt og lovligt.</p>
+      </div>
+      <div class="card">
+        <span class="icon">🚜</span>
+        <h3>Minigraver</h3>
+        <p>Udgravning, planering, fundament, dræn og jordflytning.</p>
+      </div>
+      <div class="card">
+        <span class="icon">⛏️</span>
+        <h3>Jordarbejde</h3>
+        <p>Større og mindre gravearbejde til alt fra dræn til terrasse.</p>
+      </div>
+      <div class="card">
+        <span class="icon">🧱</span>
+        <h3>Belægning</h3>
+        <p>Fliser, grus og indkørsler — vi lægger det pænt og holdbart.</p>
+      </div>
+      <div class="card">
+        <span class="icon">🏡</span>
+        <h3>Sommerhus</h3>
+        <p>Åbning, lukning og løbende vedligeholdelse af sommerhuset.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     PRISLISTE
+     ════════════════════════════════════════ -->
+<section id="prisliste">
+  <div class="container">
+    <h2 class="section-title">Priser</h2>
+    <!-- ── TILPAS: Priser opdateres OGSÅ i CONFIG i app.js ── -->
+    <p class="section-sub">Vejledende priser ekskl. moms. Endelig pris aftales efter dialog.</p>
+
+    <div class="price-table">
+      <div class="price-row">
+        <div class="price-label">
+          Timepris — alm. havearbejde
+          <small>Klipning, oprydning, vedligeholdelse</small>
+        </div>
+        <!-- ── TILPAS: Ret pris ── -->
+        <span class="price-value" id="pris-timepris">Fra 450 kr./t</span>
+      </div>
+      <div class="price-row">
+        <div class="price-label">
+          Minimumspris pr. besøg
+          <small>Gælder uanset opgavens omfang</small>
+        </div>
+        <!-- ── TILPAS: Ret pris — husk også CONFIG.minimumspris i app.js ── -->
+        <span class="price-value" id="pris-minimum">350 kr.</span>
+      </div>
+      <div class="price-row">
+        <div class="price-label">
+          Græsslåning pr. m²
+          <small>Normalklip — højt græs giver tillæg</small>
+        </div>
+        <!-- ── TILPAS: Ret pris — husk også CONFIG.pris_pr_m2 i app.js ── -->
+        <span class="price-value" id="pris-m2">Fra 1,25 kr./m²</span>
+      </div>
+      <div class="price-row">
+        <div class="price-label">
+          Tillæg — højt græs
+          <small>Græs over ca. 10 cm</small>
+        </div>
+        <!-- ── TILPAS: Ret pris — husk også CONFIG.tillaeg_hoejt_graes i app.js ── -->
+        <span class="price-value" id="pris-hoejt">+200 kr.</span>
+      </div>
+      <div class="price-row">
+        <div class="price-label">
+          Tillæg — bortkørsel af afklip
+          <small>Inkl. kørsel til genbrugsstationen</small>
+        </div>
+        <!-- ── TILPAS: Ret pris — husk også CONFIG.tillaeg_bortkoersel i app.js ── -->
+        <span class="price-value" id="pris-bortkoersel-tillaeg">+150 kr.</span>
+      </div>
+      <div class="price-row">
+        <div class="price-label">
+          Minigraver — timepris
+          <small>Inkl. kørsel i nærområdet</small>
+        </div>
+        <!-- ── TILPAS: Ret pris ── -->
+        <span class="price-value" id="pris-minigraver">Fra 650 kr./t</span>
+      </div>
+      <div class="price-row">
+        <div class="price-label">
+          Kørselstillæg
+          <small>For opgaver uden for nærområdet</small>
+        </div>
+        <!-- ── TILPAS: Ret pris ── -->
+        <span class="price-value">Aftales</span>
+      </div>
+      <div class="price-row">
+        <div class="price-label">
+          Fast aftale — rabat
+          <small>Ugentlig eller 14-dages klipning</small>
+        </div>
+        <!-- ── TILPAS: Ret pris ── -->
+        <span class="price-value">Op til 15%</span>
+      </div>
+    </div>
+
+    <div class="price-note">
+      💡 Alle priser er vejledende og ekskl. moms. Ring eller send en besked — vi giver gerne et uforpligtende tilbud på din opgave.
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     PRISBEREGNER
+     ════════════════════════════════════════ -->
+<section id="prisberegner">
+  <div class="container">
+    <h2 class="section-title">Prisberegner — Græsslåning</h2>
+    <p class="section-sub">Beregn en vejledende pris for din plæne. Alt beregnes ud fra de aktuelle priser.</p>
+
+    <div class="calc-box">
+      <div class="calc-field">
+        <label for="kvm">Din plæne — antal m²</label>
+        <input type="number" id="kvm" name="kvm" min="1" max="9999"
+               placeholder="Fx 250" inputmode="numeric">
+      </div>
+
+      <div class="calc-field">
+        <label>Tillæg</label>
+        <div class="checkbox-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="hoejt-graes">
+            Højt græs (over ca. 10 cm)
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="bortkoersel">
+            Bortkørsel af afklip ønskes
+          </label>
+        </div>
+      </div>
+
+      <button type="button" id="calc-btn" class="btn btn-primary">
+        🌿 Beregn vejledende pris
+      </button>
+
+      <div class="calc-result" id="calc-result">
+        <div class="calc-result-lines" id="calc-lines"></div>
+        <hr style="margin: 12px 0; border: none; border-top: 2px solid var(--green);">
+        <div style="display:flex; justify-content:space-between; align-items:baseline;">
+          <strong style="font-size:1.1rem;">Vejledende pris</strong>
+          <span class="calc-result-amount" id="calc-total"></span>
+        </div>
+        <p class="calc-disclaimer">
+          ⚠️ Prisen er vejledende og ekskl. moms. Endelig pris aftales efter dialog — kontakt os for et konkret tilbud.
+        </p>
+        <a href="#tilbud" class="btn btn-accent" style="margin-top:14px; width:100%;">📋 Få et rigtigt tilbud</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     TILBUDSFORMULAR
+     ════════════════════════════════════════ -->
+<section id="tilbud">
+  <div class="container">
+    <h2 class="section-title">Få et uforpligtende tilbud</h2>
+    <p class="section-sub">Udfyld formularen, og vi vender tilbage så hurtigt som muligt — typisk samme dag.</p>
+
+    <div class="form-box">
+      <!-- ── TILPAS: formularen sender via mailto — ingen backend nødvendig ── -->
+      <form id="tilbud-form" novalidate>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="navn">Navn *</label>
+            <input type="text" id="navn" name="navn" placeholder="Dit fulde navn" required>
+          </div>
+          <div class="form-group">
+            <label for="telefon">Telefon *</label>
+            <input type="tel" id="telefon" name="telefon" placeholder="Fx 40 13 73 70" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="adresse">Adresse / By</label>
+          <input type="text" id="adresse" name="adresse" placeholder="Fx Brejning, Vejle">
+        </div>
+
+        <div class="form-group">
+          <label for="opgave">Opgavetype</label>
+          <select id="opgave" name="opgave">
+            <option value="Ikke valgt">Vælg opgavetype…</option>
+            <option>Græsslåning</option>
+            <option>Hækklipning</option>
+            <option>Haveoprydning</option>
+            <option>Bortkørsel</option>
+            <option>Minigraver</option>
+            <option>Jordarbejde</option>
+            <option>Belægning</option>
+            <option>Vedligeholdelse af sommerhus</option>
+            <option>Andet / kombineret</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="beskrivelse">Beskrivelse af opgaven</label>
+          <textarea id="beskrivelse" name="beskrivelse"
+            placeholder="Beskriv gerne opgavens omfang, eventuelle særlige forhold, m² osv."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="tidspunkt">Ønsket tidspunkt</label>
+          <input type="text" id="tidspunkt" name="tidspunkt"
+            placeholder="Fx snarest muligt / uge 28 / weekender">
+        </div>
+
+        <div class="form-group">
+          <label class="checkbox-label" style="font-weight:normal;">
+            <input type="checkbox" id="billeder" name="billeder">
+            Jeg har billeder, jeg gerne vil sende via SMS eller mail
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-accent" style="width:100%; margin-top:8px;">
+          📬 Send tilbudsforespørgsel
+        </button>
+
+        <p class="form-hint">
+          <span id="form-kontakt-hint">📷 Billeder kan sendes som SMS til <strong>40 13 73 70</strong> eller på mail til <strong>finmann1@gmail.com</strong> — det hjælper os med at give dig et præcist tilbud.</span>
+        </p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     KONTAKT
+     ════════════════════════════════════════ -->
+<section id="kontakt">
+  <div class="container">
+    <h2 class="section-title">Kontakt os</h2>
+    <p class="section-sub">Vi er klar til at hjælpe — ring, skriv eller send en besked.</p>
+
+    <div class="contact-grid">
+
+      <div class="contact-card">
+        <h3>Direkte kontakt</h3>
+        <!-- ── TILPAS: Telefon ── -->
+        <a href="tel:+4540137370" id="kontakt-ring" class="contact-link">
+          <span class="ico">📞</span>
+          <span>40 13 73 70</span>
+        </a>
+        <!-- ── TILPAS: SMS ── -->
+        <a href="sms:+4540137370" id="kontakt-sms" class="contact-link">
+          <span class="ico">💬</span>
+          <span>Send SMS</span>
+        </a>
+        <!-- ── TILPAS: Mail ── -->
+        <a href="mailto:finmann1@gmail.com" id="kontakt-mail" class="contact-link">
+          <span class="ico">✉️</span>
+          <span>finmann1@gmail.com</span>
+        </a>
+      </div>
+
+      <div class="contact-card">
+        <h3>Virksomhedsinfo</h3>
+        <!-- ── TILPAS: CVR ── -->
+        <div class="contact-link" style="cursor:default;">
+          <span class="ico">🏢</span>
+          <span id="kontakt-cvr">CVR: 46557557</span>
+        </div>
+        <div class="contact-link" style="cursor:default; font-size:.9rem; opacity:.85;">
+          <span class="ico">✅</span>
+          <span id="kontakt-moms">Momsregistreret</span>
+        </div>
+        <div class="contact-link" style="cursor:default; font-size:.9rem; opacity:.85;">
+          <span class="ico">⏰</span>
+          <!-- ── TILPAS: Åbningstider ── -->
+          <span>Man–fre 07:00–17:00 · Lør efter aftale</span>
+        </div>
+      </div>
+
+      <div class="contact-card" style="grid-column: 1 / -1;">
+        <h3>Dækningsområde</h3>
+        <!-- ── TILPAS: Dækningsområder ── -->
+        <div class="areas-list" id="omraade-chips">
+          <span class="area-chip">Vejle</span>
+          <span class="area-chip">Børkop</span>
+          <span class="area-chip">Egtved</span>
+          <span class="area-chip">Jelling</span>
+          <span class="area-chip">Kolding</span>
+          <span class="area-chip">Brejning</span>
+          <span class="area-chip">+ omegn</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     FOOTER
+     ════════════════════════════════════════ -->
+<footer class="site-footer">
+  <!-- ── TILPAS: Firmanavn og CVR ── -->
+  <p id="footer-text">© 2025 Finnes Entreprise · CVR 46557557 · Momsregistreret</p>
+  <p style="margin-top:6px;">Have- og graveservice i Vejle-området</p>
+  <p style="margin-top:12px;"><a href="admin.html" style="color:rgba(255,255,255,.35);font-size:.75rem;">⚙ Admin</a></p>
+</footer>
+
+<!-- ════════════════════════════════════════
+     CHATBOT
+     ════════════════════════════════════════ -->
+<button class="chatbot-fab" id="chatbot-fab" aria-label="Åbn chat-hjælper">
+  🌿
+  <span class="chatbot-badge">?</span>
+</button>
+
+<div class="chatbot-window" id="chatbot-window" role="dialog" aria-label="Chat-hjælper">
+  <div class="chatbot-header">
+    <div class="chatbot-avatar">🌿</div>
+    <div>
+      <!-- ── TILPAS: Chatbot-navn ── -->
+      <div class="chatbot-title">Finnes Entreprise</div>
+      <div class="chatbot-status">Altid klar til at hjælpe</div>
+    </div>
+    <button class="chatbot-close" id="chatbot-close" aria-label="Luk chat">✕</button>
+  </div>
+  <div class="chatbot-messages" id="chat-messages"></div>
+</div>
+
+<!-- Scripts -->
+<script src="app.js"></script>
+
+</body>
+</html>
