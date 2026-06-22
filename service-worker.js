@@ -3,11 +3,10 @@
    Offline-cache til PWA (Cache-first strategi).
    ============================================================ */
 
-var CACHE = "finnes-entreprise-v1.1";
+var CACHE = "finnes-entreprise-v1";
 var ASSETS = [
   ".",
   "index.html",
-  "admin.html",
   "styles.css",
   "app.js",
   "manifest.json",
