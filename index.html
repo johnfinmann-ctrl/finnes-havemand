@@ -4,346 +4,300 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Finnes Entreprise</title>
-<meta name="description" content="Have, anlæg og graveservice i Vejle-området. Ring eller send SMS for tilbud.">
+<meta name="description" content="Have, anlæg og graveservice. Ring eller beregn pris på under 10 sekunder.">
 <meta name="theme-color" content="#2E6F40">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Finnes">
-<meta name="robots" content="index,follow">
-
-<!-- PWA -->
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="icon" type="image/png" href="assets/icon-192.png">
-
-<!-- Styles -->
-<link rel="stylesheet" href="app.css">
-
-<!-- Open Graph -->
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
 <meta property="og:title"       content="Finnes Entreprise">
 <meta property="og:description" content="Have, anlæg og graveservice i Vejle-området.">
 <meta property="og:image"       content="assets/icon-512.png">
 <meta property="og:type"        content="website">
+<!-- Cache-busting — automatisk opdateret ved hver ny version -->
+<link rel="stylesheet" href="app.css?v=20260623">
 </head>
 <body>
-
 <div id="app">
 
-  <!-- ════════════════════════════════
-       SCREEN: HJEM
-       ════════════════════════════════ -->
-  <section class="screen" id="s-home">
+<!-- ════════════ HJEM ════════════ -->
+<section class="screen" id="s-home">
+  <div class="home-hero">
+    <img class="home-logo" src="assets/icon-192.png" alt="Finnes Entreprise">
+    <div class="home-name">Finnes Entreprise</div>
+    <div class="home-slogan">Have · Anlæg · Minigraver</div>
+  </div>
+  <div class="cta-grid">
+    <a id="home-ring" href="tel:+4540137370" class="cta-btn cta-primary">
+      <span class="cta-ico">📞</span>Ring nu
+    </a>
+    <a id="home-sms" href="sms:+4540137370" class="cta-btn cta-primary">
+      <span class="cta-ico">💬</span>Send SMS
+    </a>
+    <button class="cta-btn cta-accent" onclick="goTo('tilbud')">
+      <span class="cta-ico">📋</span>Få tilbud
+    </button>
+    <button class="cta-btn cta-outline" onclick="goTo('beregner')">
+      <span class="cta-ico">🧮</span>Beregn pris
+    </button>
+  </div>
+  <div class="quick-icons">
+    <div class="quick-icon"><span class="qi">🌱</span><span class="qi-label">Græsslåning</span></div>
+    <div class="quick-icon"><span class="qi">🚜</span><span class="qi-label">Minigraver</span></div>
+    <div class="quick-icon"><span class="qi">✂️</span><span class="qi-label">Hæk</span></div>
+    <div class="quick-icon"><span class="qi">🍂</span><span class="qi-label">Havearbejde</span></div>
+  </div>
+</section>
 
-    <div class="home-hero">
-      <img class="home-logo" src="assets/icon-192.png" alt="Logo">
-      <div class="home-name">Finnes Entreprise</div>
-      <div class="home-slogan">Have · Anlæg · Minigraver</div>
-    </div>
+<!-- ════════════ YDELSER ════════════ -->
+<section class="screen" id="s-ydelser">
+  <div class="topbar">
+    <div class="topbar-ph"></div>
+    <span class="topbar-title">Ydelser</span>
+    <div class="topbar-ph"></div>
+  </div>
+  <div class="service-grid" id="ydelser-grid"></div>
+</section>
 
-    <!-- 4 store CTA-knapper -->
-    <div class="cta-grid">
-      <a id="home-ring" href="tel:+4540137370" class="cta-btn cta-primary">
-        <span class="cta-ico">📞</span>Ring nu
-      </a>
-      <a id="home-sms" href="sms:+4540137370" class="cta-btn cta-primary">
-        <span class="cta-ico">💬</span>Send SMS
-      </a>
-      <a href="#tilbud" class="cta-btn cta-accent" onclick="goTo('kontakt')">
-        <span class="cta-ico">📋</span>Få tilbud
-      </a>
-      <button class="cta-btn cta-outline" onclick="goTo('beregner')">
-        <span class="cta-ico">🧮</span>Beregn pris
-      </button>
-    </div>
+<!-- ════════════ YDELSE DETALJE ════════════ -->
+<section class="screen" id="s-ydelse-detail">
+  <div class="topbar">
+    <button class="topbar-back" onclick="goBack()" aria-label="Tilbage">←</button>
+    <span class="topbar-title">Ydelse</span>
+    <div class="topbar-ph"></div>
+  </div>
+  <div class="service-detail-img"></div>
+  <div class="service-detail-body">
+    <h2 class="service-detail-title"></h2>
+    <p class="service-detail-text"></p>
+  </div>
+  <div class="service-action-row">
+    <a id="det-ring" href="tel:+4540137370" class="cta-btn cta-primary">
+      <span class="cta-ico">📞</span>Ring
+    </a>
+    <a id="det-sms" href="sms:+4540137370" class="cta-btn cta-primary">
+      <span class="cta-ico">💬</span>SMS
+    </a>
+    <button id="det-tilbud" class="cta-btn cta-accent">
+      <span class="cta-ico">📋</span>Tilbud
+    </button>
+  </div>
+</section>
 
-    <!-- 4 hurtige ydelsesikoner -->
-    <div class="quick-icons">
-      <div class="quick-icon">
-        <span class="qi">🌿</span>
-        <span class="qi-label">Græs</span>
+<!-- ════════════ PRISER ════════════ -->
+<section class="screen" id="s-priser">
+  <div class="topbar">
+    <div class="topbar-ph"></div>
+    <span class="topbar-title">Priser</span>
+    <div class="topbar-ph"></div>
+  </div>
+  <div class="price-cards" id="pris-cards"></div>
+  <p class="price-note">Priser ekskl. moms. Vi giver altid et gratis, uforpligtende tilbud.</p>
+  <div class="btn-row">
+    <button class="btn btn-green btn-block" onclick="goTo('beregner')">🧮 Beregn pris</button>
+    <button class="btn btn-acc btn-block"   onclick="goTo('tilbud')">📋 Få tilbud</button>
+  </div>
+</section>
+
+<!-- ════════════ BEREGNER ════════════ -->
+<section class="screen" id="s-beregner">
+  <div class="topbar">
+    <div class="topbar-ph"></div>
+    <span class="topbar-title">Prisberegner</span>
+    <div class="topbar-ph"></div>
+  </div>
+  <div class="calc-card">
+    <label class="calc-label" for="calc-m2">Din plæne — antal m²</label>
+    <input type="number" id="calc-m2" class="calc-input"
+           placeholder="Fx 250" min="1" max="9999" inputmode="numeric">
+    <div class="toggle-row">
+      <div class="toggle-item" data-toggle="hoejt" onclick="toggleCalc(this)">
+        <div class="toggle-left">
+          <span class="toggle-ico">🌾</span><span>Højt græs (over 10 cm)</span>
+        </div>
+        <div class="toggle-switch"></div>
       </div>
-      <div class="quick-icon">
-        <span class="qi">🚜</span>
-        <span class="qi-label">Minigraver</span>
-      </div>
-      <div class="quick-icon">
-        <span class="qi">✂️</span>
-        <span class="qi-label">Hæk</span>
-      </div>
-      <div class="quick-icon">
-        <span class="qi">🍂</span>
-        <span class="qi-label">Haveopryd.</span>
+      <div class="toggle-item" data-toggle="bortkoer" onclick="toggleCalc(this)">
+        <div class="toggle-left">
+          <span class="toggle-ico">🛻</span><span>Bortkørsel af afklip</span>
+        </div>
+        <div class="toggle-switch"></div>
       </div>
     </div>
-
-  </section>
-
-  <!-- ════════════════════════════════
-       SCREEN: YDELSER
-       ════════════════════════════════ -->
-  <section class="screen" id="s-ydelser">
-    <div class="topbar">
-      <div class="topbar-right"></div>
-      <span class="topbar-title">Ydelser</span>
-      <div class="topbar-right"></div>
+    <div class="calc-result-box" id="calc-result">
+      <div class="crb-label">Vejledende pris</div>
+      <div class="crb-amount"></div>
+      <div class="crb-lines"></div>
+      <div class="crb-disclaimer">Ekskl. moms. Endelig pris aftales efter besøg.</div>
     </div>
-    <div class="service-grid" id="ydelser-grid">
-      <!-- Udfyldes af app.js -->
+    <button class="btn btn-acc btn-block" style="margin-top:6px" onclick="goTo('tilbud')">
+      📋 Bestil tilbud
+    </button>
+  </div>
+</section>
+
+<!-- ════════════ TILBUD ════════════ -->
+<section class="screen" id="s-tilbud">
+  <div class="topbar">
+    <div class="topbar-ph"></div>
+    <span class="topbar-title">Få tilbud</span>
+    <div class="topbar-ph"></div>
+  </div>
+  <form class="form-card" id="tilbud-form" novalidate>
+    <div class="form-row2">
+      <div class="fg">
+        <label for="tf-navn">Navn *</label>
+        <input type="text" id="tf-navn" placeholder="Dit fulde navn" autocomplete="name">
+      </div>
+      <div class="fg">
+        <label for="tf-tlf">Telefon *</label>
+        <input type="tel" id="tf-tlf" placeholder="40 xx xx xx" autocomplete="tel" inputmode="tel">
+      </div>
     </div>
-  </section>
-
-  <!-- ════════════════════════════════
-       SCREEN: YDELSE DETALJE
-       ════════════════════════════════ -->
-  <section class="screen" id="s-ydelse-detail">
-    <div class="topbar">
-      <button class="topbar-back" onclick="goBack()">←</button>
-      <span class="topbar-title">Ydelse</span>
-      <div class="topbar-right"></div>
+    <div class="fg">
+      <label for="tf-adresse">Adresse / By</label>
+      <input type="text" id="tf-adresse" placeholder="Fx Brejning, Vejle" autocomplete="street-address">
     </div>
-
-    <div class="service-detail-img">
-      <!-- Udfyldes af openYdelse() -->
+    <div class="fg">
+      <label for="tf-opgave">Opgavetype</label>
+      <select id="tf-opgave">
+        <option>Vælg opgave...</option>
+        <option>Græsslåning</option>
+        <option>Hækklipning</option>
+        <option>Minigraver</option>
+        <option>Bortkørsel</option>
+        <option>Belægning</option>
+        <option>Beskæring</option>
+        <option>Haveoprydning</option>
+        <option>Sommerhus</option>
+        <option>Jordarbejde</option>
+        <option>Andet / kombineret</option>
+      </select>
     </div>
-
-    <div class="service-detail-body">
-      <h2 class="service-detail-title"></h2>
-      <p class="service-detail-text"></p>
+    <div class="fg">
+      <label for="tf-beskr">Beskrivelse</label>
+      <textarea id="tf-beskr" placeholder="Beskriv opgaven kort — størrelse, særlige forhold osv."></textarea>
     </div>
-
-    <div class="service-action-row">
-      <a id="det-ring" href="tel:+4540137370" class="cta-btn cta-primary">
-        <span class="cta-ico">📞</span>Ring
-      </a>
-      <a id="det-sms" href="sms:+4540137370" class="cta-btn cta-primary">
-        <span class="cta-ico">💬</span>SMS
-      </a>
-      <button id="det-tilbud" class="cta-btn cta-accent" onclick="goTo('kontakt')">
-        <span class="cta-ico">📋</span>Tilbud
-      </button>
+    <div class="fg">
+      <label for="tf-tid">Ønsket tidspunkt</label>
+      <input type="text" id="tf-tid" placeholder="Fx snarest muligt / uge 28">
     </div>
-  </section>
-
-  <!-- ════════════════════════════════
-       SCREEN: PRISER
-       ════════════════════════════════ -->
-  <section class="screen" id="s-priser">
-    <div class="topbar">
-      <div class="topbar-right"></div>
-      <span class="topbar-title">Priser</span>
-      <div class="topbar-right"></div>
-    </div>
-
-    <div class="price-cards" id="pris-cards">
-      <!-- Udfyldes af app.js -->
-    </div>
-
-    <p class="price-note">
-      💡 Alle priser er vejledende og ekskl. moms.
-      Endelig pris aftales efter dialog — vi giver altid et gratis tilbud.
-    </p>
-
-    <div class="btn-row">
-      <button class="btn btn-green btn-block" onclick="goTo('beregner')">
-        🧮 Beregn din pris
-      </button>
-    </div>
-  </section>
-
-  <!-- ════════════════════════════════
-       SCREEN: BEREGNER
-       ════════════════════════════════ -->
-  <section class="screen" id="s-beregner">
-    <div class="topbar">
-      <div class="topbar-right"></div>
-      <span class="topbar-title">Prisberegner</span>
-      <div class="topbar-right"></div>
-    </div>
-
-    <div class="calc-card">
-      <label class="calc-label" for="calc-m2">
-        Din plæne — antal m²
+    <div class="fg">
+      <label class="chk-lbl">
+        <input type="checkbox" id="tf-billeder">
+        Jeg vil sende billeder via SMS eller mail
       </label>
-      <input type="number" id="calc-m2" class="calc-input"
-             placeholder="Fx 250" min="1" max="9999" inputmode="numeric">
-
-      <div class="toggle-row">
-        <div class="toggle-item" data-toggle="hoejt" onclick="toggleCalc(this)">
-          <div class="toggle-left">
-            <span class="toggle-ico">🌾</span>
-            <span>Højt græs (over 10 cm)</span>
-          </div>
-          <div class="toggle-switch"></div>
-        </div>
-        <div class="toggle-item" data-toggle="bortkoer" onclick="toggleCalc(this)">
-          <div class="toggle-left">
-            <span class="toggle-ico">🛻</span>
-            <span>Bortkørsel af afklip</span>
-          </div>
-          <div class="toggle-switch"></div>
-        </div>
-      </div>
-
-      <!-- Resultat — vises automatisk ved input -->
-      <div class="calc-result-box" id="calc-result">
-        <div class="crb-label">Vejledende pris</div>
-        <div class="crb-amount"></div>
-        <div class="crb-lines"></div>
-        <div class="crb-disclaimer">⚠️ Ekskl. moms. Endelig pris aftales.</div>
-      </div>
-
-      <button class="btn btn-acc btn-block" style="margin-top:16px" onclick="goTo('kontakt')">
-        📋 Bestil tilbud
-      </button>
     </div>
-  </section>
+    <button type="submit" class="btn btn-green btn-block" style="margin-top:6px">
+      📬 Send forespørgsel
+    </button>
+    <p class="form-note" style="margin-top:10px">
+      Send billeder på SMS til <strong>40 13 73 70</strong> eller mail.<br>
+      Vi svarer inden 1–2 hverdage — helt uforpligtende.
+    </p>
+  </form>
+</section>
 
-  <!-- ════════════════════════════════
-       SCREEN: KONTAKT
-       ════════════════════════════════ -->
-  <section class="screen" id="s-kontakt">
-    <div class="topbar">
-      <div class="topbar-right"></div>
-      <span class="topbar-title">Kontakt</span>
-      <div class="topbar-right"></div>
+<!-- ════════════ KONTAKT ════════════ -->
+<section class="screen" id="s-kontakt">
+  <div class="topbar">
+    <div class="topbar-ph"></div>
+    <span class="topbar-title">Kontakt</span>
+    <div class="topbar-ph"></div>
+  </div>
+  <div class="contact-list">
+    <a id="k-ring" href="tel:+4540137370" class="contact-item">
+      <div class="ci-ico green">📞</div>
+      <div><div class="ci-label">Telefon — tryk for at ringe</div><div class="ci-value">40 13 73 70</div></div>
+    </a>
+    <a id="k-sms" href="sms:+4540137370" class="contact-item">
+      <div class="ci-ico green">💬</div>
+      <div><div class="ci-label">SMS — tryk for at sende besked</div><div class="ci-value">Send SMS</div></div>
+    </a>
+    <a id="k-mail" href="mailto:finmann1@gmail.com" class="contact-item">
+      <div class="ci-ico">✉️</div>
+      <div><div class="ci-label">E-mail</div><div class="ci-value">finmann1@gmail.com</div></div>
+    </a>
+    <div class="contact-item" onclick="copyPhone()">
+      <div class="ci-ico">🏢</div>
+      <div><div class="ci-label" id="k-cvr">CVR: 46557557 · Momsregistreret</div><div class="ci-value" id="k-adresse">Vejle-området</div></div>
     </div>
-
-    <div class="contact-list">
-      <a id="k-ring" href="tel:+4540137370" class="contact-item">
-        <div class="ci-ico green">📞</div>
-        <div>
-          <div class="ci-label">Telefon — tryk for at ringe</div>
-          <div class="ci-value">40 13 73 70</div>
-        </div>
-      </a>
-
-      <a id="k-sms" href="sms:+4540137370" class="contact-item">
-        <div class="ci-ico green">💬</div>
-        <div>
-          <div class="ci-label">SMS — tryk for at sende</div>
-          <div class="ci-value">Send SMS</div>
-        </div>
-      </a>
-
-      <a id="k-mail" href="mailto:finmann1@gmail.com" class="contact-item">
-        <div class="ci-ico">✉️</div>
-        <div>
-          <div class="ci-label">E-mail</div>
-          <div class="ci-value">finmann1@gmail.com</div>
-        </div>
-      </a>
-
-      <div class="contact-item" onclick="copyPhone()">
-        <div class="ci-ico">🏢</div>
-        <div>
-          <div class="ci-label" id="k-cvr">CVR: 46557557 · Momsregistreret</div>
-          <div class="ci-value" id="k-adresse">Vejle-området</div>
-        </div>
-      </div>
-
-      <div class="contact-item" style="cursor:default;">
-        <div class="ci-ico">⏰</div>
-        <div>
-          <div class="ci-label">Åbningstider</div>
-          <div class="ci-value" id="k-time">Man–fre 07–17 · Lør efter aftale</div>
-        </div>
-      </div>
+    <div class="contact-item" style="cursor:default">
+      <div class="ci-ico">⏰</div>
+      <div><div class="ci-label">Åbningstider</div><div class="ci-value" id="k-tid">Man–fre 07–17 · Lør efter aftale</div></div>
     </div>
+  </div>
+  <div class="area-pills" id="k-omraade"></div>
+  <div class="contact-map" id="k-map">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d89488.0!2d9.3!3d55.71!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zVmVqbGU!5e0!3m2!1sda!2sdk!4v1700000000000"
+      title="Dækningsområde" loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade" allowfullscreen>
+    </iframe>
+  </div>
+</section>
 
-    <!-- Dækningsområde -->
-    <div class="area-pills" id="k-omraade">
-      <!-- Udfyldes af app.js -->
-    </div>
+<!-- ════════════ GALLERI ════════════ -->
+<section class="screen" id="s-galleri">
+  <div class="topbar">
+    <div class="topbar-ph"></div>
+    <span class="topbar-title">Galleri</span>
+    <div class="topbar-ph"></div>
+  </div>
+  <div class="gallery-slider" id="gallery-slider"></div>
+  <div class="gallery-dots"   id="gallery-dots"></div>
+  <p class="gallery-hint">Swipe for at se flere billeder</p>
+</section>
 
-    <!-- Kort -->
-    <div class="contact-map" id="k-map">
-      <iframe
-        src="https://www.openstreetmap.org/export/embed.html?bbox=9.2,55.65,9.6,55.80&layer=mapnik"
-        title="Kort over dækningsområde"
-        loading="lazy">
-      </iframe>
-    </div>
+<!-- ════════════ HJÆLP ════════════ -->
+<section class="screen" id="s-hjaelp">
+  <div class="topbar">
+    <div class="topbar-ph"></div>
+    <span class="topbar-title">Hjælp</span>
+    <div class="topbar-ph"></div>
+  </div>
+  <div class="help-messages" id="help-messages"></div>
+</section>
 
-  </section>
-
-  <!-- ════════════════════════════════
-       SCREEN: HJÆLP
-       ════════════════════════════════ -->
-  <section class="screen" id="s-hjaelp">
-    <div class="topbar">
-      <div class="topbar-right"></div>
-      <span class="topbar-title">Hjælp</span>
-      <div class="topbar-right"></div>
-    </div>
-
-    <div class="help-messages" id="help-messages">
-      <!-- Udfyldes af app.js -->
-    </div>
-
-    <div class="hm-buttons" id="help-menu">
-      <!-- Menuen renderes af showHelpMenu() -->
-    </div>
-
-  </section>
-
-  <!-- ════════════════════════════════
-       SCREEN: GALLERI
-       ════════════════════════════════ -->
-  <section class="screen" id="s-galleri">
-    <div class="topbar">
-      <div class="topbar-right"></div>
-      <span class="topbar-title">Galleri</span>
-      <div class="topbar-right"></div>
-    </div>
-
-    <div class="gallery-slider" id="gallery-slider">
-      <!-- Slides udfyldes af app.js -->
-    </div>
-
-    <div class="gallery-dots" id="gallery-dots"></div>
-
-    <div style="padding:0 16px 16px; text-align:center; color:var(--mut); font-size:.82rem;">
-      Swipe til højre/venstre for at se flere billeder
-    </div>
-  </section>
-
-  <!-- ════════════════════════════════
-       BUNDNAVIGATION
-       ════════════════════════════════ -->
-  <nav class="bottom-nav" role="navigation" aria-label="Appnavigation">
-    <div class="nav-item active" data-screen="home">
-      <span class="nav-ico">🏠</span>
-      <span>Hjem</span>
-    </div>
-    <div class="nav-item" data-screen="ydelser">
-      <span class="nav-ico">🌱</span>
-      <span>Ydelser</span>
-    </div>
-    <div class="nav-item" data-screen="priser">
-      <span class="nav-ico">💰</span>
-      <span>Priser</span>
-    </div>
-    <div class="nav-item" data-screen="beregner">
-      <span class="nav-ico">🧮</span>
-      <span>Beregner</span>
-    </div>
-    <div class="nav-item" data-screen="kontakt">
-      <span class="nav-ico">📞</span>
-      <span>Kontakt</span>
-    </div>
-    <div class="nav-item" data-screen="hjaelp">
-      <span class="nav-ico">🤖</span>
-      <span>Hjælp</span>
-    </div>
-  </nav>
+<!-- ════════════ BUNDNAVIGATION ════════════ -->
+<nav class="bottom-nav" role="navigation" aria-label="Navigation">
+  <div class="nav-item active" data-screen="home">
+    <span class="nav-ico">🏠</span><span>Hjem</span>
+  </div>
+  <div class="nav-item" data-screen="ydelser">
+    <span class="nav-ico">🌱</span><span>Ydelser</span>
+  </div>
+  <div class="nav-item" data-screen="priser">
+    <span class="nav-ico">💰</span><span>Priser</span>
+  </div>
+  <div class="nav-item" data-screen="beregner">
+    <span class="nav-ico">🧮</span><span>Beregner</span>
+  </div>
+  <div class="nav-item" data-screen="kontakt">
+    <span class="nav-ico">📞</span><span>Kontakt</span>
+  </div>
+  <div class="nav-item" data-screen="hjaelp">
+    <span class="nav-ico">🤖</span><span>Hjælp</span>
+  </div>
+</nav>
 
 </div><!-- #app -->
 
-<!-- Toast -->
+<!-- UPDATE BANNER -->
+<div id="update-banner">
+  <div class="ub-text">
+    <strong>🔄 Ny version klar</strong>
+    Luk og åbn appen igen for at opdatere
+  </div>
+  <button class="ub-close" onclick="dismissUpdate()">✕</button>
+</div>
+
+<!-- TOAST -->
 <div class="toast" id="app-toast"></div>
 
-<!-- Scripts -->
-<script src="app.js"></script>
-
+<!-- Cache-busting — automatisk opdateret ved hver ny version -->
+<script src="app.js?v=20260623"></script>
 </body>
 </html>

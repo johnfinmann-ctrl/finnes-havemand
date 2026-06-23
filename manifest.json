@@ -1,8 +1,9 @@
 {
   "name": "Finnes Entreprise",
   "short_name": "Finnes",
-  "description": "Have, anlæg og graveservice",
-  "start_url": "./",
+  "description": "Have, anlæg og graveservice. Ring, SMS eller beregn pris på 10 sekunder.",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "orientation": "portrait-primary",
   "background_color": "#1F4D2C",
@@ -13,5 +14,9 @@
     { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
     { "src": "assets/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
   ],
-  "categories": ["business", "lifestyle"]
+  "categories": ["business", "lifestyle"],
+  "shortcuts": [
+    { "name": "Ring nu",     "url": "./index.html", "icons": [{ "src": "assets/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Beregn pris", "url": "./index.html", "icons": [{ "src": "assets/icon-192.png", "sizes": "192x192" }] }
+  ]
 }
