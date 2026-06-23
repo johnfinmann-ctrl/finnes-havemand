@@ -3,327 +3,526 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Admin — Finnes Entreprise V2</title>
+<title>Admin — Finnes Entreprise</title>
 <meta name="robots" content="noindex,nofollow">
 <style>
+/* ════════════════════════════════════════════════
+   Admin-panel — Finnes Entreprise v1.1
+   Samme farvepalet som forsiden.
+   ════════════════════════════════════════════════ */
 :root {
-  --g:#2E6F40; --gd:#1F4D2C; --gl:#EAF3EC;
-  --acc:#F28C28; --txt:#1A2018; --mut:#5A6657;
-  --sur:#fff; --bg:#f4f7f4; --bdr:#d0e0cc;
-  --red:#c0392b; --r:14px;
+  --g:   #2E6F40;
+  --gd:  #1F4D2C;
+  --gl:  #EAF3EC;
+  --acc: #F28C28;
+  --acd: #C96F12;
+  --txt: #1A2018;
+  --mut: #5A6657;
+  --sur: #FFFFFF;
+  --bg:  #F7FAF7;
+  --bdr: #D4E3D0;
+  --red: #C0392B;
+  --r:   12px;
+  --sh:  0 4px 20px rgba(0,0,0,.10);
 }
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{font-size:16px;}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-  background:var(--bg);color:var(--txt);min-height:100vh;-webkit-font-smoothing:antialiased;}
-a{color:var(--g);}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--txt);
+  background: var(--bg);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--g); }
 
 /* ── LOGIN ── */
-#login{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px;}
-.login-box{background:var(--sur);border-radius:var(--r);box-shadow:0 8px 32px rgba(0,0,0,.12);
-  padding:40px 28px;width:100%;max-width:340px;text-align:center;border:1.5px solid var(--bdr);}
-.login-ico{font-size:3rem;margin-bottom:12px;}
-.login-box h1{font-size:1.2rem;color:var(--gd);margin-bottom:4px;}
-.login-box p{font-size:.88rem;color:var(--mut);margin-bottom:22px;}
-.pin-input{width:100%;padding:14px;text-align:center;font-size:1.8rem;
-  letter-spacing:.5em;border:2px solid var(--bdr);border-radius:10px;
-  background:var(--bg);margin-bottom:10px;}
-.pin-input:focus{outline:none;border-color:var(--g);}
-.pin-error{color:var(--red);font-size:.82rem;min-height:1.2em;margin-top:4px;}
+#login-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 24px;
+}
+.login-box {
+  background: var(--sur);
+  border-radius: var(--r);
+  box-shadow: var(--sh);
+  padding: 40px 32px;
+  width: 100%;
+  max-width: 360px;
+  text-align: center;
+  border: 1.5px solid var(--bdr);
+}
+.login-logo { font-size: 3rem; margin-bottom: 12px; }
+.login-box h1 { font-size: 1.3rem; color: var(--gd); margin-bottom: 4px; }
+.login-box p  { font-size: .9rem; color: var(--mut); margin-bottom: 24px; }
+.login-box input[type="password"] {
+  width: 100%; padding: 14px; text-align: center;
+  font-size: 1.6rem; letter-spacing: .4em;
+  border: 1.5px solid var(--bdr); border-radius: 8px;
+  margin-bottom: 12px; background: var(--bg);
+}
+.login-box input:focus { outline: none; border-color: var(--g); }
+.login-error { color: var(--red); font-size: .85rem; margin-top: 6px; min-height: 1.2em; }
 
 /* ── ADMIN PANEL ── */
-#panel{display:none;}
-.admin-hdr{background:var(--gd);color:#fff;padding:0 20px;
-  display:flex;align-items:center;justify-content:space-between;
-  height:54px;position:sticky;top:0;z-index:50;}
-.admin-hdr h1{font-size:.95rem;font-weight:700;}
-.hdr-right{display:flex;gap:8px;align-items:center;}
-.hdr-link{color:rgba(255,255,255,.75);font-size:.82rem;text-decoration:none;}
-.hdr-link:hover{color:#fff;}
+#admin-panel { display: none; }
 
-.main{max-width:800px;margin:0 auto;padding:20px 16px 100px;}
+.admin-header {
+  background: var(--gd);
+  color: white;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.admin-header h1 { font-size: 1rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+.admin-header-right { display: flex; gap: 8px; }
+
+.main { max-width: 860px; margin: 0 auto; padding: 24px 20px 80px; }
 
 /* ── TABS ── */
-.tabs{display:flex;flex-wrap:wrap;gap:4px;background:var(--sur);border:1.5px solid var(--bdr);
-  border-radius:var(--r);padding:6px;margin-bottom:18px;}
-.tab{flex:1;min-width:80px;padding:9px 10px;border:none;border-radius:10px;
-  font-size:.82rem;font-weight:700;color:var(--mut);background:transparent;cursor:pointer;
-  transition:background .15s,color .15s;white-space:nowrap;}
-.tab.on{background:var(--g);color:#fff;}
-.tab:hover:not(.on){background:var(--gl);color:var(--g);}
-.pane{display:none;}
-.pane.on{display:block;}
+.tabs {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  background: var(--sur);
+  border: 1.5px solid var(--bdr);
+  border-radius: var(--r);
+  padding: 6px;
+  margin-bottom: 20px;
+}
+.tab-btn {
+  flex: 1;
+  min-width: 100px;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  font-size: .88rem;
+  font-weight: 600;
+  color: var(--mut);
+  cursor: pointer;
+  transition: background .15s, color .15s;
+  white-space: nowrap;
+}
+.tab-btn.active { background: var(--g); color: white; }
+.tab-btn:hover:not(.active) { background: var(--gl); color: var(--g); }
 
-/* ── CARD ── */
-.card{background:var(--sur);border:1.5px solid var(--bdr);border-radius:var(--r);
-  padding:20px;margin-bottom:14px;}
-.card h2{font-size:.95rem;font-weight:700;color:var(--gd);margin-bottom:14px;
-  padding-bottom:10px;border-bottom:1px solid var(--bdr);}
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
 
-/* ── FORM ── */
-.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.fg{margin-bottom:12px;}
-.fg label{display:block;font-size:.8rem;font-weight:700;color:var(--txt);margin-bottom:5px;}
-.fg .hint{font-weight:400;color:var(--mut);font-size:.75rem;}
-.fg input,.fg textarea,.fg select{width:100%;padding:10px 13px;
-  border:1.5px solid var(--bdr);border-radius:9px;background:var(--bg);
-  font-family:inherit;font-size:.9rem;color:var(--txt);transition:border-color .15s;}
-.fg input:focus,.fg textarea:focus,.fg select:focus{outline:none;border-color:var(--g);background:#fff;}
-.fg textarea{resize:vertical;min-height:80px;}
+/* ── FELTER ── */
+.card {
+  background: var(--sur);
+  border: 1.5px solid var(--bdr);
+  border-radius: var(--r);
+  padding: 24px;
+  margin-bottom: 16px;
+}
+.card h2 { font-size: 1rem; font-weight: 700; color: var(--gd); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--bdr); }
+.field { margin-bottom: 14px; }
+.field label { display: block; font-size: .85rem; font-weight: 700; color: var(--txt); margin-bottom: 5px; }
+.field label .hint { font-weight: 400; color: var(--mut); font-size: .8rem; }
+.field input[type="text"],
+.field input[type="tel"],
+.field input[type="email"],
+.field input[type="number"],
+.field input[type="password"],
+.field textarea,
+.field select {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid var(--bdr);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--txt);
+  font-family: inherit;
+  font-size: .95rem;
+  transition: border-color .15s;
+}
+.field input:focus, .field textarea:focus, .field select:focus {
+  outline: none; border-color: var(--g); background: white;
+}
+.field textarea { resize: vertical; min-height: 90px; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
-/* ── YDELSE EDITOR ── */
-.yd-item{background:var(--bg);border:1.5px solid var(--bdr);border-radius:10px;
-  padding:12px;margin-bottom:8px;}
-.yd-row{display:flex;gap:8px;align-items:center;}
-.yd-ico{width:52px;padding:8px;text-align:center;font-size:1.1rem;
-  border:1.5px solid var(--bdr);border-radius:8px;background:#fff;}
-.yd-ico:focus{outline:none;border-color:var(--g);}
-.yd-navn{flex:1;padding:8px 10px;border:1.5px solid var(--bdr);
-  border-radius:8px;background:#fff;font-family:inherit;font-size:.9rem;}
-.yd-navn:focus{outline:none;border-color:var(--g);}
-.yd-tekst{width:100%;margin-top:7px;padding:8px 10px;
-  border:1.5px solid var(--bdr);border-radius:8px;background:#fff;
-  font-family:inherit;font-size:.82rem;min-height:64px;resize:vertical;}
-.yd-tekst:focus{outline:none;border-color:var(--g);}
-.del-btn{background:none;border:none;cursor:pointer;color:var(--red);font-size:1.1rem;
-  padding:4px 6px;flex-shrink:0;}
+/* Ydelse-editor */
+.ydelse-item {
+  background: var(--bg);
+  border: 1.5px solid var(--bdr);
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 10px;
+}
+.ydelse-item .ydelse-row { display: flex; gap: 8px; align-items: flex-start; }
+.ydelse-item input { flex: 1; padding: 8px 10px; border: 1.5px solid var(--bdr); border-radius: 6px; font-family: inherit; font-size: .88rem; background: white; }
+.ydelse-item input:focus { outline: none; border-color: var(--g); }
+.ydelse-item input.ikon-input { width: 56px; flex: none; text-align: center; font-size: 1.1rem; }
+.ydelse-item textarea { width: 100%; margin-top: 6px; padding: 8px 10px; border: 1.5px solid var(--bdr); border-radius: 6px; font-family: inherit; font-size: .85rem; min-height: 60px; resize: vertical; }
+.ydelse-item textarea:focus { outline: none; border-color: var(--g); }
 
-/* ── BACKUP GRID ── */
-.bk-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.bk-card{background:var(--bg);border:1.5px solid var(--bdr);border-radius:12px;padding:18px;}
-.bk-card h3{font-size:.9rem;font-weight:700;color:var(--gd);margin-bottom:6px;}
-.bk-card p{font-size:.82rem;color:var(--mut);margin-bottom:12px;line-height:1.5;}
-.bk-danger{border-color:#f5c6c6;background:#fff8f8;}
-.bk-danger h3{color:var(--red);}
+/* Chatbot-svar editor */
+.chatbot-svar-item { margin-bottom: 12px; }
+.chatbot-svar-item label { font-size: .82rem; font-weight: 700; color: var(--g); margin-bottom: 4px; display: block; }
+.chatbot-svar-item textarea { width: 100%; padding: 8px 10px; border: 1.5px solid var(--bdr); border-radius: 6px; font-family: inherit; font-size: .85rem; min-height: 80px; resize: vertical; }
+.chatbot-svar-item textarea:focus { outline: none; border-color: var(--g); }
 
-/* ── BUTTONS ── */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;
-  padding:11px 18px;border-radius:50px;font-weight:700;font-size:.88rem;
-  cursor:pointer;border:none;transition:background .15s,transform .1s;}
-.btn:active{transform:scale(.97);}
-.btn-g{background:var(--g);color:#fff;}
-.btn-g:hover{background:var(--gd);}
-.btn-out{background:transparent;border:2px solid var(--g);color:var(--g);}
-.btn-out:hover{background:var(--gl);}
-.btn-red{background:transparent;border:2px solid var(--red);color:var(--red);}
-.btn-red:hover{background:#fdf0f0;}
-.btn-acc{background:var(--acc);color:#fff;}
-.btn-sm{padding:8px 14px;font-size:.8rem;}
-.btn-block{width:100%;margin-top:6px;}
+/* ── KNAPPER ── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 11px 20px; border-radius: 50px; font-weight: 700; font-size: .9rem;
+  cursor: pointer; border: none; transition: background .15s, transform .1s;
+  text-decoration: none;
+}
+.btn:active { transform: scale(.97); }
+.btn-primary { background: var(--g); color: white; }
+.btn-primary:hover { background: var(--gd); }
+.btn-accent { background: var(--acc); color: white; }
+.btn-accent:hover { background: var(--acd); }
+.btn-outline { background: transparent; border: 2px solid var(--g); color: var(--g); }
+.btn-outline:hover { background: var(--gl); }
+.btn-danger { background: transparent; border: 2px solid var(--red); color: var(--red); }
+.btn-danger:hover { background: #fdedec; }
+.btn-sm { padding: 7px 14px; font-size: .82rem; }
+.btn-block { width: 100%; margin-top: 8px; }
+.btn-icon { background: none; border: none; cursor: pointer; padding: 6px; color: var(--red); font-size: 1rem; }
+.btn-icon:hover { color: #8B0000; }
 
-/* ── SAVE BAR ── */
-.save-bar{position:fixed;bottom:0;left:0;right:0;background:var(--sur);
-  border-top:1.5px solid var(--bdr);padding:12px 20px;
-  display:flex;justify-content:flex-end;gap:10px;z-index:40;
-  box-shadow:0 -4px 16px rgba(0,0,0,.08);}
+/* ── STATUSBAR ── */
+#statusbar {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(60px);
+  background: var(--gd);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-size: .9rem;
+  font-weight: 700;
+  box-shadow: 0 6px 24px rgba(0,0,0,.2);
+  opacity: 0;
+  transition: transform .3s, opacity .3s;
+  z-index: 999;
+  pointer-events: none;
+  white-space: nowrap;
+}
+#statusbar.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
 
-/* ── TOAST ── */
-#toast{position:fixed;bottom:72px;left:50%;transform:translateX(-50%) translateY(10px);
-  background:var(--gd);color:#fff;padding:11px 22px;border-radius:30px;
-  font-size:.85rem;font-weight:700;opacity:0;pointer-events:none;
-  transition:opacity .25s,transform .25s;z-index:999;white-space:nowrap;
-  box-shadow:0 6px 20px rgba(0,0,0,.18);}
-#toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+/* ── PIN-sektion ── */
+.pin-note { font-size: .82rem; color: var(--mut); margin-top: 8px; }
+.back-link { color: rgba(255,255,255,.7); font-size: .85rem; text-decoration: none; }
+.back-link:hover { color: white; }
 
-@media(max-width:560px){
-  .row2{grid-template-columns:1fr;}
-  .bk-grid{grid-template-columns:1fr;}
-  .tabs{gap:2px;}
-  .tab{font-size:.75rem;padding:8px 6px;}
+/* ── Gem-bjælke ── */
+.save-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--sur);
+  border-top: 1.5px solid var(--bdr);
+  padding: 12px 24px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  z-index: 40;
+  box-shadow: 0 -4px 16px rgba(0,0,0,.08);
+}
+
+/* ── BACKUP-sektion ── */
+.backup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.backup-card { background: var(--bg); border: 1.5px solid var(--bdr); border-radius: 10px; padding: 20px; }
+.backup-card h3 { font-size: .95rem; font-weight: 700; color: var(--gd); margin-bottom: 8px; }
+.backup-card p { font-size: .85rem; color: var(--mut); margin-bottom: 14px; line-height: 1.5; }
+
+@media (max-width: 580px) {
+  .field-row { grid-template-columns: 1fr; }
+  .backup-grid { grid-template-columns: 1fr; }
+  .tabs { gap: 2px; }
+  .tab-btn { font-size: .78rem; padding: 8px 8px; }
+  .admin-header-right { gap: 4px; }
 }
 </style>
 </head>
 <body>
 
-<!-- ════════════════════════════
+<!-- ════════════════════════════════════════
      LOGIN
-     ════════════════════════════ -->
-<div id="login">
+     ════════════════════════════════════════ -->
+<div id="login-screen">
   <div class="login-box">
-    <div class="login-ico">🌿</div>
-    <h1>Finnes Entreprise V2</h1>
-    <p>Adminpanel — indtast adgangskode</p>
-    <input class="pin-input" id="pin" type="password" placeholder="••••"
-           maxlength="20" inputmode="numeric" autocomplete="current-password">
-    <button class="btn btn-g btn-block" onclick="login()">Log ind</button>
-    <p class="pin-error" id="pin-err"></p>
-    <p style="margin-top:16px;font-size:.78rem;color:var(--mut);">
-      <a href="index.html">← Tilbage til appen</a>
+    <div class="login-logo">🌿</div>
+    <h1>Finnes Entreprise</h1>
+    <p>Admin — indtast adgangskode</p>
+    <input type="password" id="pin-input" placeholder="••••" maxlength="20"
+           autocomplete="current-password" inputmode="numeric">
+    <button class="btn btn-primary btn-block" onclick="doLogin()">Log ind</button>
+    <p class="login-error" id="login-error"></p>
+    <p style="margin-top:16px;font-size:.8rem;color:var(--mut);">
+      <a href="index.html">← Tilbage til forsiden</a>
     </p>
   </div>
 </div>
 
-<!-- ════════════════════════════
+<!-- ════════════════════════════════════════
      ADMIN PANEL
-     ════════════════════════════ -->
-<div id="panel">
-  <header class="admin-hdr">
-    <h1>⚙ Admin V2</h1>
-    <div class="hdr-right">
-      <a class="hdr-link" href="index.html" target="_blank">↗ Åbn app</a>
-      <button class="btn btn-sm btn-acc" onclick="logout()">Log ud</button>
+     ════════════════════════════════════════ -->
+<div id="admin-panel">
+
+  <header class="admin-header">
+    <h1>⚙ Admin <span style="font-weight:400;opacity:.7;font-size:.85rem;">v1.1</span></h1>
+    <div class="admin-header-right">
+      <a href="index.html" class="back-link" target="_blank">↗ Se forsiden</a>
+      <button class="btn btn-sm btn-accent" onclick="doLogout()">Log ud</button>
     </div>
   </header>
 
   <div class="main">
 
     <!-- TABS -->
-    <div class="tabs">
-      <button class="tab on"  onclick="tab('firma',this)">🏢 Firma</button>
-      <button class="tab"     onclick="tab('priser',this)">💰 Priser</button>
-      <button class="tab"     onclick="tab('ydelser',this)">🌱 Ydelser</button>
-      <button class="tab"     onclick="tab('adgang',this)">🔒 Kode</button>
-      <button class="tab"     onclick="tab('backup',this)">📦 Backup</button>
+    <div class="tabs" role="tablist">
+      <button class="tab-btn active" onclick="showTab('tab-firma', this)">🏢 Firma</button>
+      <button class="tab-btn" onclick="showTab('tab-priser', this)">💰 Priser</button>
+      <button class="tab-btn" onclick="showTab('tab-ydelser', this)">🌿 Ydelser</button>
+      <button class="tab-btn" onclick="showTab('tab-chatbot', this)">💬 Chatbot</button>
+      <button class="tab-btn" onclick="showTab('tab-sikkerhed', this)">🔒 Adgangskode</button>
+      <button class="tab-btn" onclick="showTab('tab-backup', this)">📦 Backup</button>
     </div>
 
     <!-- ── TAB: FIRMA ── -->
-    <div class="pane on" id="pane-firma">
+    <div class="tab-panel active" id="tab-firma">
       <div class="card">
-        <h2>Virksomhed</h2>
-        <div class="row2">
-          <div class="fg"><label>Firmanavn</label><input id="a-navn" type="text"></div>
-          <div class="fg"><label>Slogan</label><input id="a-slogan" type="text"></div>
+        <h2>Virksomhedsoplysninger</h2>
+        <div class="field-row">
+          <div class="field">
+            <label>Firmanavn</label>
+            <input type="text" id="a-firmanavn" placeholder="Finnes Entreprise">
+          </div>
+          <div class="field">
+            <label>Slogan</label>
+            <input type="text" id="a-slogan" placeholder="Have · Anlæg · Minigraver">
+          </div>
         </div>
-        <div class="fg"><label>Forsidetekst / undertekst</label><input id="a-forsidetext" type="text"></div>
+        <div class="field">
+          <label>Forsidetekst</label>
+          <textarea id="a-forsidetekst" placeholder="Kort beskrivelse på forsiden..."></textarea>
+        </div>
       </div>
+
       <div class="card">
-        <h2>Kontakt</h2>
-        <div class="row2">
-          <div class="fg"><label>Telefon <span class="hint">(visning, fx "40 13 73 70")</span></label><input id="a-tlf" type="tel"></div>
-          <div class="fg"><label>Telefon rå <span class="hint">(link, fx "+4540137370")</span></label><input id="a-tlf-raw" type="tel"></div>
+        <h2>Kontaktoplysninger</h2>
+        <div class="field-row">
+          <div class="field">
+            <label>Telefon <span class="hint">(visning, fx "40 13 73 70")</span></label>
+            <input type="tel" id="a-telefon" placeholder="40 13 73 70">
+          </div>
+          <div class="field">
+            <label>Telefon rå <span class="hint">(link, fx "+4540137370")</span></label>
+            <input type="tel" id="a-telefon-raw" placeholder="+4540137370">
+          </div>
         </div>
-        <div class="row2">
-          <div class="fg"><label>SMS rå <span class="hint">(link, fx "+4540137370")</span></label><input id="a-sms" type="tel"></div>
-          <div class="fg"><label>E-mail</label><input id="a-mail" type="email"></div>
+        <div class="field-row">
+          <div class="field">
+            <label>SMS rå <span class="hint">(link, fx "+4540137370")</span></label>
+            <input type="tel" id="a-sms-raw" placeholder="+4540137370">
+          </div>
+          <div class="field">
+            <label>E-mail</label>
+            <input type="email" id="a-email" placeholder="finmann1@gmail.com">
+          </div>
         </div>
-        <div class="row2">
-          <div class="fg"><label>CVR</label><input id="a-cvr" type="text"></div>
-          <div class="fg"><label>Momstekst</label><input id="a-moms" type="text"></div>
+        <div class="field-row">
+          <div class="field">
+            <label>CVR-nummer</label>
+            <input type="text" id="a-cvr" placeholder="46557557">
+          </div>
+          <div class="field">
+            <label>Momsregistreret-tekst</label>
+            <input type="text" id="a-momstekst" placeholder="Momsregistreret">
+          </div>
         </div>
-        <div class="row2">
-          <div class="fg"><label>Adresse / område</label><input id="a-adresse" type="text"></div>
-          <div class="fg"><label>Åbningstider</label><input id="a-tid" type="text"></div>
-        </div>
-        <div class="fg"><label>Dækningsområde <span class="hint">(kommasepareret)</span></label>
-          <input id="a-omraade" type="text"></div>
       </div>
+
       <div class="card">
-        <h2>Logo</h2>
-        <div class="fg">
-          <label>Logo URL eller sti <span class="hint">(fx assets/logo.png)</span></label>
-          <input id="a-logo" type="text" placeholder="assets/icon-192.png">
+        <h2>Dækningsområde</h2>
+        <div class="field">
+          <label>Byer/områder <span class="hint">(kommasepareret)</span></label>
+          <input type="text" id="a-omraade" placeholder="Vejle, Børkop, Egtved, Jelling, Kolding, Brejning, Omegn">
         </div>
-        <p style="font-size:.8rem;color:var(--mut);margin-top:4px;">
-          Upload dit logo til assets/-mappen på GitHub og skriv stien her.
-          Fx <code>assets/logo.png</code>.
-        </p>
       </div>
     </div>
 
     <!-- ── TAB: PRISER ── -->
-    <div class="pane" id="pane-priser">
+    <div class="tab-panel" id="tab-priser">
       <div class="card">
         <h2>Vejledende priser</h2>
-        <p style="font-size:.82rem;color:var(--mut);margin-bottom:14px;">
-          Ændringer her opdaterer priskortene og beregneren i appen automatisk.
-        </p>
-        <div class="row2">
-          <div class="fg"><label>Timepris <span class="hint">(kr./time)</span></label><input id="a-timepris" type="number" min="0" step="10"></div>
-          <div class="fg"><label>Minimumspris <span class="hint">(kr.)</span></label><input id="a-minimum" type="number" min="0" step="10"></div>
+        <p style="font-size:.85rem;color:var(--mut);margin-bottom:16px;">Ændringer her opdaterer prislisten og prisberegneren på forsiden.</p>
+
+        <div class="field-row">
+          <div class="field">
+            <label>Timepris alm. havearbejde <span class="hint">(kr./time)</span></label>
+            <input type="number" id="a-timepris" min="0" step="10" placeholder="450">
+          </div>
+          <div class="field">
+            <label>Minimumspris pr. besøg <span class="hint">(kr.)</span></label>
+            <input type="number" id="a-minimumspris" min="0" step="10" placeholder="350">
+          </div>
         </div>
-        <div class="row2">
-          <div class="fg"><label>Græsslåning pr. m² <span class="hint">(kr.)</span></label><input id="a-m2" type="number" min="0" step="0.05"></div>
-          <div class="fg"><label>Minigraver timepris <span class="hint">(kr./time)</span></label><input id="a-graver" type="number" min="0" step="10"></div>
+        <div class="field-row">
+          <div class="field">
+            <label>Græsslåning pr. m² <span class="hint">(kr.)</span></label>
+            <input type="number" id="a-pris-m2" min="0" step="0.05" placeholder="1.25">
+          </div>
+          <div class="field">
+            <label>Minigraver timepris <span class="hint">(kr./time)</span></label>
+            <input type="number" id="a-minigraver" min="0" step="10" placeholder="650">
+          </div>
         </div>
-        <div class="row2">
-          <div class="fg"><label>Tillæg højt græs <span class="hint">(kr.)</span></label><input id="a-hoejt" type="number" min="0" step="10"></div>
-          <div class="fg"><label>Bortkørselstillæg <span class="hint">(kr.)</span></label><input id="a-bort" type="number" min="0" step="10"></div>
+        <div class="field-row">
+          <div class="field">
+            <label>Tillæg højt græs <span class="hint">(kr.)</span></label>
+            <input type="number" id="a-tillaeg-graes" min="0" step="10" placeholder="200">
+          </div>
+          <div class="field">
+            <label>Bortkørselstillæg <span class="hint">(kr.)</span></label>
+            <input type="number" id="a-tillaeg-bort" min="0" step="10" placeholder="150">
+          </div>
         </div>
       </div>
     </div>
 
     <!-- ── TAB: YDELSER ── -->
-    <div class="pane" id="pane-ydelser">
+    <div class="tab-panel" id="tab-ydelser">
       <div class="card">
         <h2>Ydelseskort</h2>
-        <p style="font-size:.82rem;color:var(--mut);margin-bottom:14px;">
-          Emoji-ikon, navn og kort tekst (maks. 5 linjer) pr. ydelse.
-        </p>
-        <div id="yd-editor"></div>
-        <button class="btn btn-out btn-sm" style="margin-top:8px;" onclick="addYdelse()">
+        <p style="font-size:.85rem;color:var(--mut);margin-bottom:16px;">Rediger tekst og ikoner i ydelseskortene. Ikon-feltet tager et emoji-tegn.</p>
+        <div id="ydelser-editor"></div>
+        <button class="btn btn-outline btn-sm" onclick="tilfoejYdelse()" style="margin-top:8px;">
           + Tilføj ydelse
         </button>
       </div>
     </div>
 
+    <!-- ── TAB: CHATBOT ── -->
+    <div class="tab-panel" id="tab-chatbot">
+      <div class="card">
+        <h2>Chatbot-svar</h2>
+        <p style="font-size:.85rem;color:var(--mut);margin-bottom:16px;">
+          Her redigerer du de faste svar chatbotten giver, når brugeren vælger de forskellige knapper.
+          Brug linjeskift (Enter) til at lave punktopstillinger.
+        </p>
+        <div id="chatbot-editor">
+          <div class="chatbot-svar-item">
+            <label>💰 "Hvad koster det?" — svar om priser</label>
+            <textarea id="cb-priser"></textarea>
+          </div>
+          <div class="chatbot-svar-item">
+            <label>📋 "Hvad laver I?" — svar om opgaver</label>
+            <textarea id="cb-opgaver"></textarea>
+          </div>
+          <div class="chatbot-svar-item">
+            <label>🚜 "Har I minigraver?" — svar om minigraver</label>
+            <textarea id="cb-minigraver"></textarea>
+          </div>
+          <div class="chatbot-svar-item">
+            <label>📍 "Dækningsområde" — svar om område</label>
+            <textarea id="cb-omraade"></textarea>
+          </div>
+        </div>
+        <p style="font-size:.82rem;color:var(--mut);margin-top:12px;">
+          💡 "Ring til os" og "Send SMS" bruger automatisk kontaktoplysningerne fra Firma-fanebladet. "Beregn græspris" og "Få tilbud" sender altid til beregner/formular og kan ikke redigeres her.
+        </p>
+      </div>
+    </div>
+
     <!-- ── TAB: ADGANGSKODE ── -->
-    <div class="pane" id="pane-adgang">
+    <div class="tab-panel" id="tab-sikkerhed">
       <div class="card">
         <h2>Skift adgangskode</h2>
-        <div class="fg"><label>Nuværende kode</label><input id="pin-old" type="password" autocomplete="current-password"></div>
-        <div class="fg"><label>Ny kode</label><input id="pin-new" type="password" autocomplete="new-password"></div>
-        <div class="fg"><label>Bekræft ny kode</label><input id="pin-confirm" type="password" autocomplete="new-password"></div>
-        <button class="btn btn-g" onclick="changePin()">🔒 Gem ny kode</button>
-        <p style="font-size:.8rem;color:var(--mut);margin-top:10px;">Standard: <strong>1234</strong>. Koden gemmes kun i din browser.</p>
+        <div class="field">
+          <label>Nuværende adgangskode</label>
+          <input type="password" id="pin-gammel" placeholder="Nuværende kode" autocomplete="current-password">
+        </div>
+        <div class="field">
+          <label>Ny adgangskode</label>
+          <input type="password" id="pin-ny" placeholder="Ny kode" autocomplete="new-password">
+        </div>
+        <div class="field">
+          <label>Bekræft ny adgangskode</label>
+          <input type="password" id="pin-bekraeft" placeholder="Gentag ny kode" autocomplete="new-password">
+        </div>
+        <button class="btn btn-primary" onclick="skiftPin()" style="margin-top:4px;">
+          🔒 Gem ny adgangskode
+        </button>
+        <p class="pin-note">Standard-adgangskode er <strong>1234</strong>. Husk den nye kode — den opbevares kun i din browser.</p>
       </div>
     </div>
 
     <!-- ── TAB: BACKUP ── -->
-    <div class="pane" id="pane-backup">
-      <div class="bk-grid">
-        <div class="bk-card">
-          <h3>📤 Eksporter</h3>
-          <p>Download alle indstillinger som JSON-fil til sikker opbevaring.</p>
-          <button class="btn btn-out" onclick="exportBackup()">Download backup.json</button>
+    <div class="tab-panel" id="tab-backup">
+      <div class="backup-grid">
+        <div class="backup-card">
+          <h3>📤 Eksporter backup</h3>
+          <p>Download alle dine admin-indstillinger som en JSON-fil. Gem den et sikkert sted.</p>
+          <button class="btn btn-outline" onclick="eksporterBackup()">Download backup.json</button>
         </div>
-        <div class="bk-card">
-          <h3>📥 Importer</h3>
-          <p>Gendan fra en tidligere eksporteret backup-fil.</p>
-          <input type="file" id="imp-fil" accept=".json" style="display:none" onchange="importBackup(this)">
-          <button class="btn btn-out" onclick="document.getElementById('imp-fil').click()">Vælg backup.json</button>
+        <div class="backup-card">
+          <h3>📥 Importer backup</h3>
+          <p>Gendan indstillinger fra en tidligere eksporteret backup-fil.</p>
+          <input type="file" id="import-fil" accept=".json" style="display:none;" onchange="importerBackup(this)">
+          <button class="btn btn-outline" onclick="document.getElementById('import-fil').click()">Vælg backup.json</button>
         </div>
-        <div class="bk-card bk-danger" style="grid-column:1/-1;">
-          <h3>⚠️ Nulstil til standard</h3>
-          <p>Sletter alle ændringer og gendanner fabriksindstillingerne. Kan ikke fortrydes.</p>
-          <button class="btn btn-red" onclick="resetAll()">Nulstil alt</button>
+        <div class="backup-card" style="grid-column:1/-1; border-color:#f5c6c6; background:#fff8f8;">
+          <h3 style="color:var(--red);">⚠️ Nulstil til standard</h3>
+          <p>Slet alle dine gemte ændringer og gå tilbage til de oprindelige standardværdier fra app.js. Denne handling kan ikke fortrydes.</p>
+          <button class="btn btn-danger" onclick="nulstilAllt()">Nulstil alt til standard</button>
         </div>
       </div>
     </div>
 
-  </div><!-- .main -->
+  </div><!-- end .main -->
 
   <!-- Gem-bjælke -->
   <div class="save-bar">
-    <a href="index.html" class="btn btn-out btn-sm">← App</a>
-    <button class="btn btn-g" onclick="save()">💾 Gem ændringer</button>
+    <a href="index.html" class="btn btn-outline btn-sm">← Forsiden</a>
+    <button class="btn btn-primary" onclick="gemAlt()">💾 Gem ændringer</button>
   </div>
-</div><!-- #panel -->
 
-<div id="toast"></div>
+</div><!-- end #admin-panel -->
+
+<!-- Status-toast -->
+<div id="statusbar"></div>
 
 <script>
-/* ================================================
-   ADMIN.JS — Finnes Entreprise V2
-   Samme DEFAULT som app.js — altid i sync.
-   ================================================ */
-var KEY     = "fe_admin_data";
-var PIN_KEY = "fe_admin_pin";
-var DEF_PIN = "1234";
+/* ════════════════════════════════════════════════
+   ADMIN.JS — Finnes Entreprise v1.1
+   Al admin-logik er self-contained i denne <script>.
+   ════════════════════════════════════════════════ */
 
+var STORAGE_KEY = "fe_admin_data";
+var PIN_KEY     = "fe_admin_pin";
+var DEFAULT_PIN = "1234";
+
+/* ── STANDARD-DATA (kopieret fra app.js DEFAULT) ── */
 var DEFAULT = {
-  firmanavn:   "Finnes Entreprise",
-  slogan:      "Have · Anlæg · Minigraver",
-  forsidetext: "",
-  telefon:     "40 13 73 70",
-  telefon_raw: "+4540137370",
-  sms_raw:     "+4540137370",
-  email:       "finmann1@gmail.com",
-  cvr:         "46557557",
-  momstekst:   "Momsregistreret",
-  adresse:     "Vejle-området",
-  aabningstid: "Man–fre 07–17 · Lør efter aftale",
-  omraade:     "Vejle, Børkop, Egtved, Jelling, Kolding, Brejning",
-  logo:        "assets/icon-192.png",
+  firmanavn:    "Finnes Entreprise",
+  slogan:       "Have · Anlæg · Minigraver",
+  forsidetekst: "Vi passer din have og løser dine grave- og anlægsopgaver — professionelt, pålideligt og til konkurrencedygtige priser.",
+  telefon:      "40 13 73 70",
+  telefon_raw:  "+4540137370",
+  sms_raw:      "+4540137370",
+  email:        "finmann1@gmail.com",
+  cvr:          "46557557",
+  momstekst:    "Momsregistreret",
+  omraade:      "Vejle, Børkop, Egtved, Jelling, Kolding, Brejning, Omegn",
   timepris:            450,
   minimumspris:        350,
   pris_pr_m2:         1.25,
@@ -331,236 +530,290 @@ var DEFAULT = {
   tillaeg_hoejt_graes: 200,
   tillaeg_bortkoersel: 150,
   ydelser: [
-    { id:"graes",   ico:"🌿", navn:"Græsslåning",  tekst:"Regelmæssig eller enkeltstående slåning.\nFast aftale giver rabat.\nAlt afklip ryddes." },
-    { id:"haek",    ico:"✂️", navn:"Hækklipning",  tekst:"Professionel klipning og formgivning.\nBegge sider. Bortkørsel inkl." },
-    { id:"graver",  ico:"🚜", navn:"Minigraver",    tekst:"Udgravning, planering, dræn, fundament.\nMinimum 2 timer.\nKørsel inkl. i nærområdet." },
-    { id:"bort",    ico:"🛻", navn:"Bortkørsel",    tekst:"Vi kører haveaffald og jord bort.\nHaveaffald, grene, jord m.m.\nSamme dag efter aftale." },
-    { id:"belaeg",  ico:"🪨", navn:"Belægning",     tekst:"Fliser, grus, chaussésten.\nIndkørsler og terrasser.\nSolidt og pænt håndværk." },
-    { id:"beskaer", ico:"🌳", navn:"Beskæring",     tekst:"Frugttræer, buske og hæk.\nKorrekt årstidsbestemt beskæring.\nSund have og gode afgrøder." },
-    { id:"opryd",   ico:"🍂", navn:"Haveoprydning", tekst:"Forår- og efterårsrydning.\nLøvfald, ukrudt, kanter.\nHaven klar til sæsonen." },
-    { id:"sommer",  ico:"🏡", navn:"Sommerhus",     tekst:"Åbning og lukning af sæson.\nLøbende vedligeholdelse.\nFast aftale med rabat." }
-  ]
+    { ikon: "🌿", titel: "Græsslåning",   tekst: "Regelmæssig eller enkeltstående klipning. Fast aftale giver rabat." },
+    { ikon: "✂️", titel: "Hækklipning",   tekst: "Professionel klipning og formgivning — hæk og buske." },
+    { ikon: "🍂", titel: "Haveoprydning", tekst: "Rydning, beskæring og oprydning — hele haven gøres klar." },
+    { ikon: "🚛", titel: "Bortkørsel",    tekst: "Vi kører haveaffald og overskudsjord bort — korrekt og lovligt." },
+    { ikon: "🚜", titel: "Minigraver",    tekst: "Udgravning, planering, fundament, dræn og jordflytning." },
+    { ikon: "⛏️", titel: "Jordarbejde",  tekst: "Større og mindre gravearbejde til alt fra dræn til terrasse." },
+    { ikon: "🧱", titel: "Belægning",     tekst: "Fliser, grus og indkørsler — vi lægger det pænt og holdbart." },
+    { ikon: "🏡", titel: "Sommerhus",     tekst: "Åbning, lukning og løbende vedligeholdelse af sommerhuset." }
+  ],
+  chatbot_svar: {
+    priser:     "Vores vejledende priser:\n• Timepris: fra 450 kr./time\n• Minimum pr. besøg: 350 kr.\n• Græsklip: fra 1,25 kr./m²\n• Minigraver: fra 650 kr./time\n• Kørselstillæg aftales\n\nKontakt os for et præcist tilbud 😊",
+    opgaver:    "Vi udfører bl.a.:\n✅ Græsslåning og hækklipning\n✅ Haveoprydning og rydning\n✅ Minigraver-opgaver\n✅ Jordarbejde og gravearbejde\n✅ Bortkørsel af haveaffald\n✅ Belægningsopgaver\n✅ Vedligeholdelse af sommerhuse",
+    minigraver: "Ja! Vi har minigraver til:\n• Udgravning og planering\n• Jordflytning\n• Fundament og dræn\n• Mindre anlægsopgaver\n\nTimepris fra 650 kr.\nRing til os for booking.",
+    omraade:    "Vi dækker primært:\n📍 Vejle, Børkop, Egtved, Jelling,\n   Kolding, Brejning og omegn.\n\nEr du i tvivl? Ring til os! 📞"
+  }
 };
 
-/* ── PIN ── */
-function getPin() { return localStorage.getItem(PIN_KEY) || DEF_PIN; }
+/* ── PIN & LOGIN ── */
+function getPin() {
+  return localStorage.getItem(PIN_KEY) || DEFAULT_PIN;
+}
 
-document.getElementById("pin").addEventListener("keydown", function(e) {
-  if (e.key === "Enter") login();
+document.getElementById("pin-input").addEventListener("keydown", function(e) {
+  if (e.key === "Enter") doLogin();
 });
 
-function login() {
-  var v = document.getElementById("pin").value;
-  var e = document.getElementById("pin-err");
-  if (v === getPin()) {
-    document.getElementById("login").style.display = "none";
-    document.getElementById("panel").style.display = "block";
-    populate();
+function doLogin() {
+  var pin   = document.getElementById("pin-input").value;
+  var errEl = document.getElementById("login-error");
+  if (pin === getPin()) {
+    document.getElementById("login-screen").style.display = "none";
+    document.getElementById("admin-panel").style.display  = "block";
+    populerFormular();
   } else {
-    e.textContent = "Forkert kode — prøv igen.";
-    document.getElementById("pin").value = "";
-    document.getElementById("pin").focus();
-    setTimeout(function() { e.textContent = ""; }, 3000);
+    errEl.textContent = "Forkert adgangskode. Prøv igen.";
+    document.getElementById("pin-input").value = "";
+    document.getElementById("pin-input").focus();
+    setTimeout(function() { errEl.textContent = ""; }, 3000);
   }
 }
 
-function logout() {
-  document.getElementById("panel").style.display = "none";
-  document.getElementById("login").style.display = "flex";
-  document.getElementById("pin").value = "";
-}
-
-function changePin() {
-  var old = document.getElementById("pin-old").value;
-  var nw  = document.getElementById("pin-new").value;
-  var cnf = document.getElementById("pin-confirm").value;
-  if (old !== getPin()) { showToast("❌ Nuværende kode er forkert."); return; }
-  if (!nw || nw.length < 4) { showToast("❌ Ny kode skal være mindst 4 tegn."); return; }
-  if (nw !== cnf) { showToast("❌ Koderne er ikke ens."); return; }
-  localStorage.setItem(PIN_KEY, nw);
-  document.getElementById("pin-old").value = "";
-  document.getElementById("pin-new").value = "";
-  document.getElementById("pin-confirm").value = "";
-  showToast("✅ Adgangskode opdateret!");
+function doLogout() {
+  document.getElementById("admin-panel").style.display = "none";
+  document.getElementById("login-screen").style.display = "flex";
+  document.getElementById("pin-input").value = "";
 }
 
 /* ── TABS ── */
-function tab(id, btn) {
-  document.querySelectorAll(".pane").forEach(function(p) { p.classList.remove("on"); });
-  document.querySelectorAll(".tab").forEach(function(b) { b.classList.remove("on"); });
-  document.getElementById("pane-" + id).classList.add("on");
-  btn.classList.add("on");
+function showTab(id, btn) {
+  document.querySelectorAll(".tab-panel").forEach(function(p) { p.classList.remove("active"); });
+  document.querySelectorAll(".tab-btn").forEach(function(b)   { b.classList.remove("active"); });
+  document.getElementById(id).classList.add("active");
+  btn.classList.add("active");
 }
 
-/* ── LOAD DATA ── */
+/* ── HENT GEMTE DATA ── */
 function getSaved() {
   try {
-    var raw = localStorage.getItem(KEY);
+    var raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return JSON.parse(JSON.stringify(DEFAULT));
-    var s = JSON.parse(raw);
-    var d = JSON.parse(JSON.stringify(DEFAULT));
-    Object.keys(s).forEach(function(k) { if (s[k] !== null && s[k] !== undefined) d[k] = s[k]; });
-    return d;
-  } catch(e) { return JSON.parse(JSON.stringify(DEFAULT)); }
+    var parsed = JSON.parse(raw);
+    var merged = JSON.parse(JSON.stringify(DEFAULT));
+    Object.keys(parsed).forEach(function(k) {
+      if (parsed[k] !== null && parsed[k] !== undefined) merged[k] = parsed[k];
+    });
+    return merged;
+  } catch (e) {
+    return JSON.parse(JSON.stringify(DEFAULT));
+  }
 }
 
-function populate() {
+/* ── FYLD FORMULAR MED NUVÆRENDE DATA ── */
+function populerFormular() {
   var d = getSaved();
-  set("a-navn",      d.firmanavn);
-  set("a-slogan",    d.slogan);
-  set("a-forsidetext", d.forsidetext || "");
-  set("a-tlf",       d.telefon);
-  set("a-tlf-raw",   d.telefon_raw);
-  set("a-sms",       d.sms_raw);
-  set("a-mail",      d.email);
-  set("a-cvr",       d.cvr);
-  set("a-moms",      d.momstekst);
-  set("a-adresse",   d.adresse);
-  set("a-tid",       d.aabningstid);
-  set("a-omraade",   typeof d.omraade === "string" ? d.omraade : d.omraade.join(", "));
-  set("a-logo",      d.logo || "assets/icon-192.png");
-  set("a-timepris",  d.timepris);
-  set("a-minimum",   d.minimumspris);
-  set("a-m2",        d.pris_pr_m2);
-  set("a-graver",    d.minigraver_timepris);
-  set("a-hoejt",     d.tillaeg_hoejt_graes);
-  set("a-bort",      d.tillaeg_bortkoersel);
-  buildYdEditor(d.ydelser);
+
+  /* Firma */
+  val("a-firmanavn",   d.firmanavn);
+  val("a-slogan",      d.slogan);
+  val("a-forsidetekst",d.forsidetekst);
+  val("a-telefon",     d.telefon);
+  val("a-telefon-raw", d.telefon_raw);
+  val("a-sms-raw",     d.sms_raw);
+  val("a-email",       d.email);
+  val("a-cvr",         d.cvr);
+  val("a-momstekst",   d.momstekst);
+  val("a-omraade",     typeof d.omraade === "string" ? d.omraade : d.omraade.join(", "));
+
+  /* Priser */
+  val("a-timepris",       d.timepris);
+  val("a-minimumspris",   d.minimumspris);
+  val("a-pris-m2",        d.pris_pr_m2);
+  val("a-minigraver",     d.minigraver_timepris);
+  val("a-tillaeg-graes",  d.tillaeg_hoejt_graes);
+  val("a-tillaeg-bort",   d.tillaeg_bortkoersel);
+
+  /* Ydelser */
+  genYdelserEditor(d.ydelser);
+
+  /* Chatbot */
+  var cs = d.chatbot_svar || {};
+  val("cb-priser",    cs.priser    || "");
+  val("cb-opgaver",   cs.opgaver   || "");
+  val("cb-minigraver",cs.minigraver|| "");
+  val("cb-omraade",   cs.omraade   || "");
 }
 
-function set(id, v) {
+function val(id, v) {
   var el = document.getElementById(id);
   if (el) el.value = (v !== null && v !== undefined) ? String(v) : "";
 }
 
-/* ── YDELSE EDITOR ── */
-function buildYdEditor(list) {
-  var ed = document.getElementById("yd-editor");
+/* ── YDELSER EDITOR ── */
+function genYdelserEditor(ydelser) {
+  var ed = document.getElementById("ydelser-editor");
   ed.innerHTML = "";
-  (list || []).forEach(function(y, i) { ed.appendChild(makeYdItem(i, y)); });
+  (ydelser || []).forEach(function(y, i) {
+    ed.appendChild(laveYdelseLine(i, y));
+  });
 }
 
-function makeYdItem(i, y) {
-  var w = document.createElement("div");
-  w.className = "yd-item";
-  w.dataset.idx = i;
-  w.innerHTML =
-    "<div class='yd-row'>"
-    + "<input class='yd-ico' type='text' value='" + esc(y.ico) + "' maxlength='4' title='Emoji'>"
-    + "<input class='yd-navn' type='text' value='" + esc(y.navn) + "' placeholder='Navn'>"
-    + "<button class='del-btn' onclick='this.closest(\".yd-item\").remove()' title='Slet'>🗑</button>"
+function laveYdelseLine(idx, y) {
+  var wrap = document.createElement("div");
+  wrap.className = "ydelse-item";
+  wrap.setAttribute("data-idx", idx);
+  wrap.innerHTML =
+    "<div class='ydelse-row'>"
+    + "<input class='ikon-input' type='text' value='" + esc(y.ikon || "🌿") + "' placeholder='🌿' maxlength='4' title='Emoji-ikon'>"
+    + "<input type='text' value='" + esc(y.titel) + "' placeholder='Titel' style='min-width:0;'>"
+    + "<button class='btn-icon' title='Slet' onclick='sletYdelse(this)'>🗑</button>"
     + "</div>"
-    + "<textarea class='yd-tekst' placeholder='Kort tekst (max 5 linjer)...'>" + esc(y.tekst) + "</textarea>";
-  return w;
+    + "<textarea placeholder='Kort beskrivelse...'>" + esc(y.tekst) + "</textarea>";
+  return wrap;
 }
 
-function addYdelse() {
-  var ed = document.getElementById("yd-editor");
-  var i  = ed.querySelectorAll(".yd-item").length;
-  ed.appendChild(makeYdItem(i, { ico:"🌿", navn:"", tekst:"" }));
+function tilfoejYdelse() {
+  var ed  = document.getElementById("ydelser-editor");
+  var idx = ed.querySelectorAll(".ydelse-item").length;
+  ed.appendChild(laveYdelseLine(idx, { ikon: "🌿", titel: "", tekst: "" }));
+}
+
+function sletYdelse(btn) {
+  var item = btn.closest(".ydelse-item");
+  if (item) item.remove();
 }
 
 function esc(s) {
-  return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+  return String(s || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
 }
 
-function readYdelser() {
-  var yd = [];
-  document.querySelectorAll("#yd-editor .yd-item").forEach(function(item, i) {
-    var ico  = item.querySelector(".yd-ico").value.trim();
-    var navn = item.querySelector(".yd-navn").value.trim();
-    var ta   = item.querySelector(".yd-tekst").value.trim();
-    yd.push({ id: "yd" + i, ico: ico||"🌿", navn: navn, tekst: ta });
+/* ── LÆS ALLE FELTER ── */
+function laesFormular() {
+  var ydelser = [];
+  document.querySelectorAll("#ydelser-editor .ydelse-item").forEach(function(item) {
+    var inputs = item.querySelectorAll("input");
+    var ta     = item.querySelector("textarea");
+    ydelser.push({
+      ikon:  inputs[0] ? inputs[0].value.trim() : "🌿",
+      titel: inputs[1] ? inputs[1].value.trim() : "",
+      tekst: ta         ? ta.value.trim()        : ""
+    });
   });
-  return yd;
-}
 
-/* ── LÆST FORMULAR & GEM ── */
-function read() {
   return {
-    firmanavn:           g("a-navn"),
-    slogan:              g("a-slogan"),
-    forsidetext:         g("a-forsidetext"),
-    telefon:             g("a-tlf"),
-    telefon_raw:         g("a-tlf-raw"),
-    sms_raw:             g("a-sms"),
-    email:               g("a-mail"),
-    cvr:                 g("a-cvr"),
-    momstekst:           g("a-moms"),
-    adresse:             g("a-adresse"),
-    aabningstid:         g("a-tid"),
-    omraade:             g("a-omraade"),
-    logo:                g("a-logo"),
-    timepris:            num("a-timepris"),
-    minimumspris:        num("a-minimum"),
-    pris_pr_m2:          num("a-m2"),
-    minigraver_timepris: num("a-graver"),
-    tillaeg_hoejt_graes: num("a-hoejt"),
-    tillaeg_bortkoersel: num("a-bort"),
-    ydelser:             readYdelser()
+    firmanavn:            g("a-firmanavn"),
+    slogan:               g("a-slogan"),
+    forsidetekst:         g("a-forsidetekst"),
+    telefon:              g("a-telefon"),
+    telefon_raw:          g("a-telefon-raw"),
+    sms_raw:              g("a-sms-raw"),
+    email:                g("a-email"),
+    cvr:                  g("a-cvr"),
+    momstekst:            g("a-momstekst"),
+    omraade:              g("a-omraade"),
+    timepris:             num("a-timepris"),
+    minimumspris:         num("a-minimumspris"),
+    pris_pr_m2:           num("a-pris-m2"),
+    minigraver_timepris:  num("a-minigraver"),
+    tillaeg_hoejt_graes:  num("a-tillaeg-graes"),
+    tillaeg_bortkoersel:  num("a-tillaeg-bort"),
+    ydelser:              ydelser,
+    chatbot_svar: {
+      priser:     g("cb-priser"),
+      opgaver:    g("cb-opgaver"),
+      minigraver: g("cb-minigraver"),
+      omraade:    g("cb-omraade")
+    }
   };
 }
 
-function g(id) { var el = document.getElementById(id); return el ? el.value.trim() : ""; }
-function num(id) { var el = document.getElementById(id); if (!el) return 0; var v = parseFloat(el.value); return isNaN(v) ? 0 : v; }
+function g(id) {
+  var el = document.getElementById(id);
+  return el ? el.value.trim() : "";
+}
+function num(id) {
+  var el = document.getElementById(id);
+  if (!el) return 0;
+  var v = parseFloat(el.value);
+  return isNaN(v) ? 0 : v;
+}
 
-function save() {
-  var data = read();
+/* ── GEM ── */
+function gemAlt() {
+  var data = laesFormular();
   try {
-    localStorage.setItem(KEY, JSON.stringify(data));
-    showToast("✅ Gemt! Åbn appen for at se ændringerne.");
-  } catch(e) {
-    showToast("❌ Kunne ikke gemme: " + e.message);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    toast("✅ Gemt! Forsiden er opdateret.");
+  } catch (e) {
+    toast("❌ Kunne ikke gemme: " + e.message);
   }
 }
 
-/* ── BACKUP ── */
-function exportBackup() {
-  var data = read();
-  var blob = new Blob([JSON.stringify(data, null, 2)], { type:"application/json" });
+/* ── SKIFT PIN ── */
+function skiftPin() {
+  var gammel   = document.getElementById("pin-gammel").value;
+  var ny       = document.getElementById("pin-ny").value;
+  var bekraeft = document.getElementById("pin-bekraeft").value;
+
+  if (gammel !== getPin()) { toast("❌ Nuværende adgangskode er forkert."); return; }
+  if (!ny || ny.length < 4) { toast("❌ Ny adgangskode skal være mindst 4 tegn."); return; }
+  if (ny !== bekraeft) { toast("❌ De to nye koder er ikke ens."); return; }
+
+  localStorage.setItem(PIN_KEY, ny);
+  document.getElementById("pin-gammel").value   = "";
+  document.getElementById("pin-ny").value       = "";
+  document.getElementById("pin-bekraeft").value = "";
+  toast("✅ Adgangskode skiftet!");
+}
+
+/* ── EKSPORTER ── */
+function eksporterBackup() {
+  var data = laesFormular();
+  var blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
   var url  = URL.createObjectURL(blob);
   var a    = document.createElement("a");
   a.href     = url;
-  a.download = "fe-v2-backup-" + new Date().toISOString().slice(0,10) + ".json";
+  a.download = "fe-backup-" + new Date().toISOString().slice(0,10) + ".json";
   a.click();
   URL.revokeObjectURL(url);
-  showToast("📤 Backup downloadet!");
+  toast("📤 Backup downloadet!");
 }
 
-function importBackup(input) {
+/* ── IMPORTER ── */
+function importerBackup(input) {
   var fil = input.files[0];
   if (!fil) return;
-  var r = new FileReader();
-  r.onload = function(e) {
+  var reader = new FileReader();
+  reader.onload = function(e) {
     try {
       var data = JSON.parse(e.target.result);
-      localStorage.setItem(KEY, JSON.stringify(data));
-      populate();
-      showToast("✅ Backup importeret!");
-    } catch(err) {
-      showToast("❌ Ugyldig fil: " + err.message);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      populerFormular();
+      toast("✅ Backup importeret og gemt!");
+    } catch (err) {
+      toast("❌ Ugyldig JSON-fil: " + err.message);
     }
   };
-  r.readAsText(fil);
+  reader.readAsText(fil);
   input.value = "";
 }
 
-function resetAll() {
-  if (!confirm("Nulstil ALLE indstillinger til standard?\n\nKan ikke fortrydes.")) return;
-  localStorage.removeItem(KEY);
-  populate();
-  showToast("🔄 Nulstillet til standard.");
+/* ── NULSTIL ── */
+function nulstilAllt() {
+  if (!confirm("Er du sikker på, at du vil nulstille ALLE indstillinger til standard?\n\nDenne handling kan ikke fortrydes.")) return;
+  localStorage.removeItem(STORAGE_KEY);
+  populerFormular();
+  toast("🔄 Nulstillet til standardværdier.");
 }
 
 /* ── TOAST ── */
-var tt;
-function showToast(msg) {
-  var t = document.getElementById("toast");
-  t.textContent = msg;
-  t.classList.add("show");
-  clearTimeout(tt);
-  tt = setTimeout(function() { t.classList.remove("show"); }, 2800);
+var toastTimer;
+function toast(msg) {
+  var el = document.getElementById("statusbar");
+  el.textContent = msg;
+  el.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function() { el.classList.remove("show"); }, 2800);
 }
+
+/* Enter til login */
+window.addEventListener("keydown", function(e) {
+  if (e.key === "Enter" && document.getElementById("login-screen").style.display !== "none") {
+    doLogin();
+  }
+});
 </script>
 </body>
 </html>
