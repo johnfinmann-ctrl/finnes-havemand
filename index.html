@@ -153,6 +153,10 @@
       <span class="icon-emoji">📞</span>
       <span class="icon-label">Kontakt</span>
     </button>
+    <button type="button" class="icon-menu-btn" id="home-foto-btn" data-go-view="prisberegner" data-scroll-to="task-photo-zone">
+      <span class="icon-emoji">📸</span>
+      <span class="icon-label">Send billeder</span>
+    </button>
   </nav>
 
   <!-- Sommerhus-highlight -->
@@ -478,17 +482,27 @@
 
     </section>
 
-    <!-- BILLEDER: SMS-vejledning (ingen upload — kan ikke sendes via mailto) -->
+    <!-- BILLEDER: Tag op til 3 fotos og vedhæft i mail -->
     <section>
       <div class="photo-cta">
-        <h2>📷 Hav du billeder af opgaven?</h2>
-        <p>Billeder giver os det bedste grundlag for et præcist tilbud.</p>
-        <div class="photo-sms-box">
-          <span class="photo-sms-ico">📱</span>
+        <h2>📷 Tag et billede af opgaven</h2>
+        <p>Vælg op til 3 billeder — så sender du dem med din tilbudsforespørgsel.</p>
+        <button type="button" class="upload-zone" id="task-photo-zone" aria-label="Vælg billeder af opgaven">
+          <span class="upload-ico">📸</span>
+          <strong class="upload-label-text">Tag billeder til tilbud</strong>
+          <span class="upload-sub">Tryk for at vælge eller fotografere — maks. 3 billeder</span>
+          <input type="file" id="task-photo-input" accept="image/*" multiple style="display:none">
+        </button>
+        <div class="upload-preview" id="task-photo-preview"></div>
+        <div class="upload-mail-hint" id="upload-mail-hint" style="display:none">
+          <span class="upload-mail-icon">📸</span>
           <div>
-            <strong>Send billeder direkte på SMS</strong>
-            <p>Send billeder til <span class="photo-sms-nr" data-phone-text>40 13 73 70</span> — skriv blot "Billeder til tilbud" i beskeden.</p>
-            <a href="#" data-sms class="btn btn-primary btn-sm photo-sms-btn">💬 Åbn SMS nu</a>
+            <strong>Tak — <span id="upload-count">0</span> billede(r) valgt</strong>
+            <p>Send nu forespørgslen — billederne skal sendes separat via SMS eller mail, så vi kan give et mere præcist tilbud.</p>
+            <div class="upload-sms-actions">
+              <a href="#" data-sms class="btn btn-primary btn-sm">💬 Send via SMS</a>
+              <a href="#" data-mail class="btn btn-outline btn-sm">✉️ Send via mail</a>
+            </div>
           </div>
         </div>
       </div>
@@ -685,11 +699,17 @@
             <label for="cf-timing">Ønsket tidspunkt</label>
             <input type="text" id="cf-timing" name="timing" placeholder="Fx snarest muligt / uge 28 / efter sommerferien">
           </div>
-          <div class="form-group">
-            <label class="checkbox-label">
-              <input type="checkbox" id="cf-has-photos" name="hasPhotos">
-              <span>Jeg har billeder, jeg sender via SMS eller mail</span>
+          <div class="form-group" id="form-photo-group">
+            <label>Billeder af opgaven (maks. 3)</label>
+            <label class="upload-zone upload-zone-sm" id="upload-zone-form">
+              <span class="upload-ico-sm">📷</span>
+              <span class="upload-label-text" id="upload-zone-label">Tryk for at vælge billeder</span>
+              <input type="file" id="upload-input" accept="image/*" multiple>
             </label>
+            <div class="upload-preview upload-preview-sm" id="upload-preview"></div>
+            <p class="upload-note" id="upload-note" style="display:none">
+              📎 Husk at vedhæfte <span id="upload-count-form">0</span> billede(r) i din mail-app, når den åbner.
+            </p>
           </div>
           <div class="contact-sms-hint" id="sms-primary-hint">
             <strong>📱 Hurtigst svar: Ring eller send SMS</strong>
