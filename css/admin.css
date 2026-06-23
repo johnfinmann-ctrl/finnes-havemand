@@ -1,0 +1,156 @@
+/* ==========================================================
+   ADMIN.CSS — Handyman Engine — Admin Lite
+   Stilark til det PIN-låste adminpanel. Bruger samme design-
+   tokens som resten af sitet (CSS custom properties).
+   ========================================================== */
+
+.admin-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(20, 22, 23, 0.55);
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.admin-overlay.open { display: flex; }
+
+@media (min-width: 769px) {
+  .admin-overlay { align-items: center; }
+}
+
+.admin-panel {
+  background: #fff;
+  width: 100%;
+  max-width: 480px;
+  max-height: 92vh;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+@media (min-width: 769px) {
+  .admin-panel { border-radius: var(--radius-lg); max-height: 86vh; }
+}
+
+.admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  background: var(--color-secondary);
+  color: #fff;
+}
+
+.admin-header strong { font-family: var(--font-display); font-size: 1.05rem; }
+.admin-header button { color: #fff; font-size: 1.2rem; }
+
+.admin-lock {
+  padding: 32px 24px;
+  text-align: center;
+}
+
+.admin-lock p { color: var(--color-text-muted); margin-bottom: 14px; }
+
+.admin-lock input {
+  width: 100%;
+  text-align: center;
+  font-size: 1.4rem;
+  letter-spacing: 0.3em;
+  padding: 14px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  margin-bottom: 14px;
+}
+
+.admin-error {
+  color: var(--color-error);
+  font-size: 0.85rem;
+  margin-top: 10px;
+  min-height: 1.2em;
+}
+
+.admin-body {
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.admin-section {
+  margin-bottom: 22px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--color-border);
+}
+.admin-section:last-child { border-bottom: none; }
+
+.admin-section h3 {
+  font-size: 0.95rem;
+  margin-bottom: 12px;
+  color: var(--color-secondary);
+}
+
+.admin-hint {
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--color-text-muted);
+}
+
+.admin-row { margin-bottom: 10px; }
+
+.admin-row label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  margin-bottom: 4px;
+}
+
+.admin-row input[type="text"],
+.admin-row input[type="number"],
+.admin-row input[type="password"] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 0.92rem;
+}
+
+.admin-row input[type="text"]:focus,
+.admin-row input[type="number"]:focus,
+.admin-row input[type="password"]:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.admin-row input[type="color"] {
+  width: 56px;
+  height: 36px;
+  padding: 2px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.admin-row input:disabled {
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+}
+
+.admin-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.admin-save-status {
+  text-align: center;
+  font-size: 0.85rem;
+  margin-top: 12px;
+  min-height: 1.2em;
+  color: var(--color-text-muted);
+}
+
+.admin-save-status.success { color: var(--color-primary); font-weight: 700; }

@@ -1,0 +1,284 @@
+/* ==========================================================
+   CALCULATOR.CSS — Handyman Engine
+   Signaturelement: Prisberegnerne er designet som fysiske
+   kvitteringer — perforeret kant, monospace tal, stempel-look.
+   Skal underbygge følelsen af "håndfast håndværk", ikke "app".
+   ========================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+.calculators-section {
+  background: var(--color-secondary);
+}
+
+.calculators-section .eyebrow { color: var(--color-accent); }
+.calculators-section h2 { color: #fff; }
+.calculators-section .section-head p { color: var(--color-text-on-dark); opacity: 0.8; }
+
+.calc-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 36px;
+}
+
+.calc-tab {
+  padding: 12px 20px;
+  border-radius: var(--radius-pill);
+  background: rgba(255,255,255,0.06);
+  color: var(--color-text-on-dark);
+  font-weight: 700;
+  font-size: 0.88rem;
+  border: 1.5px solid rgba(255,255,255,0.12);
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.calc-tab.active,
+.calc-tab:hover {
+  background: var(--color-accent);
+  color: #fff;
+  border-color: var(--color-accent);
+}
+
+.calc-panel { display: none; }
+.calc-panel.active {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 0;
+}
+
+@media (max-width: 880px) {
+  .calc-panel.active { grid-template-columns: 1fr; }
+}
+
+/* ---------- Input side ---------- */
+.calc-inputs {
+  background: #fff;
+  border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+  padding: 36px;
+}
+
+@media (max-width: 880px) {
+  .calc-inputs { border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+}
+
+.calc-field { margin-bottom: 22px; }
+.calc-field:last-child { margin-bottom: 0; }
+
+.calc-field label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-secondary);
+  margin-bottom: 10px;
+}
+
+.calc-field .hint {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  font-weight: 400;
+  margin-top: 6px;
+}
+
+.calc-field input[type="number"],
+.calc-field input[type="range"],
+.calc-field select {
+  width: 100%;
+}
+
+.calc-field input[type="number"],
+.calc-field select {
+  padding: 14px 16px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.calc-field input[type="number"]:focus,
+.calc-field select:focus {
+  border-color: var(--color-primary);
+  outline: none;
+}
+
+/* Toggle (Ja/Nej) */
+.calc-toggle-group {
+  display: flex;
+  gap: 8px;
+}
+
+.calc-toggle {
+  flex: 1;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--color-border);
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  transition: all 0.15s ease;
+}
+
+.calc-toggle.active {
+  background: var(--color-primary-tint);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* Button group (e.g. task type, size selection) */
+.calc-btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.calc-btn-option {
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--color-border);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  transition: all 0.15s ease;
+}
+
+.calc-btn-option.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+/* ---------- Receipt side (signature element) ---------- */
+.calc-receipt-wrap {
+  background: var(--color-primary-dark);
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+  padding: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 880px) {
+  .calc-receipt-wrap { border-radius: 0 0 var(--radius-lg) var(--radius-lg); }
+}
+
+.calc-receipt {
+  background: #FFFDF8;
+  width: 100%;
+  max-width: 320px;
+  padding: 28px 22px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--color-secondary);
+  position: relative;
+  box-shadow: var(--shadow-lg);
+  /* Perforated edge effect top and bottom */
+  background-image:
+    radial-gradient(circle, transparent 4px, #FFFDF8 4.5px),
+    radial-gradient(circle, transparent 4px, #FFFDF8 4.5px);
+  background-size: 16px 16px, 16px 16px;
+  background-position: top -8px left -2px, bottom -8px left -2px;
+  background-repeat: repeat-x, repeat-x;
+}
+
+.calc-receipt::before {
+  content: "";
+  position: absolute;
+  top: 8px; left: 0; right: 0;
+  height: 1px;
+  background: repeating-linear-gradient(90deg, var(--color-border) 0 6px, transparent 6px 12px);
+}
+
+.receipt-header {
+  text-align: center;
+  border-bottom: 1px dashed var(--color-border);
+  padding-bottom: 14px;
+  margin-bottom: 14px;
+}
+
+.receipt-header .receipt-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.receipt-header .receipt-sub {
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  margin-top: 4px;
+}
+
+.receipt-line {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.82rem;
+  padding: 5px 0;
+  gap: 12px;
+}
+
+.receipt-line .label { color: var(--color-text-muted); }
+.receipt-line .value { font-weight: 700; white-space: nowrap; }
+
+.receipt-divider {
+  border-top: 1px dashed var(--color-border);
+  margin: 12px 0;
+}
+
+.receipt-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-top: 4px;
+}
+
+.receipt-total .label {
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.receipt-total .value {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.receipt-stamp {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 0.68rem;
+  color: var(--color-text-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.receipt-stamp .stamp-badge {
+  display: inline-block;
+  border: 1.5px solid var(--color-accent);
+  color: var(--color-accent-dark);
+  padding: 4px 10px;
+  border-radius: 4px;
+  transform: rotate(-3deg);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.receipt-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.receipt-actions .btn { font-family: var(--font-body); }
+
+.receipt-reset {
+  text-align: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  padding: 8px;
+}
+.receipt-reset:hover { color: var(--color-secondary); }

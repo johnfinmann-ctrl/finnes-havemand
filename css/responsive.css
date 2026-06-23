@@ -1,0 +1,64 @@
+/* ==========================================================
+   RESPONSIVE.CSS — Handyman Engine
+   Mobil-specifikke justeringer der ikke er dækket inline i
+   style.css/calculator.css/app-views.css. Mobile-first
+   suppleres her med ekstra finjusteringer pr. breakpoint.
+
+   BEMÆRK: Den gamle sticky-header-nav (.main-nav/.nav-toggle)
+   og hero-sektion (.hero) hører til den oprindelige scroll-
+   side-arkitektur og er fjernet herfra — navigation og
+   forside styres nu af app-views.css (.view-header, .back-btn,
+   .home-hero, .icon-menu).
+   ========================================================== */
+
+/* ---------- Tablet (≤ 1024px) ---------- */
+@media (max-width: 1024px) {
+  .container { padding: 0 20px; }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .footer-brand { grid-column: 1 / -1; }
+}
+
+/* ---------- Mobile (≤ 768px) ---------- */
+@media (max-width: 768px) {
+  .services-grid,
+  .reviews-grid,
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .why-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .chatbot-toggle {
+    width: 52px;
+    height: 52px;
+    font-size: 1.4rem;
+    bottom: 80px;
+  }
+
+  .chatbot-window {
+    right: 12px;
+    left: 12px;
+    width: auto;
+    bottom: 144px;
+  }
+}
+
+/* ---------- Small phones (≤ 420px) ---------- */
+@media (max-width: 420px) {
+  .why-grid { grid-template-columns: 1fr; }
+
+  .calc-receipt { max-width: 100%; padding: 22px 16px; }
+
+  .mobile-contact-bar a { font-size: 0.66rem; }
+}
+
+/* ---------- Larger desktop polish ---------- */
+@media (min-width: 1400px) {
+  .container { max-width: 1320px; }
+}

@@ -2,462 +2,725 @@
 <html lang="da">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<!-- ── TILPAS: Titel og beskrivelse ── -->
-<title>Finnes Entreprise — Haveservice og Gravearbejde</title>
-<!-- v1.1 — Admin via admin.html -->
-<meta name="description" content="Professionelt havearbejde, græsslåning, hækklipning, minigraver og gravearbejde til private og erhverv i Vejle-området.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Finnes Entreprise — Professionel Have- og Graveservice</title>
+<meta name="description" content="Have- og graveservice til private, erhverv og sommerhuse. Græsslåning, hækkeklipning, minigraver, belægning og mere. Få et vejledende tilbud direkte på siden.">
 <meta name="theme-color" content="#2E6F40">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Finnes Entreprise">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Finnes Entreprise — Professionel Have- og Graveservice">
+<meta property="og:description" content="Have- og graveservice til private, erhverv og sommerhuse. Få et vejledende tilbud med vores live prisberegner.">
+<meta property="og:locale" content="da_DK">
+<meta property="og:url" content="https://www.finnesentreprise.dk/">
+<meta property="og:image" content="https://www.finnesentreprise.dk/assets/images/og-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="Finnes Entreprise">
+
+<!-- Twitter Card (samme billede som Open Graph) -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Finnes Entreprise — Professionel Have- og Graveservice">
+<meta name="twitter:description" content="Have- og graveservice til private, erhverv og sommerhuse.">
+<meta name="twitter:image" content="https://www.finnesentreprise.dk/assets/images/og-cover.jpg">
 
 <!-- PWA -->
-<link rel="manifest" href="manifest.json">
-<!-- ── TILPAS: Erstat logo-placeholder.png med dit rigtige logo ── -->
-<link rel="apple-touch-icon" href="assets/icon-192.png">
-<link rel="icon" type="image/png" href="assets/icon-192.png">
+<link rel="manifest" href="pwa/manifest.json">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png">
+
+<!-- SEO -->
+<link rel="canonical" href="https://www.finnesentreprise.dk/">
 
 <!-- Styles -->
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/calculator.css">
+<link rel="stylesheet" href="css/app-views.css">
+<link rel="stylesheet" href="css/admin.css">
+<link rel="stylesheet" href="css/responsive.css">
 
-<!-- Open Graph (sociale medier) -->
-<meta property="og:type"        content="website">
-<meta property="og:title"       content="Finnes Entreprise — Haveservice og Gravearbejde">
-<meta property="og:description" content="Professionelt havearbejde, græsslåning, hækklipning og minigraver i Vejle-området.">
-<meta property="og:image"       content="assets/logo-placeholder.png">
-
-<!-- Schema.org -->
+<!-- Schema.org: LocalBusiness -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
+  "@id": "https://www.finnesentreprise.dk/#business",
   "name": "Finnes Entreprise",
+  "image": "https://www.finnesentreprise.dk/assets/images/og-cover.jpg",
+  "description": "Professionel have- og graveservice til private, erhverv og sommerhuse. Græsslåning, hækkeklipning, minigraver, trampolin-nedgravning og mere.",
   "telephone": "+4540137370",
   "email": "finmann1@gmail.com",
-  "areaServed": ["Vejle", "Kolding", "Egtved", "Jelling", "Børkop"],
-  "priceRange": "$$"
+  "areaServed": ["Vejle", "Børkop", "Brejning", "Egtved", "Jelling", "Kolding"],
+  "priceRange": "$$",
+  "url": "https://www.finnesentreprise.dk/",
+  "sameAs": []
 }
 </script>
 </head>
 <body>
 
-<!-- ════════════════════════════════════════
-     NAVIGATION
-     ════════════════════════════════════════ -->
-<nav class="site-nav" aria-label="Primær navigation">
-  <div class="nav-inner">
-    <a href="#" class="nav-logo">
-      <!-- ── TILPAS: Erstat src med stien til dit logo ── -->
-      <img src="assets/logo-placeholder.png" alt="Finnes Entreprise logo">
-      <!-- ── TILPAS: Virksomhedsnavn ── -->
-      <span class="nav-logo-text">Finnes Entreprise</span>
-    </a>
-    <div class="nav-links">
-      <a href="#ydelser">Ydelser</a>
-      <a href="#prisliste">Priser</a>
-      <a href="#prisberegner">Beregner</a>
-      <a href="#tilbud">Tilbud</a>
-      <a href="#kontakt">Kontakt</a>
+<!-- ============================================================
+     FORSIDE — kort app-lignende startmenu (view-home)
+     ============================================================ -->
+<div class="app-view home-view" id="view-home">
+
+  <div class="home-hero">
+    <img class="home-logo" src="assets/logo/finnes-entreprise-mark.png" alt="Finnes Entreprise logo" width="76" height="76">
+    <h1 data-company-name>Finnes Entreprise</h1>
+    <p class="home-intro">Professionel have- og graveservice til private, erhverv og sommerhuse.</p>
+    <div class="home-actions">
+      <a href="#" data-tel class="btn btn-primary" aria-label="Ring til os">📞 Ring</a>
+      <a href="#" data-sms class="btn btn-outline" aria-label="Send SMS">💬 SMS</a>
+      <button type="button" class="btn btn-accent" data-go-view="kontakt">📩 Få tilbud</button>
     </div>
   </div>
-</nav>
 
-<!-- ════════════════════════════════════════
-     HERO
-     ════════════════════════════════════════ -->
-<section class="hero" id="top">
-  <div class="container hero-inner">
-    <!-- ── TILPAS: Erstat src med dit logo ── -->
-    <img class="hero-logo" src="assets/logo-placeholder.png" alt="Finnes Entreprise logo">
+  <nav class="icon-menu" aria-label="Hovedmenu">
+    <button type="button" class="icon-menu-btn" data-go-view="prisberegner" data-open-calc="grass">
+      <span class="icon-emoji">🌱</span>
+      <span class="icon-label">Græsslåning</span>
+    </button>
+    <button type="button" class="icon-menu-btn" data-go-view="prisberegner" data-open-calc="hedge">
+      <span class="icon-emoji">✂️</span>
+      <span class="icon-label">Hækkeklipning</span>
+    </button>
+    <button type="button" class="icon-menu-btn" data-go-view="prisberegner" data-open-calc="excavator">
+      <span class="icon-emoji">🚜</span>
+      <span class="icon-label">Minigraver</span>
+    </button>
+    <button type="button" class="icon-menu-btn" data-go-view="prisberegner" data-open-calc="cleanup">
+      <span class="icon-emoji">🍂</span>
+      <span class="icon-label">Haveoprydning</span>
+    </button>
+    <button type="button" class="icon-menu-btn" data-go-view="prisberegner" data-open-calc="earth">
+      <span class="icon-emoji">⛏️</span>
+      <span class="icon-label">Jordarbejde</span>
+    </button>
+    <button type="button" class="icon-menu-btn" data-go-view="prisberegner" data-open-calc="paving">
+      <span class="icon-emoji">🪨</span>
+      <span class="icon-label">Belægning</span>
+    </button>
+    <button type="button" class="icon-menu-btn is-primary" data-go-view="prisberegner">
+      <span class="icon-emoji">💰</span>
+      <span class="icon-label">Prisberegner</span>
+    </button>
+    <button type="button" class="icon-menu-btn" data-go-view="galleri">
+      <span class="icon-emoji">🖼️</span>
+      <span class="icon-label">Galleri</span>
+    </button>
+    <button type="button" class="icon-menu-btn" data-go-view="om-os">
+      <span class="icon-emoji">⭐</span>
+      <span class="icon-label">Om os</span>
+    </button>
+    <button type="button" class="icon-menu-btn" data-go-view="kontakt">
+      <span class="icon-emoji">📞</span>
+      <span class="icon-label">Kontakt</span>
+    </button>
+  </nav>
 
-    <!-- ── TILPAS: Virksomhedsnavn og undertekst ── -->
-    <h1 id="hero-firmanavn">Finnes Entreprise</h1>
-    <p class="tagline" id="hero-slogan">Have · Anlæg · Minigraver</p>
-    <p class="sub" id="hero-sub">Vi passer din have og løser dine graveog anlægsopgaver — professionelt, pålideligt og til konkurrencedygtige priser.</p>
-
-    <div class="hero-buttons">
-      <!-- ── TILPAS: Telefonnummer i href ── -->
-      <a href="tel:+4540137370" id="btn-ring" class="btn btn-primary">📞 Ring nu</a>
-      <a href="sms:+4540137370" id="btn-sms" class="btn btn-ghost">💬 Send SMS</a>
-      <a href="mailto:finmann1@gmail.com" id="btn-mail" class="btn btn-ghost">✉️ Send mail</a>
-      <a href="#tilbud" class="btn btn-accent">📋 Få tilbud</a>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════
-     YDELSER
-     ════════════════════════════════════════ -->
-<section id="ydelser">
-  <div class="container">
-    <h2 class="section-title">Vores ydelser</h2>
-    <p class="section-sub">Vi løser store og små opgaver — til private, sommerhuse og erhverv.</p>
-
-    <div class="cards-grid" id="ydelser-grid">
-      <div class="card">
-        <span class="icon">🌿</span>
-        <h3>Græsslåning</h3>
-        <p>Regelmæssig eller enkeltstående klipning. Fast aftale giver rabat.</p>
-      </div>
-      <div class="card">
-        <span class="icon">✂️</span>
-        <h3>Hækklipning</h3>
-        <p>Professionel klipning og formgivning — hæk og buske.</p>
-      </div>
-      <div class="card">
-        <span class="icon">🍂</span>
-        <h3>Haveoprydning</h3>
-        <p>Rydning, beskæring og oprydning — hele haven gøres klar.</p>
-      </div>
-      <div class="card">
-        <span class="icon">🚛</span>
-        <h3>Bortkørsel</h3>
-        <p>Vi kører haveaffald og overskudsjord bort — korrekt og lovligt.</p>
-      </div>
-      <div class="card">
-        <span class="icon">🚜</span>
-        <h3>Minigraver</h3>
-        <p>Udgravning, planering, fundament, dræn og jordflytning.</p>
-      </div>
-      <div class="card">
-        <span class="icon">⛏️</span>
-        <h3>Jordarbejde</h3>
-        <p>Større og mindre gravearbejde til alt fra dræn til terrasse.</p>
-      </div>
-      <div class="card">
-        <span class="icon">🧱</span>
-        <h3>Belægning</h3>
-        <p>Fliser, grus og indkørsler — vi lægger det pænt og holdbart.</p>
-      </div>
-      <div class="card">
-        <span class="icon">🏡</span>
-        <h3>Sommerhus</h3>
-        <p>Åbning, lukning og løbende vedligeholdelse af sommerhuset.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════
-     PRISLISTE
-     ════════════════════════════════════════ -->
-<section id="prisliste">
-  <div class="container">
-    <h2 class="section-title">Priser</h2>
-    <!-- ── TILPAS: Priser opdateres OGSÅ i CONFIG i app.js ── -->
-    <p class="section-sub">Vejledende priser ekskl. moms. Endelig pris aftales efter dialog.</p>
-
-    <div class="price-table">
-      <div class="price-row">
-        <div class="price-label">
-          Timepris — alm. havearbejde
-          <small>Klipning, oprydning, vedligeholdelse</small>
-        </div>
-        <!-- ── TILPAS: Ret pris ── -->
-        <span class="price-value" id="pris-timepris">Fra 450 kr./t</span>
-      </div>
-      <div class="price-row">
-        <div class="price-label">
-          Minimumspris pr. besøg
-          <small>Gælder uanset opgavens omfang</small>
-        </div>
-        <!-- ── TILPAS: Ret pris — husk også CONFIG.minimumspris i app.js ── -->
-        <span class="price-value" id="pris-minimum">350 kr.</span>
-      </div>
-      <div class="price-row">
-        <div class="price-label">
-          Græsslåning pr. m²
-          <small>Normalklip — højt græs giver tillæg</small>
-        </div>
-        <!-- ── TILPAS: Ret pris — husk også CONFIG.pris_pr_m2 i app.js ── -->
-        <span class="price-value" id="pris-m2">Fra 1,25 kr./m²</span>
-      </div>
-      <div class="price-row">
-        <div class="price-label">
-          Tillæg — højt græs
-          <small>Græs over ca. 10 cm</small>
-        </div>
-        <!-- ── TILPAS: Ret pris — husk også CONFIG.tillaeg_hoejt_graes i app.js ── -->
-        <span class="price-value" id="pris-hoejt">+200 kr.</span>
-      </div>
-      <div class="price-row">
-        <div class="price-label">
-          Tillæg — bortkørsel af afklip
-          <small>Inkl. kørsel til genbrugsstationen</small>
-        </div>
-        <!-- ── TILPAS: Ret pris — husk også CONFIG.tillaeg_bortkoersel i app.js ── -->
-        <span class="price-value" id="pris-bortkoersel-tillaeg">+150 kr.</span>
-      </div>
-      <div class="price-row">
-        <div class="price-label">
-          Minigraver — timepris
-          <small>Inkl. kørsel i nærområdet</small>
-        </div>
-        <!-- ── TILPAS: Ret pris ── -->
-        <span class="price-value" id="pris-minigraver">Fra 650 kr./t</span>
-      </div>
-      <div class="price-row">
-        <div class="price-label">
-          Kørselstillæg
-          <small>For opgaver uden for nærområdet</small>
-        </div>
-        <!-- ── TILPAS: Ret pris ── -->
-        <span class="price-value">Aftales</span>
-      </div>
-      <div class="price-row">
-        <div class="price-label">
-          Fast aftale — rabat
-          <small>Ugentlig eller 14-dages klipning</small>
-        </div>
-        <!-- ── TILPAS: Ret pris ── -->
-        <span class="price-value">Op til 15%</span>
-      </div>
-    </div>
-
-    <div class="price-note">
-      💡 Alle priser er vejledende og ekskl. moms. Ring eller send en besked — vi giver gerne et uforpligtende tilbud på din opgave.
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════
-     PRISBEREGNER
-     ════════════════════════════════════════ -->
-<section id="prisberegner">
-  <div class="container">
-    <h2 class="section-title">Prisberegner — Græsslåning</h2>
-    <p class="section-sub">Beregn en vejledende pris for din plæne. Alt beregnes ud fra de aktuelle priser.</p>
-
-    <div class="calc-box">
-      <div class="calc-field">
-        <label for="kvm">Din plæne — antal m²</label>
-        <input type="number" id="kvm" name="kvm" min="1" max="9999"
-               placeholder="Fx 250" inputmode="numeric">
-      </div>
-
-      <div class="calc-field">
-        <label>Tillæg</label>
-        <div class="checkbox-group">
-          <label class="checkbox-label">
-            <input type="checkbox" id="hoejt-graes">
-            Højt græs (over ca. 10 cm)
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" id="bortkoersel">
-            Bortkørsel af afklip ønskes
-          </label>
-        </div>
-      </div>
-
-      <button type="button" id="calc-btn" class="btn btn-primary">
-        🌿 Beregn vejledende pris
-      </button>
-
-      <div class="calc-result" id="calc-result">
-        <div class="calc-result-lines" id="calc-lines"></div>
-        <hr style="margin: 12px 0; border: none; border-top: 2px solid var(--green);">
-        <div style="display:flex; justify-content:space-between; align-items:baseline;">
-          <strong style="font-size:1.1rem;">Vejledende pris</strong>
-          <span class="calc-result-amount" id="calc-total"></span>
-        </div>
-        <p class="calc-disclaimer">
-          ⚠️ Prisen er vejledende og ekskl. moms. Endelig pris aftales efter dialog — kontakt os for et konkret tilbud.
-        </p>
-        <a href="#tilbud" class="btn btn-accent" style="margin-top:14px; width:100%;">📋 Få et rigtigt tilbud</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════
-     TILBUDSFORMULAR
-     ════════════════════════════════════════ -->
-<section id="tilbud">
-  <div class="container">
-    <h2 class="section-title">Få et uforpligtende tilbud</h2>
-    <p class="section-sub">Udfyld formularen, og vi vender tilbage så hurtigt som muligt — typisk samme dag.</p>
-
-    <div class="form-box">
-      <!-- ── TILPAS: formularen sender via mailto — ingen backend nødvendig ── -->
-      <form id="tilbud-form" novalidate>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="navn">Navn *</label>
-            <input type="text" id="navn" name="navn" placeholder="Dit fulde navn" required>
-          </div>
-          <div class="form-group">
-            <label for="telefon">Telefon *</label>
-            <input type="tel" id="telefon" name="telefon" placeholder="Fx 40 13 73 70" required>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="adresse">Adresse / By</label>
-          <input type="text" id="adresse" name="adresse" placeholder="Fx Brejning, Vejle">
-        </div>
-
-        <div class="form-group">
-          <label for="opgave">Opgavetype</label>
-          <select id="opgave" name="opgave">
-            <option value="Ikke valgt">Vælg opgavetype…</option>
-            <option>Græsslåning</option>
-            <option>Hækklipning</option>
-            <option>Haveoprydning</option>
-            <option>Bortkørsel</option>
-            <option>Minigraver</option>
-            <option>Jordarbejde</option>
-            <option>Belægning</option>
-            <option>Vedligeholdelse af sommerhus</option>
-            <option>Andet / kombineret</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="beskrivelse">Beskrivelse af opgaven</label>
-          <textarea id="beskrivelse" name="beskrivelse"
-            placeholder="Beskriv gerne opgavens omfang, eventuelle særlige forhold, m² osv."></textarea>
-        </div>
-
-        <div class="form-group">
-          <label for="tidspunkt">Ønsket tidspunkt</label>
-          <input type="text" id="tidspunkt" name="tidspunkt"
-            placeholder="Fx snarest muligt / uge 28 / weekender">
-        </div>
-
-        <div class="form-group">
-          <label class="checkbox-label" style="font-weight:normal;">
-            <input type="checkbox" id="billeder" name="billeder">
-            Jeg har billeder, jeg gerne vil sende via SMS eller mail
-          </label>
-        </div>
-
-        <button type="submit" class="btn btn-accent" style="width:100%; margin-top:8px;">
-          📬 Send tilbudsforespørgsel
-        </button>
-
-        <p class="form-hint">
-          <span id="form-kontakt-hint">📷 Billeder kan sendes som SMS til <strong>40 13 73 70</strong> eller på mail til <strong>finmann1@gmail.com</strong> — det hjælper os med at give dig et præcist tilbud.</span>
-        </p>
-      </form>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════
-     KONTAKT
-     ════════════════════════════════════════ -->
-<section id="kontakt">
-  <div class="container">
-    <h2 class="section-title">Kontakt os</h2>
-    <p class="section-sub">Vi er klar til at hjælpe — ring, skriv eller send en besked.</p>
-
-    <div class="contact-grid">
-
-      <div class="contact-card">
-        <h3>Direkte kontakt</h3>
-        <!-- ── TILPAS: Telefon ── -->
-        <a href="tel:+4540137370" id="kontakt-ring" class="contact-link">
-          <span class="ico">📞</span>
-          <span>40 13 73 70</span>
-        </a>
-        <!-- ── TILPAS: SMS ── -->
-        <a href="sms:+4540137370" id="kontakt-sms" class="contact-link">
-          <span class="ico">💬</span>
-          <span>Send SMS</span>
-        </a>
-        <!-- ── TILPAS: Mail ── -->
-        <a href="mailto:finmann1@gmail.com" id="kontakt-mail" class="contact-link">
-          <span class="ico">✉️</span>
-          <span>finmann1@gmail.com</span>
-        </a>
-      </div>
-
-      <div class="contact-card">
-        <h3>Virksomhedsinfo</h3>
-        <!-- ── TILPAS: CVR ── -->
-        <div class="contact-link" style="cursor:default;">
-          <span class="ico">🏢</span>
-          <span id="kontakt-cvr">CVR: 46557557</span>
-        </div>
-        <div class="contact-link" style="cursor:default; font-size:.9rem; opacity:.85;">
-          <span class="ico">✅</span>
-          <span id="kontakt-moms">Momsregistreret</span>
-        </div>
-        <div class="contact-link" style="cursor:default; font-size:.9rem; opacity:.85;">
-          <span class="ico">⏰</span>
-          <!-- ── TILPAS: Åbningstider ── -->
-          <span>Man–fre 07:00–17:00 · Lør efter aftale</span>
-        </div>
-      </div>
-
-      <div class="contact-card" style="grid-column: 1 / -1;">
-        <h3>Dækningsområde</h3>
-        <!-- ── TILPAS: Dækningsområder ── -->
-        <div class="areas-list" id="omraade-chips">
-          <span class="area-chip">Vejle</span>
-          <span class="area-chip">Børkop</span>
-          <span class="area-chip">Egtved</span>
-          <span class="area-chip">Jelling</span>
-          <span class="area-chip">Kolding</span>
-          <span class="area-chip">Brejning</span>
-          <span class="area-chip">+ omegn</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════
-     FOOTER
-     ════════════════════════════════════════ -->
-<footer class="site-footer">
-  <!-- ── TILPAS: Firmanavn og CVR ── -->
-  <p id="footer-text">© 2026 Finnes Entreprise · CVR 46557557 · Momsregistreret</p>
-  <p style="margin-top:6px;">Have- og graveservice i Vejle-området</p>
-  <p style="margin-top:12px;"><a href="admin.html" style="color:rgba(255,255,255,.35);font-size:.75rem;">⚙ Admin</a></p>
-</footer>
-
-<!-- ════════════════════════════════════════
-     CHATBOT
-     ════════════════════════════════════════ -->
-<button class="chatbot-fab" id="chatbot-fab" aria-label="Åbn chat-hjælper">
-  🌿
-  <span class="chatbot-badge">?</span>
-</button>
-
-<div class="chatbot-window" id="chatbot-window" role="dialog" aria-label="Chat-hjælper">
-  <div class="chatbot-header">
-    <div class="chatbot-avatar">🌿</div>
-    <div>
-      <!-- ── TILPAS: Chatbot-navn ── -->
-      <div class="chatbot-title">Finnes Entreprise</div>
-      <div class="chatbot-status">Altid klar til at hjælpe</div>
-    </div>
-    <button class="chatbot-close" id="chatbot-close" aria-label="Luk chat">✕</button>
-  </div>
-  <div class="chatbot-messages" id="chat-messages"></div>
+  <p class="home-footer-note">CVR <span data-cvr-text>46557557</span> · Momsregistreret</p>
 </div>
 
-<!-- Scripts -->
-<script src="app.js"></script>
+<!-- ============================================================
+     VIEW: YDELSER
+     ============================================================ -->
+<div class="app-view" id="view-ydelser">
+  <header class="view-header">
+    <button type="button" class="back-btn" data-go-view="home" aria-label="Tilbage til forside">←</button>
+    <span class="view-header-title">Ydelser</span>
+  </header>
+  <div class="view-body">
+    <section id="ydelser">
+      <div class="section-head">
+        <span class="eyebrow">Vores ydelser</span>
+        <h2>Alt til haven og grunden</h2>
+        <p>Fra ugentlig græsslåning til større jord- og graveopgaver — vi løser opgaven, uanset størrelse.</p>
+      </div>
+      <div class="services-grid" id="services-grid">
+        <!-- Udfyldes af js/app.js fra config/services.js -->
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ============================================================
+     VIEW: PRISBEREGNER
+     ============================================================ -->
+<div class="app-view" id="view-prisberegner">
+  <header class="view-header">
+    <button type="button" class="back-btn" data-go-view="home" aria-label="Tilbage til forside">←</button>
+    <span class="view-header-title">Prisberegner</span>
+  </header>
+  <div class="view-body">
+    <section class="calculators-section" id="prisberegner">
+      <div class="section-head">
+        <span class="eyebrow">Prisberegner</span>
+        <h2>Se en vejledende pris med det samme</h2>
+        <p>Alle priser beregnes live ud fra dine valg, inkl. kørsel — ingen forpligtelse, ingen skjulte tillæg.</p>
+      </div>
+
+      <div class="calc-tabs" role="tablist">
+        <button type="button" class="calc-tab active" data-panel="grass">🌿 Græsslåning</button>
+        <button type="button" class="calc-tab" data-panel="hedge">✂️ Hæk</button>
+        <button type="button" class="calc-tab" data-panel="excavator">🚜 Minigraver</button>
+        <button type="button" class="calc-tab" data-panel="cleanup">🍂 Haveoprydning</button>
+        <button type="button" class="calc-tab" data-panel="earth">⛏️ Jordarbejde</button>
+        <button type="button" class="calc-tab" data-panel="paving">🪨 Belægning</button>
+        <button type="button" class="calc-tab" data-panel="summer">🏡 Sommerhus</button>
+        <button type="button" class="calc-tab" data-panel="subscription">📅 Fast aftale</button>
+      </div>
+
+      <!-- 1) GRÆSSLÅNING -->
+      <div class="calc-panel active" id="grass">
+        <div class="calc-inputs">
+          <div class="calc-field">
+            <label for="grass-sqm">Plænestørrelse (m²)</label>
+            <input type="number" id="grass-sqm" min="1" max="9999" value="200" inputmode="numeric">
+          </div>
+          <div class="calc-field">
+            <label><input type="checkbox" id="grass-high"> Højt græs (over ca. 10 cm)</label>
+          </div>
+          <div class="calc-field">
+            <label><input type="checkbox" id="grass-waste"> Bortkørsel af afklip</label>
+          </div>
+          <div class="calc-field">
+            <label><input type="checkbox" id="grass-subscription"> Fast aftale (10% rabat)</label>
+          </div>
+          <div class="calc-field">
+            <label for="grass-zone">Kørsel — dit område</label>
+            <select id="grass-zone" class="travel-zone-select"><!-- bygges af calculators.js --></select>
+          </div>
+        </div>
+        <div class="calc-receipt-wrap">
+          <div id="receipt-grass"></div>
+        </div>
+      </div>
+
+      <!-- 2) HÆKKEKLIPNING -->
+      <div class="calc-panel" id="hedge">
+        <div class="calc-inputs">
+          <div class="calc-field">
+            <label for="hedge-meter">Hæklængde (meter)</label>
+            <input type="number" id="hedge-meter" min="1" max="500" value="10" inputmode="numeric">
+          </div>
+          <div class="calc-field">
+            <label for="hedge-height">Hækhøjde</label>
+            <select id="hedge-height">
+              <option value="under2m">Under 2 meter</option>
+              <option value="between2and3m">2–3 meter</option>
+              <option value="over3m">Over 3 meter</option>
+            </select>
+          </div>
+          <div class="calc-field">
+            <label><input type="checkbox" id="hedge-both"> Begge sider klippes</label>
+          </div>
+          <div class="calc-field">
+            <label><input type="checkbox" id="hedge-form"> Formklip (20% tillæg)</label>
+          </div>
+          <div class="calc-field">
+            <label><input type="checkbox" id="hedge-waste"> Bortkørsel</label>
+          </div>
+          <div class="calc-field">
+            <label for="hedge-zone">Kørsel — dit område</label>
+            <select id="hedge-zone" class="travel-zone-select"><!-- bygges af calculators.js --></select>
+          </div>
+        </div>
+        <div class="calc-receipt-wrap">
+          <div id="receipt-hedge"></div>
+        </div>
+      </div>
+
+      <!-- 3) MINIGRAVER -->
+      <div class="calc-panel" id="excavator">
+        <div class="calc-inputs">
+          <div class="calc-field">
+            <label for="exc-type">Opgavetype</label>
+            <select id="exc-type">
+              <option value="udgravning">Udgravning</option>
+              <option value="planering">Planering</option>
+              <option value="fundament">Fundament</option>
+              <option value="draen">Dræn</option>
+              <option value="jordarbejde">Jordarbejde</option>
+            </select>
+          </div>
+          <div class="calc-field">
+            <label for="exc-hours">Antal timer (min. 2)</label>
+            <input type="number" id="exc-hours" min="2" max="80" value="4" step="0.5" inputmode="decimal">
+          </div>
+          <div class="calc-field">
+            <label><input type="checkbox" id="exc-man"> Ekstra mand/time</label>
+          </div>
+          <div class="calc-field">
+            <label><input type="checkbox" id="exc-waste"> Bortkørsel af jord (pr. læs)</label>
+          </div>
+          <div class="calc-field">
+            <label for="exc-zone">Kørsel — dit område</label>
+            <select id="exc-zone" class="travel-zone-select"><!-- bygges af calculators.js --></select>
+          </div>
+        </div>
+        <div class="calc-receipt-wrap">
+          <div id="receipt-excavator"></div>
+        </div>
+      </div>
+
+      <!-- 4) HAVEOPRYDNING -->
+      <div class="calc-panel" id="cleanup">
+        <div class="calc-inputs">
+          <div class="calc-field">
+            <label for="cleanup-hours">Antal timer</label>
+            <input type="number" id="cleanup-hours" min="1" max="40" value="3" step="0.5" inputmode="decimal">
+          </div>
+          <div class="calc-field">
+            <label><input type="checkbox" id="cleanup-waste"> Bortkørsel af haveaffald</label>
+          </div>
+          <div class="calc-field">
+            <label><input type="checkbox" id="cleanup-big"> Større opgave (tillæg ved 6+ timer)</label>
+          </div>
+          <div class="calc-field">
+            <label for="cleanup-zone">Kørsel — dit område</label>
+            <select id="cleanup-zone" class="travel-zone-select"><!-- bygges af calculators.js --></select>
+          </div>
+        </div>
+        <div class="calc-receipt-wrap">
+          <div id="receipt-cleanup"></div>
+        </div>
+      </div>
+
+      <!-- 5) JORDARBEJDE -->
+      <div class="calc-panel" id="earth">
+        <div class="calc-inputs">
+          <div class="calc-field">
+            <label for="earth-hours">Arbejdstimer</label>
+            <input type="number" id="earth-hours" min="1" max="80" value="4" step="0.5" inputmode="decimal">
+          </div>
+          <div class="calc-field">
+            <label for="earth-machine">Maskintimer (ekstra)</label>
+            <input type="number" id="earth-machine" min="0" max="40" value="0" step="0.5" inputmode="decimal">
+          </div>
+          <div class="calc-field">
+            <label for="earth-loads">Bortkørsel af jord (antal læs)</label>
+            <input type="number" id="earth-loads" min="0" max="20" value="0" inputmode="numeric">
+          </div>
+          <div class="calc-field">
+            <label for="earth-zone">Kørsel — dit område</label>
+            <select id="earth-zone" class="travel-zone-select"><!-- bygges af calculators.js --></select>
+          </div>
+        </div>
+        <div class="calc-receipt-wrap">
+          <div id="receipt-earth"></div>
+        </div>
+      </div>
+
+      <!-- 6) BELÆGNING -->
+      <div class="calc-panel" id="paving">
+        <div class="calc-inputs">
+          <div class="calc-field">
+            <label for="pav-sqm">Areal (m²)</label>
+            <input type="number" id="pav-sqm" min="1" max="2000" value="20" inputmode="numeric">
+          </div>
+          <div class="calc-field">
+            <label for="pav-complexity">Type</label>
+            <select id="pav-complexity">
+              <option value="simple">Simpel — grus, stabilgrus</option>
+              <option value="normal" selected>Normal — fliser, brosten</option>
+              <option value="complex">Kompleks — natursten, mønster</option>
+            </select>
+          </div>
+          <div class="calc-field">
+            <label><input type="checkbox" id="pav-prep"> Forberedelse inkl. (25% tillæg)</label>
+          </div>
+          <div class="calc-field">
+            <label><input type="checkbox" id="pav-materials"> Materialer inkl. (skøn)</label>
+          </div>
+          <div class="calc-field">
+            <label for="pav-zone">Kørsel — dit område</label>
+            <select id="pav-zone" class="travel-zone-select"><!-- bygges af calculators.js --></select>
+          </div>
+        </div>
+        <div class="calc-receipt-wrap">
+          <div id="receipt-paving"></div>
+        </div>
+      </div>
+
+      <!-- 7) SOMMERHUSSERVICE -->
+      <div class="calc-panel" id="summer">
+        <div class="calc-inputs">
+          <div class="calc-field">
+            <label for="summer-type">Ydelse</label>
+            <select id="summer-type">
+              <option value="single">Enkeltbesøg</option>
+              <option value="opening">Åbning af sæson</option>
+              <option value="closing">Lukning af sæson</option>
+              <option value="inspection">Tilsynsbesøg</option>
+              <option value="subscription">Fast månedlig aftale</option>
+            </select>
+          </div>
+          <div id="summer-subscription-opts" style="display:none">
+            <div class="calc-field">
+              <label for="summer-visits">Besøg pr. måned</label>
+              <select id="summer-visits">
+                <option value="1">1 besøg/md.</option>
+                <option value="2">2 besøg/md.</option>
+                <option value="4">4 besøg/md.</option>
+              </select>
+            </div>
+          </div>
+          <div class="calc-field">
+            <label for="summer-zone">Kørsel — dit område</label>
+            <select id="summer-zone" class="travel-zone-select"><!-- bygges af calculators.js --></select>
+          </div>
+        </div>
+        <div class="calc-receipt-wrap">
+          <div id="receipt-summer"></div>
+        </div>
+      </div>
+
+      <!-- 8) FAST HAVEAFTALE -->
+      <div class="calc-panel" id="subscription">
+        <div class="calc-inputs">
+          <div class="calc-field">
+            <label for="sub-sqm">Plænestørrelse (m²)</label>
+            <input type="number" id="sub-sqm" min="1" max="9999" value="200" inputmode="numeric">
+          </div>
+          <div class="calc-field">
+            <label for="sub-freq">Frekvens</label>
+            <select id="sub-freq">
+              <option value="weekly">Hver uge</option>
+              <option value="biweekly" selected>Hver 14. dag</option>
+              <option value="monthly">1 gang om måneden</option>
+            </select>
+          </div>
+          <div class="calc-field">
+            <label for="sub-season">Sæsonlængde</label>
+            <select id="sub-season">
+              <option value="3">3 måneder</option>
+              <option value="6" selected>6 måneder (5% rabat)</option>
+              <option value="12">12 måneder / helår (10% rabat)</option>
+            </select>
+          </div>
+          <div class="calc-field">
+            <label for="sub-zone">Kørsel — dit område</label>
+            <select id="sub-zone" class="travel-zone-select"><!-- bygges af calculators.js --></select>
+          </div>
+        </div>
+        <div class="calc-receipt-wrap">
+          <div id="receipt-subscription"></div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- EKSTRA FUNKTION: Tag et billede af opgaven -->
+    <section>
+      <div class="photo-cta">
+        <h2>Har du en opgave, vi skal se?</h2>
+        <p>Tag et billede af opgaven, så får du et mere præcist tilbud — upload direkte herfra.</p>
+        <label class="upload-zone" id="task-photo-zone" style="max-width:420px; margin:0 auto; display:block;">
+          <span class="upload-label-text">📷 Klik for at tage/uploade billede</span>
+          <input type="file" id="task-photo-input" accept="image/*" capture="environment" multiple>
+        </label>
+        <div class="upload-preview" id="task-photo-preview" style="justify-content:center; margin-top:16px;"></div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ============================================================
+     VIEW: GALLERI
+     ============================================================ -->
+<div class="app-view" id="view-galleri">
+  <header class="view-header">
+    <button type="button" class="back-btn" data-go-view="home" aria-label="Tilbage til forside">←</button>
+    <span class="view-header-title">Galleri</span>
+  </header>
+  <div class="view-body">
+    <section id="galleri">
+      <div class="section-head">
+        <span class="eyebrow">Galleri</span>
+        <h2>Før og efter</h2>
+        <p>Et udpluk af tidligere opgaver. Klik på et billede for at forstørre.</p>
+      </div>
+      <div class="gallery-grid" id="gallery-grid">
+        <!-- Udfyldes af js/gallery.js fra config/services.js -->
+      </div>
+    </section>
+  </div>
+</div>
+
+<div class="lightbox" id="lightbox">
+  <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Luk">✕</button>
+  <img src="" alt="" id="lightbox-img">
+</div>
+
+<!-- ============================================================
+     VIEW: ANMELDELSER (inkl. Hvorfor vælge os + Serviceområder + Om os)
+     ============================================================ -->
+<div class="app-view" id="view-om-os">
+  <header class="view-header">
+    <button type="button" class="back-btn" data-go-view="home" aria-label="Tilbage til forside">←</button>
+    <span class="view-header-title">Om os</span>
+  </header>
+  <div class="view-body">
+    <section class="about-section" id="om-os" style="border-radius: var(--radius-lg); padding: 40px 28px;">
+      <span class="eyebrow">Om os</span>
+      <h2 id="about-heading">Om os</h2>
+      <p id="about-text"></p>
+    </section>
+
+    <section>
+      <div class="section-head center">
+        <span class="eyebrow">Anmeldelser</span>
+        <h2>Det siger vores kunder</h2>
+      </div>
+      <div class="reviews-grid" id="reviews-grid">
+        <!-- Udfyldes af js/app.js fra config/services.js -->
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head center">
+        <span class="eyebrow">Hvorfor vælge os</span>
+        <h2>Tryghed fra start til slut</h2>
+      </div>
+      <div class="why-grid" id="why-grid">
+        <!-- Udfyldes af js/app.js fra config/services.js -->
+      </div>
+      <div class="customer-types" id="customer-types">
+        <!-- Udfyldes af js/app.js -->
+      </div>
+    </section>
+
+    <section id="serviceomraader">
+      <div class="section-head">
+        <span class="eyebrow">Serviceområder</span>
+        <h2>Vi dækker dit område</h2>
+      </div>
+      <div class="areas-wrap">
+        <div>
+          <div class="areas-list" id="areas-list">
+            <!-- Udfyldes af js/app.js fra config/company.js -->
+          </div>
+        </div>
+        <div id="service-map">
+          <!-- Udfyldes af js/ui.js -->
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ============================================================
+     VIEW: KONTAKT
+     ============================================================ -->
+<div class="app-view" id="view-kontakt">
+  <header class="view-header">
+    <button type="button" class="back-btn" data-go-view="home" aria-label="Tilbage til forside">←</button>
+    <span class="view-header-title">Kontakt</span>
+  </header>
+  <div class="view-body">
+    <section id="kontakt">
+      <div class="section-head">
+        <span class="eyebrow">Kontakt</span>
+        <h2>Få et uforpligtende tilbud</h2>
+        <p>Ring, send en SMS, eller udfyld formularen — vi vender hurtigt tilbage.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-info-card">
+          <div class="contact-row">
+            <div class="icon">📞</div>
+            <div>
+              <div class="label">Telefon</div>
+              <a href="#" data-tel class="value" data-phone-text>40 13 73 70</a>
+            </div>
+          </div>
+          <div class="contact-row">
+            <div class="icon">💬</div>
+            <div>
+              <div class="label">SMS</div>
+              <a href="#" data-sms class="value" data-sms-text>40 13 73 70</a>
+            </div>
+          </div>
+          <div class="contact-row">
+            <div class="icon">📩</div>
+            <div>
+              <div class="label">Mail</div>
+              <a href="#" data-mail class="value" data-mail-text>finmann1@gmail.com</a>
+            </div>
+          </div>
+          <div class="contact-row">
+            <div class="icon">🏢</div>
+            <div>
+              <div class="label">CVR</div>
+              <span class="value" data-cvr-text>46557557</span>
+            </div>
+          </div>
+          <div class="contact-row">
+            <div class="icon">✅</div>
+            <div>
+              <div class="label">Moms</div>
+              <span class="value">Momsregistreret</span>
+            </div>
+          </div>
+        </div>
+
+        <form class="contact-form" id="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cf-name">Navn *</label>
+              <input type="text" id="cf-name" name="name" required>
+            </div>
+            <div class="form-group">
+              <label for="cf-phone">Telefon *</label>
+              <input type="tel" id="cf-phone" name="phone" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cf-mail">Mail</label>
+              <input type="email" id="cf-mail" name="mail">
+            </div>
+            <div class="form-group">
+              <label for="cf-zip">Postnummer</label>
+              <input type="text" id="cf-zip" name="zip" inputmode="numeric">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="cf-address">Adresse</label>
+            <input type="text" id="cf-address" name="address">
+          </div>
+          <div class="form-group">
+            <label for="cf-task-type">Opgavetype</label>
+            <select id="cf-task-type" name="taskType">
+              <option value="">Vælg opgavetype</option>
+              <option>Græsslåning</option>
+              <option>Hækkeklipning</option>
+              <option>Minigraver</option>
+              <option>Beskæring</option>
+              <option>Stubfræsning</option>
+              <option>Bortkørsel</option>
+              <option>Nedgravning af trampolin</option>
+              <option>Belægningsarbejde</option>
+              <option>Jordarbejde</option>
+              <option>Fast haveservice</option>
+              <option>Andet</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="cf-description">Beskrivelse *</label>
+            <textarea id="cf-description" name="description" required placeholder="Beskriv opgaven kort — areal, nuværende stand, adgang osv."></textarea>
+          </div>
+          <div class="form-group">
+            <label for="cf-timing">Ønsket tidspunkt</label>
+            <input type="text" id="cf-timing" name="timing" placeholder="Fx snarest muligt / uge 28 / efter sommerferien">
+          </div>
+          <div class="form-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="cf-has-photos" name="hasPhotos">
+              <span>Jeg har billeder, jeg sender via SMS eller mail</span>
+            </label>
+          </div>
+          <div class="contact-sms-hint" id="sms-primary-hint">
+            <strong>📱 Hurtigst svar: Ring eller send SMS</strong>
+            <span>SMS til <span data-phone-text>40 13 73 70</span> — vi svarer typisk inden for 1 time i arbejdstiden.</span>
+            <a href="#" data-sms class="btn btn-outline btn-sm">💬 Send SMS nu</a>
+          </div>
+          <button type="submit" class="btn btn-accent btn-block btn-lg">📩 Send forespørgsel</button>
+          <p class="form-note">Formularen åbner din mail-app med oplysningerne udfyldt. Har du billeder, send dem på SMS til <span data-phone-text>40 13 73 70</span>.</p>
+          <div class="form-status" id="form-status"></div>
+        </form>
+      </div>
+    </section>
+
+    <footer class="site-footer" style="margin: 32px -20px -48px; border-radius: 0;">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <div class="logo" data-company-name data-admin-trigger style="cursor:pointer;">Finnes Entreprise</div>
+            <p data-company-tagline>Professionel Have- og Graveservice</p>
+          </div>
+          <div class="footer-col">
+            <h4>Naviger</h4>
+            <ul>
+              <li><button type="button" class="footer-link-btn" data-go-view="ydelser">Ydelser</button></li>
+              <li><button type="button" class="footer-link-btn" data-go-view="prisberegner">Prisberegner</button></li>
+              <li><button type="button" class="footer-link-btn" data-go-view="galleri">Galleri</button></li>
+              <li><button type="button" class="footer-link-btn" data-go-view="om-os">Om os</button></li>
+              <li><button type="button" class="footer-link-btn" data-go-view="kontakt">Kontakt</button></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Serviceområder</h4>
+            <ul id="footer-areas">
+              <!-- Udfyldes af js/app.js -->
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>© <span data-year>2026</span> <span data-company-name>Finnes Entreprise</span> · CVR <span data-cvr-text>46557557</span></span>
+          <span>Bygget af Nordic Operations · nordicoperations.dk</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<!-- ============================================================
+     FAST MOBIL-KONTAKTBAR (vises på alle views)
+     ============================================================ -->
+<div class="mobile-contact-bar">
+  <a href="#" data-tel><span class="icon">📞</span>Ring</a>
+  <a href="#" data-sms><span class="icon">💬</span>SMS</a>
+  <button type="button" data-go-view="kontakt"><span class="icon">📩</span>Tilbud</button>
+</div>
+
+<!-- ============================================================
+     CHATBOT
+     ============================================================ -->
+<button type="button" class="chatbot-toggle" id="chatbot-toggle" aria-label="Åbn chat">💬</button>
+
+<div class="chatbot-window" id="chatbot-window">
+  <div class="chatbot-header">
+    <strong>Spørg os</strong>
+    <button type="button" id="chatbot-close" aria-label="Luk chat">✕</button>
+  </div>
+  <div class="chatbot-messages" id="chatbot-messages"></div>
+  <form class="chatbot-input" id="chatbot-form">
+    <input type="text" id="chatbot-text-input" placeholder="Skriv dit spørgsmål..." autocomplete="off">
+    <button type="submit" aria-label="Send">➤</button>
+  </form>
+</div>
+
+<!-- ============================================================
+     SCRIPTS — Config indlæses først, derefter moduler
+     ============================================================ -->
+<script src="config/company.js"></script>
+<script src="config/colors.js"></script>
+<script src="config/prices.js"></script>
+<script src="config/services.js"></script>
+
+<script src="js/admin.js"></script>
+
+<script src="js/calculators.js"></script>
+<script src="js/gallery.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/chatbot.js"></script>
+<script src="js/contact.js"></script>
+<script src="js/app.js"></script>
 
 
-<!-- SW opdateringsbesked (vises automatisk ved ny version) -->
+<!-- SW opdateringsbesked -->
 <style>
-#sw-update-banner{
-  display:none;
-  position:fixed;top:16px;left:16px;right:16px;
-  background:#1F4D2C;color:#fff;
-  padding:14px 16px;border-radius:14px;
-  font-size:.88rem;font-weight:600;
-  box-shadow:0 6px 24px rgba(0,0,0,.3);
-  align-items:center;gap:12px;z-index:150;
-}
-#sw-update-banner.show{display:flex;}
+#sw-update-banner { display:none; position:fixed; top:16px; left:16px; right:16px; background:#1F4D2C; color:#fff; padding:14px 18px; border-radius:14px; font-size:.88rem; font-weight:600; box-shadow:0 6px 24px rgba(0,0,0,.3); align-items:center; gap:12px; z-index:1000; }
+#sw-update-banner.show { display:flex; }
+#sw-update-banner button { background:rgba(255,255,255,.2); border:none; color:#fff; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:.8rem; font-weight:700; white-space:nowrap; }
 </style>
 <div id="sw-update-banner">
   <span style="flex:1">🔄 <strong>Ny version klar</strong> — luk og åbn appen igen</span>
-  <button onclick="lukOpdateringsbesked()" style="background:rgba(255,255,255,.2);border:none;color:#fff;padding:6px 12px;border-radius:8px;cursor:pointer;font-size:.82rem;font-weight:700;white-space:nowrap;">✕ Luk</button>
+  <button onclick="document.getElementById('sw-update-banner').classList.remove('show')">✕ Luk</button>
 </div>
 
 </body>

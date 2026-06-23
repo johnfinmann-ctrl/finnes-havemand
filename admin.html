@@ -4,570 +4,445 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Admin — Finnes Entreprise</title>
-<meta name="robots" content="noindex,nofollow">
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/admin.css">
 <style>
-/* ════════════════════════════════════════════════
-   Admin-panel — Finnes Entreprise v1.1
-   Samme farvepalet som forsiden.
-   ════════════════════════════════════════════════ */
-:root {
-  --g:   #2E6F40;
-  --gd:  #1F4D2C;
-  --gl:  #EAF3EC;
-  --acc: #F28C28;
-  --acd: #C96F12;
-  --txt: #1A2018;
-  --mut: #5A6657;
-  --sur: #FFFFFF;
-  --bg:  #F7FAF7;
-  --bdr: #D4E3D0;
-  --red: #C0392B;
-  --r:   12px;
-  --sh:  0 4px 20px rgba(0,0,0,.10);
-}
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { font-size: 16px; }
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  color: var(--txt);
-  background: var(--bg);
-  min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
-}
-a { color: var(--g); }
+/* ─── Admin-specifikt layout ─── */
+body { background: #f0f4f0; }
+#admin-wrap { max-width: 860px; margin: 0 auto; padding: 0 0 80px; }
 
-/* ── LOGIN ── */
-#login-screen {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: 24px;
-}
-.login-box {
-  background: var(--sur);
-  border-radius: var(--r);
-  box-shadow: var(--sh);
-  padding: 40px 32px;
-  width: 100%;
-  max-width: 360px;
-  text-align: center;
-  border: 1.5px solid var(--bdr);
-}
+/* Login */
+#login-screen { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
+.login-card { background: #fff; border-radius: 18px; padding: 40px 32px; width: 100%; max-width: 360px; text-align: center; box-shadow: 0 8px 40px rgba(0,0,0,.10); }
 .login-logo { font-size: 3rem; margin-bottom: 12px; }
-.login-box h1 { font-size: 1.3rem; color: var(--gd); margin-bottom: 4px; }
-.login-box p  { font-size: .9rem; color: var(--mut); margin-bottom: 24px; }
-.login-box input[type="password"] {
-  width: 100%; padding: 14px; text-align: center;
-  font-size: 1.6rem; letter-spacing: .4em;
-  border: 1.5px solid var(--bdr); border-radius: 8px;
-  margin-bottom: 12px; background: var(--bg);
-}
-.login-box input:focus { outline: none; border-color: var(--g); }
-.login-error { color: var(--red); font-size: .85rem; margin-top: 6px; min-height: 1.2em; }
+.login-card h1 { font-size: 1.3rem; color: #1F4D2C; margin-bottom: 4px; }
+.login-card p  { font-size: .9rem; color: #777; margin-bottom: 24px; }
+.pin-input { width: 100%; font-size: 2rem; text-align: center; letter-spacing: .5em; padding: 14px 10px; border: 2px solid #d0e0cc; border-radius: 12px; background: #f8faf8; margin-bottom: 12px; }
+.pin-input:focus { outline: none; border-color: #2E6F40; }
+.pin-error { color: #c0392b; font-size: .85rem; min-height: 1.2em; margin-top: 4px; }
 
-/* ── ADMIN PANEL ── */
-#admin-panel { display: none; }
-
-.admin-header {
-  background: var(--gd);
-  color: white;
-  padding: 0 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 56px;
-  position: sticky;
-  top: 0;
-  z-index: 50;
-}
+/* Header */
+.admin-header { background: #1F4D2C; color: #fff; padding: 0 20px; height: 54px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
 .admin-header h1 { font-size: 1rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
-.admin-header-right { display: flex; gap: 8px; }
+.admin-header-right { display: flex; gap: 10px; align-items: center; }
+.admin-version { font-size: .72rem; opacity: .6; }
 
-.main { max-width: 860px; margin: 0 auto; padding: 24px 20px 80px; }
+/* Tabs */
+.admin-tabs { display: flex; gap: 4px; flex-wrap: wrap; background: #fff; border-bottom: 1px solid #d0e0cc; padding: 8px 16px 0; position: sticky; top: 54px; z-index: 90; }
+.admin-tab { padding: 9px 14px; border: none; background: transparent; font-size: .82rem; font-weight: 600; color: #666; cursor: pointer; border-bottom: 3px solid transparent; border-radius: 8px 8px 0 0; transition: color .15s, border-color .15s; white-space: nowrap; }
+.admin-tab.active { color: #2E6F40; border-bottom-color: #2E6F40; }
+.admin-tab:hover:not(.active) { color: #2E6F40; background: #EAF3EC; }
+.admin-pane { display: none; padding: 20px 16px; }
+.admin-pane.active { display: block; }
 
-/* ── TABS ── */
-.tabs {
-  display: flex;
-  gap: 4px;
-  flex-wrap: wrap;
-  background: var(--sur);
-  border: 1.5px solid var(--bdr);
-  border-radius: var(--r);
-  padding: 6px;
-  margin-bottom: 20px;
-}
-.tab-btn {
-  flex: 1;
-  min-width: 100px;
-  padding: 10px 14px;
-  border: none;
-  border-radius: 8px;
-  background: transparent;
-  font-size: .88rem;
-  font-weight: 600;
-  color: var(--mut);
-  cursor: pointer;
-  transition: background .15s, color .15s;
-  white-space: nowrap;
-}
-.tab-btn.active { background: var(--g); color: white; }
-.tab-btn:hover:not(.active) { background: var(--gl); color: var(--g); }
-
-.tab-panel { display: none; }
-.tab-panel.active { display: block; }
-
-/* ── FELTER ── */
-.card {
-  background: var(--sur);
-  border: 1.5px solid var(--bdr);
-  border-radius: var(--r);
-  padding: 24px;
-  margin-bottom: 16px;
-}
-.card h2 { font-size: 1rem; font-weight: 700; color: var(--gd); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--bdr); }
-.field { margin-bottom: 14px; }
-.field label { display: block; font-size: .85rem; font-weight: 700; color: var(--txt); margin-bottom: 5px; }
-.field label .hint { font-weight: 400; color: var(--mut); font-size: .8rem; }
-.field input[type="text"],
-.field input[type="tel"],
-.field input[type="email"],
-.field input[type="number"],
-.field input[type="password"],
-.field textarea,
-.field select {
-  width: 100%;
-  padding: 11px 14px;
-  border: 1.5px solid var(--bdr);
-  border-radius: 8px;
-  background: var(--bg);
-  color: var(--txt);
-  font-family: inherit;
-  font-size: .95rem;
-  transition: border-color .15s;
-}
-.field input:focus, .field textarea:focus, .field select:focus {
-  outline: none; border-color: var(--g); background: white;
-}
-.field textarea { resize: vertical; min-height: 90px; }
+/* Cards */
+.admin-card { background: #fff; border-radius: 14px; padding: 20px; margin-bottom: 16px; box-shadow: 0 2px 10px rgba(0,0,0,.06); }
+.admin-card h2 { font-size: .95rem; font-weight: 700; color: #1F4D2C; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid #e8f0e8; }
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
-/* Ydelse-editor */
-.ydelse-item {
-  background: var(--bg);
-  border: 1.5px solid var(--bdr);
-  border-radius: 10px;
-  padding: 14px;
-  margin-bottom: 10px;
+.field-group { margin-bottom: 12px; }
+.field-group label { display: block; font-size: .78rem; font-weight: 700; color: #333; margin-bottom: 5px; }
+.field-group input, .field-group select, .field-group textarea {
+  width: 100%; padding: 10px 13px; border: 1.5px solid #d0e0cc; border-radius: 9px;
+  background: #f8faf8; font-size: .9rem; font-family: inherit; transition: border-color .15s;
 }
-.ydelse-item .ydelse-row { display: flex; gap: 8px; align-items: flex-start; }
-.ydelse-item input { flex: 1; padding: 8px 10px; border: 1.5px solid var(--bdr); border-radius: 6px; font-family: inherit; font-size: .88rem; background: white; }
-.ydelse-item input:focus { outline: none; border-color: var(--g); }
-.ydelse-item input.ikon-input { width: 56px; flex: none; text-align: center; font-size: 1.1rem; }
-.ydelse-item textarea { width: 100%; margin-top: 6px; padding: 8px 10px; border: 1.5px solid var(--bdr); border-radius: 6px; font-family: inherit; font-size: .85rem; min-height: 60px; resize: vertical; }
-.ydelse-item textarea:focus { outline: none; border-color: var(--g); }
-
-/* Chatbot-svar editor */
-.chatbot-svar-item { margin-bottom: 12px; }
-.chatbot-svar-item label { font-size: .82rem; font-weight: 700; color: var(--g); margin-bottom: 4px; display: block; }
-.chatbot-svar-item textarea { width: 100%; padding: 8px 10px; border: 1.5px solid var(--bdr); border-radius: 6px; font-family: inherit; font-size: .85rem; min-height: 80px; resize: vertical; }
-.chatbot-svar-item textarea:focus { outline: none; border-color: var(--g); }
-
-/* ── KNAPPER ── */
-.btn {
-  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-  padding: 11px 20px; border-radius: 50px; font-weight: 700; font-size: .9rem;
-  cursor: pointer; border: none; transition: background .15s, transform .1s;
-  text-decoration: none;
+.field-group input:focus, .field-group select:focus, .field-group textarea:focus {
+  outline: none; border-color: #2E6F40; background: #fff;
 }
-.btn:active { transform: scale(.97); }
-.btn-primary { background: var(--g); color: white; }
-.btn-primary:hover { background: var(--gd); }
-.btn-accent { background: var(--acc); color: white; }
-.btn-accent:hover { background: var(--acd); }
-.btn-outline { background: transparent; border: 2px solid var(--g); color: var(--g); }
-.btn-outline:hover { background: var(--gl); }
-.btn-danger { background: transparent; border: 2px solid var(--red); color: var(--red); }
-.btn-danger:hover { background: #fdedec; }
-.btn-sm { padding: 7px 14px; font-size: .82rem; }
-.btn-block { width: 100%; margin-top: 8px; }
-.btn-icon { background: none; border: none; cursor: pointer; padding: 6px; color: var(--red); font-size: 1rem; }
-.btn-icon:hover { color: #8B0000; }
+.field-group textarea { resize: vertical; min-height: 80px; }
+.field-hint { font-size: .75rem; color: #888; margin-top: 4px; }
 
-/* ── STATUSBAR ── */
-#statusbar {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%) translateY(60px);
-  background: var(--gd);
-  color: white;
-  padding: 12px 24px;
-  border-radius: 50px;
-  font-size: .9rem;
-  font-weight: 700;
-  box-shadow: 0 6px 24px rgba(0,0,0,.2);
-  opacity: 0;
-  transition: transform .3s, opacity .3s;
-  z-index: 999;
-  pointer-events: none;
-  white-space: nowrap;
-}
-#statusbar.show {
-  transform: translateX(-50%) translateY(0);
-  opacity: 1;
-}
+/* Ydelser */
+.ydelse-item { background: #f8faf8; border: 1.5px solid #d0e0cc; border-radius: 10px; padding: 12px; margin-bottom: 8px; }
+.ydelse-row { display: flex; gap: 8px; align-items: flex-start; }
+.ydelse-row input { flex: 1; padding: 8px 10px; border: 1.5px solid #d0e0cc; border-radius: 7px; font-size: .88rem; }
+.ydelse-row input:focus { outline: none; border-color: #2E6F40; }
+.ydelse-ico-input { width: 48px; flex: none; text-align: center; font-size: 1.1rem; }
+.ydelse-textarea { width: 100%; margin-top: 7px; padding: 8px 10px; border: 1.5px solid #d0e0cc; border-radius: 7px; font-size: .82rem; min-height: 56px; resize: vertical; }
+.ydelse-textarea:focus { outline: none; border-color: #2E6F40; }
+.del-btn { background: none; border: none; color: #c0392b; cursor: pointer; font-size: 1rem; padding: 4px 6px; flex-shrink: 0; }
 
-/* ── PIN-sektion ── */
-.pin-note { font-size: .82rem; color: var(--mut); margin-top: 8px; }
-.back-link { color: rgba(255,255,255,.7); font-size: .85rem; text-decoration: none; }
-.back-link:hover { color: white; }
+/* Pris-grid */
+.price-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.price-field label { display: block; font-size: .75rem; font-weight: 700; color: #444; margin-bottom: 4px; }
+.price-field input { width: 100%; padding: 9px 12px; border: 1.5px solid #d0e0cc; border-radius: 8px; font-size: .95rem; font-weight: 700; }
+.price-field input:focus { outline: none; border-color: #2E6F40; }
+.price-section-label { font-size: .82rem; font-weight: 700; color: #2E6F40; margin: 14px 0 6px; text-transform: uppercase; letter-spacing: .05em; }
 
-/* ── Gem-bjælke ── */
-.save-bar {
-  position: fixed;
-  bottom: 0; left: 0; right: 0;
-  background: var(--sur);
-  border-top: 1.5px solid var(--bdr);
-  padding: 12px 24px;
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  z-index: 40;
-  box-shadow: 0 -4px 16px rgba(0,0,0,.08);
-}
+/* Knapper */
+.btn-admin-save { background: #2E6F40; color: #fff; border: none; border-radius: 10px; padding: 12px 24px; font-size: .9rem; font-weight: 700; cursor: pointer; transition: background .15s; }
+.btn-admin-save:hover { background: #1F4D2C; }
+.btn-admin-outline { background: transparent; border: 2px solid #2E6F40; color: #2E6F40; border-radius: 10px; padding: 10px 20px; font-size: .87rem; font-weight: 700; cursor: pointer; transition: background .15s; }
+.btn-admin-outline:hover { background: #EAF3EC; }
+.btn-admin-danger { background: transparent; border: 2px solid #c0392b; color: #c0392b; border-radius: 10px; padding: 10px 20px; font-size: .87rem; font-weight: 700; cursor: pointer; }
+.btn-row-admin { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
 
-/* ── BACKUP-sektion ── */
-.backup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.backup-card { background: var(--bg); border: 1.5px solid var(--bdr); border-radius: 10px; padding: 20px; }
-.backup-card h3 { font-size: .95rem; font-weight: 700; color: var(--gd); margin-bottom: 8px; }
-.backup-card p { font-size: .85rem; color: var(--mut); margin-bottom: 14px; line-height: 1.5; }
+/* Save-bar */
+.save-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-top: 1px solid #d0e0cc; padding: 12px 20px; display: flex; justify-content: flex-end; align-items: center; gap: 12px; z-index: 99; box-shadow: 0 -4px 16px rgba(0,0,0,.08); }
+.save-status { font-size: .85rem; font-weight: 600; color: #2E6F40; flex: 1; }
 
-@media (max-width: 580px) {
-  .field-row { grid-template-columns: 1fr; }
-  .backup-grid { grid-template-columns: 1fr; }
-  .tabs { gap: 2px; }
-  .tab-btn { font-size: .78rem; padding: 8px 8px; }
-  .admin-header-right { gap: 4px; }
+/* Toast */
+.admin-toast { position: fixed; bottom: 70px; left: 50%; transform: translateX(-50%) translateY(6px); background: #1F4D2C; color: #fff; padding: 11px 22px; border-radius: 30px; font-size: .88rem; font-weight: 700; opacity: 0; transition: opacity .25s, transform .25s; z-index: 999; pointer-events: none; white-space: nowrap; }
+.admin-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* Backup */
+.backup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.backup-card { background: #f8faf8; border: 1.5px solid #d0e0cc; border-radius: 12px; padding: 18px; }
+.backup-card h3 { font-size: .9rem; font-weight: 700; margin-bottom: 6px; }
+.backup-card p  { font-size: .82rem; color: #666; margin-bottom: 12px; line-height: 1.5; }
+.danger-zone { border-color: #f5c6c6; background: #fff8f8; }
+.danger-zone h3 { color: #c0392b; }
+
+/* Responsive */
+@media (max-width: 540px) {
+  .field-row, .price-grid, .backup-grid { grid-template-columns: 1fr; }
+  .admin-tabs { gap: 2px; }
+  .admin-tab { font-size: .75rem; padding: 8px 8px; }
 }
 </style>
 </head>
 <body>
 
-<!-- ════════════════════════════════════════
+<!-- ════════════════════════════
      LOGIN
-     ════════════════════════════════════════ -->
+════════════════════════════ -->
 <div id="login-screen">
-  <div class="login-box">
+  <div class="login-card">
     <div class="login-logo">🌿</div>
     <h1>Finnes Entreprise</h1>
-    <p>Admin — indtast adgangskode</p>
-    <input type="password" id="pin-input" placeholder="••••" maxlength="20"
-           autocomplete="current-password" inputmode="numeric">
-    <button class="btn btn-primary btn-block" onclick="doLogin()">Log ind</button>
-    <p class="login-error" id="login-error"></p>
-    <p style="margin-top:16px;font-size:.8rem;color:var(--mut);">
-      <a href="index.html">← Tilbage til forsiden</a>
+    <p>Adminpanel — indtast PIN-kode</p>
+    <input class="pin-input" id="pin-input" type="password"
+           placeholder="••••" maxlength="20"
+           inputmode="numeric" autocomplete="current-password">
+    <button class="btn btn-primary" style="width:100%" onclick="doLogin()">Log ind</button>
+    <p class="pin-error" id="pin-error"></p>
+    <p style="margin-top:18px; font-size:.8rem; color:#aaa;">
+      <a href="index.html" style="color:#2E6F40;">← Tilbage til hjemmesiden</a>
     </p>
   </div>
 </div>
 
-<!-- ════════════════════════════════════════
+<!-- ════════════════════════════
      ADMIN PANEL
-     ════════════════════════════════════════ -->
-<div id="admin-panel">
+════════════════════════════ -->
+<div id="admin-panel" style="display:none">
 
   <header class="admin-header">
-    <h1>⚙ Admin <span style="font-weight:400;opacity:.7;font-size:.85rem;">v1.1</span></h1>
+    <h1>⚙ Admin <span class="admin-version">v1.0 · 20260623</span></h1>
     <div class="admin-header-right">
-      <a href="index.html" class="back-link" target="_blank">↗ Se forsiden</a>
-      <button class="btn btn-sm btn-accent" onclick="doLogout()">Log ud</button>
+      <a href="index.html" target="_blank" style="color:rgba(255,255,255,.75); font-size:.85rem;">↗ Se side</a>
+      <button class="btn btn-outline" style="padding:6px 14px; font-size:.82rem" onclick="doLogout()">Log ud</button>
     </div>
   </header>
 
-  <div class="main">
+  <div class="admin-tabs">
+    <button class="admin-tab active" onclick="showTab('firma', this)">🏢 Firma</button>
+    <button class="admin-tab" onclick="showTab('kontakt', this)">📞 Kontakt</button>
+    <button class="admin-tab" onclick="showTab('priser', this)">💰 Priser</button>
+    <button class="admin-tab" onclick="showTab('ydelser', this)">🌿 Ydelser</button>
+    <button class="admin-tab" onclick="showTab('tekster', this)">📝 Tekster</button>
+    <button class="admin-tab" onclick="showTab('backup', this)">📦 Backup</button>
+  </div>
 
-    <!-- TABS -->
-    <div class="tabs" role="tablist">
-      <button class="tab-btn active" onclick="showTab('tab-firma', this)">🏢 Firma</button>
-      <button class="tab-btn" onclick="showTab('tab-priser', this)">💰 Priser</button>
-      <button class="tab-btn" onclick="showTab('tab-ydelser', this)">🌿 Ydelser</button>
-      <button class="tab-btn" onclick="showTab('tab-chatbot', this)">💬 Chatbot</button>
-      <button class="tab-btn" onclick="showTab('tab-sikkerhed', this)">🔒 Adgangskode</button>
-      <button class="tab-btn" onclick="showTab('tab-backup', this)">📦 Backup</button>
-    </div>
+  <div id="admin-wrap">
 
-    <!-- ── TAB: FIRMA ── -->
-    <div class="tab-panel active" id="tab-firma">
-      <div class="card">
+    <!-- ─── FIRMA ─── -->
+    <div class="admin-pane active" id="pane-firma">
+      <div class="admin-card">
         <h2>Virksomhedsoplysninger</h2>
         <div class="field-row">
-          <div class="field">
+          <div class="field-group">
             <label>Firmanavn</label>
-            <input type="text" id="a-firmanavn" placeholder="Finnes Entreprise">
+            <input type="text" id="a-name" placeholder="Finnes Entreprise">
           </div>
-          <div class="field">
-            <label>Slogan</label>
-            <input type="text" id="a-slogan" placeholder="Have · Anlæg · Minigraver">
+          <div class="field-group">
+            <label>Tagline / slogan</label>
+            <input type="text" id="a-tagline" placeholder="Professionel Have- og Graveservice">
           </div>
         </div>
-        <div class="field">
-          <label>Forsidetekst</label>
-          <textarea id="a-forsidetekst" placeholder="Kort beskrivelse på forsiden..."></textarea>
+        <div class="field-row">
+          <div class="field-group">
+            <label>CVR-nummer</label>
+            <input type="text" id="a-cvr" placeholder="46557557">
+          </div>
+          <div class="field-group">
+            <label>Momsstatus</label>
+            <select id="a-vat">
+              <option value="true">Momsregistreret</option>
+              <option value="false">Ikke momsregistreret</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-group">
+          <label>Dækningsområder (kommasepareret)</label>
+          <input type="text" id="a-areas" placeholder="Vejle, Børkop, Egtved, Jelling, Kolding">
+        </div>
+        <div class="field-row">
+          <div class="field-group">
+            <label>Åbningstider (hverdage)</label>
+            <input type="text" id="a-hours-wd" placeholder="07:00–16:00">
+          </div>
+          <div class="field-group">
+            <label>Åbningstider (weekend)</label>
+            <input type="text" id="a-hours-we" placeholder="Lukket">
+          </div>
         </div>
       </div>
+    </div>
 
-      <div class="card">
+    <!-- ─── KONTAKT ─── -->
+    <div class="admin-pane" id="pane-kontakt">
+      <div class="admin-card">
         <h2>Kontaktoplysninger</h2>
         <div class="field-row">
-          <div class="field">
-            <label>Telefon <span class="hint">(visning, fx "40 13 73 70")</span></label>
-            <input type="tel" id="a-telefon" placeholder="40 13 73 70">
+          <div class="field-group">
+            <label>Telefon (visning)</label>
+            <input type="tel" id="a-phone" placeholder="40 13 73 70">
           </div>
-          <div class="field">
-            <label>Telefon rå <span class="hint">(link, fx "+4540137370")</span></label>
-            <input type="tel" id="a-telefon-raw" placeholder="+4540137370">
+          <div class="field-group">
+            <label>Telefon rå (til tel:/sms: links)</label>
+            <input type="tel" id="a-phone-raw" placeholder="+4540137370">
+            <span class="field-hint">Format: +4540137370 (ingen mellemrum)</span>
           </div>
         </div>
         <div class="field-row">
-          <div class="field">
-            <label>SMS rå <span class="hint">(link, fx "+4540137370")</span></label>
+          <div class="field-group">
+            <label>SMS rå</label>
             <input type="tel" id="a-sms-raw" placeholder="+4540137370">
           </div>
-          <div class="field">
+          <div class="field-group">
             <label>E-mail</label>
             <input type="email" id="a-email" placeholder="finmann1@gmail.com">
           </div>
         </div>
-        <div class="field-row">
-          <div class="field">
-            <label>CVR-nummer</label>
-            <input type="text" id="a-cvr" placeholder="46557557">
-          </div>
-          <div class="field">
-            <label>Momsregistreret-tekst</label>
-            <input type="text" id="a-momstekst" placeholder="Momsregistreret">
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <h2>Dækningsområde</h2>
-        <div class="field">
-          <label>Byer/områder <span class="hint">(kommasepareret)</span></label>
-          <input type="text" id="a-omraade" placeholder="Vejle, Børkop, Egtved, Jelling, Kolding, Brejning, Omegn">
+        <div class="field-group">
+          <label>Logo-sti (relativ)</label>
+          <input type="text" id="a-logo" placeholder="assets/logo/finnes-entreprise-mark.png">
+          <span class="field-hint">Fil skal uploades til assets/logo/ på GitHub</span>
         </div>
       </div>
     </div>
 
-    <!-- ── TAB: PRISER ── -->
-    <div class="tab-panel" id="tab-priser">
-      <div class="card">
-        <h2>Vejledende priser</h2>
-        <p style="font-size:.85rem;color:var(--mut);margin-bottom:16px;">Ændringer her opdaterer prislisten og prisberegneren på forsiden.</p>
+    <!-- ─── PRISER ─── -->
+    <div class="admin-pane" id="pane-priser">
+      <div class="admin-card">
+        <h2>Beregnerpriser</h2>
+        <p style="font-size:.84rem; color:#666; margin-bottom:16px;">
+          Ændringer her slår igennem i alle 8 prisberegnere.
+        </p>
 
-        <div class="field-row">
-          <div class="field">
-            <label>Timepris alm. havearbejde <span class="hint">(kr./time)</span></label>
-            <input type="number" id="a-timepris" min="0" step="10" placeholder="450">
-          </div>
-          <div class="field">
-            <label>Minimumspris pr. besøg <span class="hint">(kr.)</span></label>
-            <input type="number" id="a-minimumspris" min="0" step="10" placeholder="350">
-          </div>
+        <div class="price-section-label">1 — Græsslåning</div>
+        <div class="price-grid">
+          <div class="price-field"><label>Kr./m²</label><input type="number" id="p-grass-sqm" step="0.05"></div>
+          <div class="price-field"><label>Minimumspris (kr.)</label><input type="number" id="p-grass-min"></div>
+          <div class="price-field"><label>Tillæg, højt græs (kr.)</label><input type="number" id="p-grass-high"></div>
+          <div class="price-field"><label>Bortkørsel af afklip (kr.)</label><input type="number" id="p-grass-waste"></div>
         </div>
-        <div class="field-row">
-          <div class="field">
-            <label>Græsslåning pr. m² <span class="hint">(kr.)</span></label>
-            <input type="number" id="a-pris-m2" min="0" step="0.05" placeholder="1.25">
-          </div>
-          <div class="field">
-            <label>Minigraver timepris <span class="hint">(kr./time)</span></label>
-            <input type="number" id="a-minigraver" min="0" step="10" placeholder="650">
-          </div>
+
+        <div class="price-section-label">2 — Hækkeklipning</div>
+        <div class="price-grid">
+          <div class="price-field"><label>Kr./meter (u. 2m, én side)</label><input type="number" id="p-hedge-rate"></div>
+          <div class="price-field"><label>Bortkørsel (kr.)</label><input type="number" id="p-hedge-waste"></div>
+          <div class="price-field"><label>Tillæg 2–3m (kr./m)</label><input type="number" id="p-hedge-h2"></div>
+          <div class="price-field"><label>Tillæg over 3m (kr./m)</label><input type="number" id="p-hedge-h3"></div>
         </div>
-        <div class="field-row">
-          <div class="field">
-            <label>Tillæg højt græs <span class="hint">(kr.)</span></label>
-            <input type="number" id="a-tillaeg-graes" min="0" step="10" placeholder="200">
-          </div>
-          <div class="field">
-            <label>Bortkørselstillæg <span class="hint">(kr.)</span></label>
-            <input type="number" id="a-tillaeg-bort" min="0" step="10" placeholder="150">
-          </div>
+
+        <div class="price-section-label">3 — Minigraver</div>
+        <div class="price-grid">
+          <div class="price-field"><label>Timepris (kr./t)</label><input type="number" id="p-exc-rate"></div>
+          <div class="price-field"><label>Minimum (timer)</label><input type="number" id="p-exc-min" step="0.5"></div>
+          <div class="price-field"><label>Ekstra mand (kr./t)</label><input type="number" id="p-exc-man"></div>
+          <div class="price-field"><label>Bortkørsel af jord (kr./læs)</label><input type="number" id="p-exc-waste"></div>
+        </div>
+
+        <div class="price-section-label">4 — Haveoprydning</div>
+        <div class="price-grid">
+          <div class="price-field"><label>Timepris (kr./t)</label><input type="number" id="p-clean-rate"></div>
+          <div class="price-field"><label>Minimumspris (kr.)</label><input type="number" id="p-clean-min"></div>
+          <div class="price-field"><label>Bortkørsel (kr.)</label><input type="number" id="p-clean-waste"></div>
+          <div class="price-field"><label>Tillæg, stor opgave (kr.)</label><input type="number" id="p-clean-big"></div>
+        </div>
+
+        <div class="price-section-label">5 — Jordarbejde</div>
+        <div class="price-grid">
+          <div class="price-field"><label>Timepris (kr./t)</label><input type="number" id="p-earth-rate"></div>
+          <div class="price-field"><label>Maskintid (kr./t)</label><input type="number" id="p-earth-machine"></div>
+          <div class="price-field"><label>Bortkørsel (kr./læs)</label><input type="number" id="p-earth-waste"></div>
+        </div>
+
+        <div class="price-section-label">6 — Belægning</div>
+        <div class="price-grid">
+          <div class="price-field"><label>Simpel (kr./m²)</label><input type="number" id="p-pav-simple"></div>
+          <div class="price-field"><label>Normal (kr./m²)</label><input type="number" id="p-pav-normal"></div>
+          <div class="price-field"><label>Kompleks (kr./m²)</label><input type="number" id="p-pav-complex"></div>
+          <div class="price-field"><label>Forberedelse (% tillæg)</label><input type="number" id="p-pav-prep" step="0.01"></div>
+        </div>
+
+        <div class="price-section-label">7 — Sommerhusservice</div>
+        <div class="price-grid">
+          <div class="price-field"><label>Enkeltbesøg (kr.)</label><input type="number" id="p-sum-single"></div>
+          <div class="price-field"><label>Åbning/lukning (kr.)</label><input type="number" id="p-sum-season"></div>
+          <div class="price-field"><label>Tilsynsbesøg (kr.)</label><input type="number" id="p-sum-inspect"></div>
+        </div>
+
+        <div class="price-section-label">8 — Fast haveaftale</div>
+        <div class="price-grid">
+          <div class="price-field"><label>Kr./m² pr. besøg</label><input type="number" id="p-sub-sqm" step="0.05"></div>
+          <div class="price-field"><label>Minimumspris pr. besøg</label><input type="number" id="p-sub-min"></div>
         </div>
       </div>
     </div>
 
-    <!-- ── TAB: YDELSER ── -->
-    <div class="tab-panel" id="tab-ydelser">
-      <div class="card">
+    <!-- ─── YDELSER ─── -->
+    <div class="admin-pane" id="pane-ydelser">
+      <div class="admin-card">
         <h2>Ydelseskort</h2>
-        <p style="font-size:.85rem;color:var(--mut);margin-bottom:16px;">Rediger tekst og ikoner i ydelseskortene. Ikon-feltet tager et emoji-tegn.</p>
+        <p style="font-size:.84rem; color:#666; margin-bottom:14px;">
+          Rediger ikon, titel og tekst for hvert ydelseskort på hjemmesiden.
+        </p>
         <div id="ydelser-editor"></div>
-        <button class="btn btn-outline btn-sm" onclick="tilfoejYdelse()" style="margin-top:8px;">
+        <button class="btn-admin-outline" style="margin-top:10px" onclick="addYdelse()">
           + Tilføj ydelse
         </button>
       </div>
     </div>
 
-    <!-- ── TAB: CHATBOT ── -->
-    <div class="tab-panel" id="tab-chatbot">
-      <div class="card">
-        <h2>Chatbot-svar</h2>
-        <p style="font-size:.85rem;color:var(--mut);margin-bottom:16px;">
-          Her redigerer du de faste svar chatbotten giver, når brugeren vælger de forskellige knapper.
-          Brug linjeskift (Enter) til at lave punktopstillinger.
-        </p>
-        <div id="chatbot-editor">
-          <div class="chatbot-svar-item">
-            <label>💰 "Hvad koster det?" — svar om priser</label>
-            <textarea id="cb-priser"></textarea>
+    <!-- ─── TEKSTER ─── -->
+    <div class="admin-pane" id="pane-tekster">
+      <div class="admin-card">
+        <h2>Sidetekster</h2>
+        <div class="field-group">
+          <label>Forside — intro-tekst</label>
+          <textarea id="a-intro" rows="3"></textarea>
+        </div>
+        <div class="field-group">
+          <label>Om os — overskrift</label>
+          <input type="text" id="a-about-h">
+        </div>
+        <div class="field-group">
+          <label>Om os — brødtekst</label>
+          <textarea id="a-about-text" rows="4"></textarea>
+        </div>
+      </div>
+      <div class="admin-card">
+        <h2>Adgangskode</h2>
+        <div class="field-row">
+          <div class="field-group">
+            <label>Ny PIN-kode</label>
+            <input type="password" id="a-pin-new" placeholder="Ny kode">
           </div>
-          <div class="chatbot-svar-item">
-            <label>📋 "Hvad laver I?" — svar om opgaver</label>
-            <textarea id="cb-opgaver"></textarea>
-          </div>
-          <div class="chatbot-svar-item">
-            <label>🚜 "Har I minigraver?" — svar om minigraver</label>
-            <textarea id="cb-minigraver"></textarea>
-          </div>
-          <div class="chatbot-svar-item">
-            <label>📍 "Dækningsområde" — svar om område</label>
-            <textarea id="cb-omraade"></textarea>
+          <div class="field-group">
+            <label>Bekræft ny PIN</label>
+            <input type="password" id="a-pin-confirm" placeholder="Gentag ny kode">
           </div>
         </div>
-        <p style="font-size:.82rem;color:var(--mut);margin-top:12px;">
-          💡 "Ring til os" og "Send SMS" bruger automatisk kontaktoplysningerne fra Firma-fanebladet. "Beregn græspris" og "Få tilbud" sender altid til beregner/formular og kan ikke redigeres her.
-        </p>
+        <button class="btn-admin-outline" onclick="changePIN()">Skift PIN-kode</button>
       </div>
     </div>
 
-    <!-- ── TAB: ADGANGSKODE ── -->
-    <div class="tab-panel" id="tab-sikkerhed">
-      <div class="card">
-        <h2>Skift adgangskode</h2>
-        <div class="field">
-          <label>Nuværende adgangskode</label>
-          <input type="password" id="pin-gammel" placeholder="Nuværende kode" autocomplete="current-password">
-        </div>
-        <div class="field">
-          <label>Ny adgangskode</label>
-          <input type="password" id="pin-ny" placeholder="Ny kode" autocomplete="new-password">
-        </div>
-        <div class="field">
-          <label>Bekræft ny adgangskode</label>
-          <input type="password" id="pin-bekraeft" placeholder="Gentag ny kode" autocomplete="new-password">
-        </div>
-        <button class="btn btn-primary" onclick="skiftPin()" style="margin-top:4px;">
-          🔒 Gem ny adgangskode
-        </button>
-        <p class="pin-note">Standard-adgangskode er <strong>1234</strong>. Husk den nye kode — den opbevares kun i din browser.</p>
-      </div>
-    </div>
-
-    <!-- ── TAB: BACKUP ── -->
-    <div class="tab-panel" id="tab-backup">
+    <!-- ─── BACKUP ─── -->
+    <div class="admin-pane" id="pane-backup">
       <div class="backup-grid">
         <div class="backup-card">
           <h3>📤 Eksporter backup</h3>
-          <p>Download alle dine admin-indstillinger som en JSON-fil. Gem den et sikkert sted.</p>
-          <button class="btn btn-outline" onclick="eksporterBackup()">Download backup.json</button>
+          <p>Download alle admin-indstillinger som JSON. Gem filen et sikkert sted.</p>
+          <button class="btn-admin-outline" onclick="exportJSON()">Download backup.json</button>
         </div>
         <div class="backup-card">
           <h3>📥 Importer backup</h3>
-          <p>Gendan indstillinger fra en tidligere eksporteret backup-fil.</p>
-          <input type="file" id="import-fil" accept=".json" style="display:none;" onchange="importerBackup(this)">
-          <button class="btn btn-outline" onclick="document.getElementById('import-fil').click()">Vælg backup.json</button>
+          <p>Gendan fra en tidligere eksporteret JSON-backup-fil.</p>
+          <input type="file" id="import-file" accept=".json" style="display:none" onchange="importJSON(this)">
+          <button class="btn-admin-outline" onclick="document.getElementById('import-file').click()">Vælg backup.json</button>
         </div>
-        <div class="backup-card" style="grid-column:1/-1; border-color:#f5c6c6; background:#fff8f8;">
-          <h3 style="color:var(--red);">⚠️ Nulstil til standard</h3>
-          <p>Slet alle dine gemte ændringer og gå tilbage til de oprindelige standardværdier fra app.js. Denne handling kan ikke fortrydes.</p>
-          <button class="btn btn-danger" onclick="nulstilAllt()">Nulstil alt til standard</button>
+        <div class="backup-card danger-zone" style="grid-column:1/-1">
+          <h3>⚠️ Nulstil til standard</h3>
+          <p>Slet alle gemte admin-ændringer og gå tilbage til standard config-filer. Kan ikke fortrydes.</p>
+          <button class="btn-admin-danger" onclick="resetAll()">Nulstil alt til standard</button>
         </div>
       </div>
     </div>
 
-  </div><!-- end .main -->
+  </div><!-- admin-wrap -->
 
-  <!-- Gem-bjælke -->
+  <!-- Save-bar -->
   <div class="save-bar">
-    <a href="index.html" class="btn btn-outline btn-sm">← Forsiden</a>
-    <button class="btn btn-primary" onclick="gemAlt()">💾 Gem ændringer</button>
+    <span class="save-status" id="save-status"></span>
+    <a href="index.html" class="btn-admin-outline" style="text-decoration:none; font-size:.85rem">← Se side</a>
+    <button class="btn-admin-save" onclick="saveAll()">💾 Gem ændringer</button>
   </div>
+</div>
 
-</div><!-- end #admin-panel -->
-
-<!-- Status-toast -->
-<div id="statusbar"></div>
+<!-- Toast -->
+<div class="admin-toast" id="admin-toast"></div>
 
 <script>
-/* ════════════════════════════════════════════════
-   ADMIN.JS — Finnes Entreprise v1.1
-   Al admin-logik er self-contained i denne <script>.
-   ════════════════════════════════════════════════ */
+/* ============================================================
+   ADMIN.JS — inline (Finnes Entreprise)
+   Gem/hent admin-data via localStorage.
+   Nøgle: "fe_admin_override" — merges ovenpå config-filer.
+   ============================================================ */
 
-var STORAGE_KEY = "fe_admin_data";
-var PIN_KEY     = "fe_admin_pin";
-var DEFAULT_PIN = "1234";
+const KEY     = "fe_admin_override";
+const PIN_KEY = "fe_admin_pin";
+const DEF_PIN = "1234";
 
-/* ── STANDARD-DATA (kopieret fra app.js DEFAULT) ── */
-var DEFAULT = {
-  firmanavn:    "Finnes Entreprise",
-  slogan:       "Have · Anlæg · Minigraver",
-  forsidetekst: "Vi passer din have og løser dine grave- og anlægsopgaver — professionelt, pålideligt og til konkurrencedygtige priser.",
-  telefon:      "40 13 73 70",
-  telefon_raw:  "+4540137370",
-  sms_raw:      "+4540137370",
-  email:        "finmann1@gmail.com",
-  cvr:          "46557557",
-  momstekst:    "Momsregistreret",
-  omraade:      "Vejle, Børkop, Egtved, Jelling, Kolding, Brejning, Omegn",
-  timepris:            450,
-  minimumspris:        350,
-  pris_pr_m2:         1.25,
-  minigraver_timepris: 650,
-  tillaeg_hoejt_graes: 200,
-  tillaeg_bortkoersel: 150,
+/* ── Standard-værdier (kopieret fra config-filer) ── */
+const DEFAULTS = {
+  name: "Finnes Entreprise",
+  tagline: "Professionel Have- og Graveservice",
+  cvr: "46557557",
+  vatRegistered: true,
+  areas: "Vejle, Børkop, Brejning, Egtved, Jelling, Kolding",
+  hoursWd: "07:00–16:00",
+  hoursWe: "Lukket",
+  phone: "40 13 73 70",
+  phoneRaw: "+4540137370",
+  smsRaw: "+4540137370",
+  email: "finmann1@gmail.com",
+  logo: "assets/logo/finnes-entreprise-mark.png",
+  intro: "Professionel have- og graveservice til private, erhverv og sommerhuse.",
+  aboutH: "Om os",
+  aboutText: "Vi tilbyder professionel have- og graveservice i Vejle-området. Ring for et uforpligtende tilbud.",
+  // Priser
+  pGrassSqm: 1.25,  pGrassMin: 350, pGrassHigh: 200, pGrassWaste: 150,
+  pHedgeRate: 60,   pHedgeWaste: 400, pHedgeH2: 25, pHedgeH3: 55,
+  pExcRate: 650,    pExcMin: 2, pExcMan: 350, pExcWaste: 850,
+  pCleanRate: 450,  pCleanMin: 350, pCleanWaste: 400, pCleanBig: 500,
+  pEarthRate: 450,  pEarthMachine: 300, pEarthWaste: 850,
+  pPavSimple: 350,  pPavNormal: 550, pPavComplex: 850, pPavPrep: 0.25,
+  pSumSingle: 650,  pSumSeason: 1200, pSumInspect: 450,
+  pSubSqm: 0.95,    pSubMin: 300,
+  // Ydelser
   ydelser: [
-    { ikon: "🌿", titel: "Græsslåning",   tekst: "Regelmæssig eller enkeltstående klipning. Fast aftale giver rabat." },
-    { ikon: "✂️", titel: "Hækklipning",   tekst: "Professionel klipning og formgivning — hæk og buske." },
-    { ikon: "🍂", titel: "Haveoprydning", tekst: "Rydning, beskæring og oprydning — hele haven gøres klar." },
-    { ikon: "🚛", titel: "Bortkørsel",    tekst: "Vi kører haveaffald og overskudsjord bort — korrekt og lovligt." },
-    { ikon: "🚜", titel: "Minigraver",    tekst: "Udgravning, planering, fundament, dræn og jordflytning." },
-    { ikon: "⛏️", titel: "Jordarbejde",  tekst: "Større og mindre gravearbejde til alt fra dræn til terrasse." },
-    { ikon: "🧱", titel: "Belægning",     tekst: "Fliser, grus og indkørsler — vi lægger det pænt og holdbart." },
-    { ikon: "🏡", titel: "Sommerhus",     tekst: "Åbning, lukning og løbende vedligeholdelse af sommerhuset." }
-  ],
-  chatbot_svar: {
-    priser:     "Vores vejledende priser:\n• Timepris: fra 450 kr./time\n• Minimum pr. besøg: 350 kr.\n• Græsklip: fra 1,25 kr./m²\n• Minigraver: fra 650 kr./time\n• Kørselstillæg aftales\n\nKontakt os for et præcist tilbud 😊",
-    opgaver:    "Vi udfører bl.a.:\n✅ Græsslåning og hækklipning\n✅ Haveoprydning og rydning\n✅ Minigraver-opgaver\n✅ Jordarbejde og gravearbejde\n✅ Bortkørsel af haveaffald\n✅ Belægningsopgaver\n✅ Vedligeholdelse af sommerhuse",
-    minigraver: "Ja! Vi har minigraver til:\n• Udgravning og planering\n• Jordflytning\n• Fundament og dræn\n• Mindre anlægsopgaver\n\nTimepris fra 650 kr.\nRing til os for booking.",
-    omraade:    "Vi dækker primært:\n📍 Vejle, Børkop, Egtved, Jelling,\n   Kolding, Brejning og omegn.\n\nEr du i tvivl? Ring til os! 📞"
-  }
+    { ico:"🌱", titel:"Græsslåning",   tekst:"Regelmæssig klipning eller enkeltstående besøg. Fast aftale giver rabat." },
+    { ico:"✂️", titel:"Hækkeklipning", tekst:"Professionel klipning af alle typer hæk — begge sider og bortkørsel." },
+    { ico:"🚜", titel:"Minigraver",    tekst:"Udgravning, planering, dræn og fundament. Minimum 2 timer." },
+    { ico:"🍂", titel:"Haveoprydning", tekst:"Rydning af have forår og efterår — løvfald, ukrudt og beskæring." },
+    { ico:"⛏️", titel:"Jordarbejde",  tekst:"Større og mindre jordflytning, opfyldning og planering." },
+    { ico:"🪨", titel:"Belægning",     tekst:"Fliser, grus og chaussésten — indkørsler og terrasser." },
+    { ico:"🏡", titel:"Sommerhus",     tekst:"Åbning, lukning og løbende vedligeholdelse af dit sommerhus." },
+    { ico:"📅", titel:"Fast aftale",   tekst:"Ugentlig eller 14-dages haveservice med fast rabat." }
+  ]
 };
 
-/* ── PIN & LOGIN ── */
-function getPin() {
-  return localStorage.getItem(PIN_KEY) || DEFAULT_PIN;
-}
+/* ── PIN ── */
+function getPin() { return localStorage.getItem(PIN_KEY) || DEF_PIN; }
 
-document.getElementById("pin-input").addEventListener("keydown", function(e) {
+document.getElementById("pin-input").addEventListener("keydown", e => {
   if (e.key === "Enter") doLogin();
 });
 
 function doLogin() {
-  var pin   = document.getElementById("pin-input").value;
-  var errEl = document.getElementById("login-error");
+  const pin = document.getElementById("pin-input").value;
+  const err = document.getElementById("pin-error");
   if (pin === getPin()) {
     document.getElementById("login-screen").style.display = "none";
-    document.getElementById("admin-panel").style.display  = "block";
-    populerFormular();
+    document.getElementById("admin-panel").style.display = "block";
+    populateForm();
   } else {
-    errEl.textContent = "Forkert adgangskode. Prøv igen.";
+    err.textContent = "Forkert PIN-kode — prøv igen.";
     document.getElementById("pin-input").value = "";
-    document.getElementById("pin-input").focus();
-    setTimeout(function() { errEl.textContent = ""; }, 3000);
+    setTimeout(() => { err.textContent = ""; }, 3000);
   }
 }
 
@@ -577,243 +452,203 @@ function doLogout() {
   document.getElementById("pin-input").value = "";
 }
 
-/* ── TABS ── */
+/* ── Tabs ── */
 function showTab(id, btn) {
-  document.querySelectorAll(".tab-panel").forEach(function(p) { p.classList.remove("active"); });
-  document.querySelectorAll(".tab-btn").forEach(function(b)   { b.classList.remove("active"); });
-  document.getElementById(id).classList.add("active");
+  document.querySelectorAll(".admin-pane").forEach(p => p.classList.remove("active"));
+  document.querySelectorAll(".admin-tab").forEach(b => b.classList.remove("active"));
+  document.getElementById("pane-" + id).classList.add("active");
   btn.classList.add("active");
 }
 
-/* ── HENT GEMTE DATA ── */
+/* ── Hent gemt data ── */
 function getSaved() {
   try {
-    var raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return JSON.parse(JSON.stringify(DEFAULT));
-    var parsed = JSON.parse(raw);
-    var merged = JSON.parse(JSON.stringify(DEFAULT));
-    Object.keys(parsed).forEach(function(k) {
-      if (parsed[k] !== null && parsed[k] !== undefined) merged[k] = parsed[k];
-    });
-    return merged;
-  } catch (e) {
-    return JSON.parse(JSON.stringify(DEFAULT));
-  }
+    const raw = localStorage.getItem(KEY);
+    if (!raw) return Object.assign({}, DEFAULTS);
+    const saved = JSON.parse(raw);
+    return Object.assign({}, DEFAULTS, saved);
+  } catch(e) { return Object.assign({}, DEFAULTS); }
 }
 
-/* ── FYLD FORMULAR MED NUVÆRENDE DATA ── */
-function populerFormular() {
-  var d = getSaved();
-
-  /* Firma */
-  val("a-firmanavn",   d.firmanavn);
-  val("a-slogan",      d.slogan);
-  val("a-forsidetekst",d.forsidetekst);
-  val("a-telefon",     d.telefon);
-  val("a-telefon-raw", d.telefon_raw);
-  val("a-sms-raw",     d.sms_raw);
-  val("a-email",       d.email);
-  val("a-cvr",         d.cvr);
-  val("a-momstekst",   d.momstekst);
-  val("a-omraade",     typeof d.omraade === "string" ? d.omraade : d.omraade.join(", "));
-
-  /* Priser */
-  val("a-timepris",       d.timepris);
-  val("a-minimumspris",   d.minimumspris);
-  val("a-pris-m2",        d.pris_pr_m2);
-  val("a-minigraver",     d.minigraver_timepris);
-  val("a-tillaeg-graes",  d.tillaeg_hoejt_graes);
-  val("a-tillaeg-bort",   d.tillaeg_bortkoersel);
-
-  /* Ydelser */
-  genYdelserEditor(d.ydelser);
-
-  /* Chatbot */
-  var cs = d.chatbot_svar || {};
-  val("cb-priser",    cs.priser    || "");
-  val("cb-opgaver",   cs.opgaver   || "");
-  val("cb-minigraver",cs.minigraver|| "");
-  val("cb-omraade",   cs.omraade   || "");
+/* ── Udfyld formular ── */
+function populateForm() {
+  const d = getSaved();
+  const set = (id, v) => { const el = document.getElementById(id); if (el) el.value = String(v ?? ""); };
+  set("a-name",       d.name);
+  set("a-tagline",    d.tagline);
+  set("a-cvr",        d.cvr);
+  set("a-vat",        d.vatRegistered ? "true" : "false");
+  set("a-areas",      d.areas);
+  set("a-hours-wd",   d.hoursWd);
+  set("a-hours-we",   d.hoursWe);
+  set("a-phone",      d.phone);
+  set("a-phone-raw",  d.phoneRaw);
+  set("a-sms-raw",    d.smsRaw);
+  set("a-email",      d.email);
+  set("a-logo",       d.logo);
+  set("a-intro",      d.intro);
+  set("a-about-h",    d.aboutH);
+  set("a-about-text", d.aboutText);
+  // Priser
+  set("p-grass-sqm",  d.pGrassSqm); set("p-grass-min",  d.pGrassMin);
+  set("p-grass-high", d.pGrassHigh); set("p-grass-waste",d.pGrassWaste);
+  set("p-hedge-rate", d.pHedgeRate); set("p-hedge-waste",d.pHedgeWaste);
+  set("p-hedge-h2",   d.pHedgeH2);  set("p-hedge-h3",   d.pHedgeH3);
+  set("p-exc-rate",   d.pExcRate);  set("p-exc-min",    d.pExcMin);
+  set("p-exc-man",    d.pExcMan);   set("p-exc-waste",  d.pExcWaste);
+  set("p-clean-rate", d.pCleanRate);set("p-clean-min",  d.pCleanMin);
+  set("p-clean-waste",d.pCleanWaste);set("p-clean-big", d.pCleanBig);
+  set("p-earth-rate", d.pEarthRate);set("p-earth-machine",d.pEarthMachine);
+  set("p-earth-waste",d.pEarthWaste);
+  set("p-pav-simple", d.pPavSimple);set("p-pav-normal", d.pPavNormal);
+  set("p-pav-complex",d.pPavComplex);set("p-pav-prep",  d.pPavPrep);
+  set("p-sum-single", d.pSumSingle);set("p-sum-season", d.pSumSeason);
+  set("p-sum-inspect",d.pSumInspect);
+  set("p-sub-sqm",    d.pSubSqm);  set("p-sub-min",    d.pSubMin);
+  // Ydelser
+  buildYdelserEditor(d.ydelser);
 }
 
-function val(id, v) {
-  var el = document.getElementById(id);
-  if (el) el.value = (v !== null && v !== undefined) ? String(v) : "";
-}
-
-/* ── YDELSER EDITOR ── */
-function genYdelserEditor(ydelser) {
-  var ed = document.getElementById("ydelser-editor");
+/* ── Ydelser-editor ── */
+function buildYdelserEditor(ydelser) {
+  const ed = document.getElementById("ydelser-editor");
   ed.innerHTML = "";
-  (ydelser || []).forEach(function(y, i) {
-    ed.appendChild(laveYdelseLine(i, y));
+  (ydelser || []).forEach((y, i) => {
+    ed.appendChild(makeYdelseRow(i, y));
   });
 }
 
-function laveYdelseLine(idx, y) {
-  var wrap = document.createElement("div");
+function makeYdelseRow(i, y) {
+  const wrap = document.createElement("div");
   wrap.className = "ydelse-item";
-  wrap.setAttribute("data-idx", idx);
-  wrap.innerHTML =
-    "<div class='ydelse-row'>"
-    + "<input class='ikon-input' type='text' value='" + esc(y.ikon || "🌿") + "' placeholder='🌿' maxlength='4' title='Emoji-ikon'>"
-    + "<input type='text' value='" + esc(y.titel) + "' placeholder='Titel' style='min-width:0;'>"
-    + "<button class='btn-icon' title='Slet' onclick='sletYdelse(this)'>🗑</button>"
-    + "</div>"
-    + "<textarea placeholder='Kort beskrivelse...'>" + esc(y.tekst) + "</textarea>";
+  wrap.dataset.idx = i;
+  wrap.innerHTML = `
+    <div class="ydelse-row">
+      <input class="ydelse-ico-input" type="text" value="${esc(y.ico)}" maxlength="4" title="Emoji-ikon" placeholder="🌱">
+      <input type="text" value="${esc(y.titel)}" placeholder="Titel" style="flex:1">
+      <button class="del-btn" title="Slet" onclick="this.closest('.ydelse-item').remove()">🗑</button>
+    </div>
+    <textarea class="ydelse-textarea" placeholder="Kort beskrivelse...">${esc(y.tekst)}</textarea>`;
   return wrap;
 }
 
-function tilfoejYdelse() {
-  var ed  = document.getElementById("ydelser-editor");
-  var idx = ed.querySelectorAll(".ydelse-item").length;
-  ed.appendChild(laveYdelseLine(idx, { ikon: "🌿", titel: "", tekst: "" }));
-}
-
-function sletYdelse(btn) {
-  var item = btn.closest(".ydelse-item");
-  if (item) item.remove();
+function addYdelse() {
+  const ed = document.getElementById("ydelser-editor");
+  ed.appendChild(makeYdelseRow(ed.querySelectorAll(".ydelse-item").length, { ico:"🌿", titel:"", tekst:"" }));
 }
 
 function esc(s) {
-  return String(s || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+  return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 }
 
-/* ── LÆS ALLE FELTER ── */
-function laesFormular() {
-  var ydelser = [];
-  document.querySelectorAll("#ydelser-editor .ydelse-item").forEach(function(item) {
-    var inputs = item.querySelectorAll("input");
-    var ta     = item.querySelector("textarea");
-    ydelser.push({
-      ikon:  inputs[0] ? inputs[0].value.trim() : "🌿",
-      titel: inputs[1] ? inputs[1].value.trim() : "",
-      tekst: ta         ? ta.value.trim()        : ""
-    });
+/* ── Læs formular ── */
+function readForm() {
+  const g  = id => { const el = document.getElementById(id); return el ? el.value.trim() : ""; };
+  const gn = id => parseFloat(g(id)) || 0;
+  // Ydelser
+  const ydelser = [];
+  document.querySelectorAll("#ydelser-editor .ydelse-item").forEach(item => {
+    const inputs = item.querySelectorAll("input");
+    const ta = item.querySelector("textarea");
+    ydelser.push({ ico: inputs[0]?.value.trim()||"🌿", titel: inputs[1]?.value.trim()||"", tekst: ta?.value.trim()||"" });
   });
-
   return {
-    firmanavn:            g("a-firmanavn"),
-    slogan:               g("a-slogan"),
-    forsidetekst:         g("a-forsidetekst"),
-    telefon:              g("a-telefon"),
-    telefon_raw:          g("a-telefon-raw"),
-    sms_raw:              g("a-sms-raw"),
-    email:                g("a-email"),
-    cvr:                  g("a-cvr"),
-    momstekst:            g("a-momstekst"),
-    omraade:              g("a-omraade"),
-    timepris:             num("a-timepris"),
-    minimumspris:         num("a-minimumspris"),
-    pris_pr_m2:           num("a-pris-m2"),
-    minigraver_timepris:  num("a-minigraver"),
-    tillaeg_hoejt_graes:  num("a-tillaeg-graes"),
-    tillaeg_bortkoersel:  num("a-tillaeg-bort"),
-    ydelser:              ydelser,
-    chatbot_svar: {
-      priser:     g("cb-priser"),
-      opgaver:    g("cb-opgaver"),
-      minigraver: g("cb-minigraver"),
-      omraade:    g("cb-omraade")
-    }
+    name: g("a-name"), tagline: g("a-tagline"), cvr: g("a-cvr"),
+    vatRegistered: g("a-vat") === "true",
+    areas: g("a-areas"), hoursWd: g("a-hours-wd"), hoursWe: g("a-hours-we"),
+    phone: g("a-phone"), phoneRaw: g("a-phone-raw"), smsRaw: g("a-sms-raw"),
+    email: g("a-email"), logo: g("a-logo"),
+    intro: g("a-intro"), aboutH: g("a-about-h"), aboutText: g("a-about-text"),
+    pGrassSqm: gn("p-grass-sqm"),  pGrassMin: gn("p-grass-min"),
+    pGrassHigh: gn("p-grass-high"), pGrassWaste: gn("p-grass-waste"),
+    pHedgeRate: gn("p-hedge-rate"), pHedgeWaste: gn("p-hedge-waste"),
+    pHedgeH2: gn("p-hedge-h2"),    pHedgeH3: gn("p-hedge-h3"),
+    pExcRate: gn("p-exc-rate"),     pExcMin: gn("p-exc-min"),
+    pExcMan: gn("p-exc-man"),       pExcWaste: gn("p-exc-waste"),
+    pCleanRate: gn("p-clean-rate"), pCleanMin: gn("p-clean-min"),
+    pCleanWaste: gn("p-clean-waste"),pCleanBig: gn("p-clean-big"),
+    pEarthRate: gn("p-earth-rate"), pEarthMachine: gn("p-earth-machine"),
+    pEarthWaste: gn("p-earth-waste"),
+    pPavSimple: gn("p-pav-simple"), pPavNormal: gn("p-pav-normal"),
+    pPavComplex: gn("p-pav-complex"),pPavPrep: gn("p-pav-prep"),
+    pSumSingle: gn("p-sum-single"), pSumSeason: gn("p-sum-season"),
+    pSumInspect: gn("p-sum-inspect"),
+    pSubSqm: gn("p-sub-sqm"),       pSubMin: gn("p-sub-min"),
+    ydelser
   };
 }
 
-function g(id) {
-  var el = document.getElementById(id);
-  return el ? el.value.trim() : "";
-}
-function num(id) {
-  var el = document.getElementById(id);
-  if (!el) return 0;
-  var v = parseFloat(el.value);
-  return isNaN(v) ? 0 : v;
-}
-
-/* ── GEM ── */
-function gemAlt() {
-  var data = laesFormular();
+/* ── Gem ── */
+function saveAll() {
+  const data = readForm();
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    toast("✅ Gemt! Forsiden er opdateret.");
-  } catch (e) {
-    toast("❌ Kunne ikke gemme: " + e.message);
+    localStorage.setItem(KEY, JSON.stringify(data));
+    showToast("✅ Gemt! Genindlæs siden for at se ændringerne.");
+    document.getElementById("save-status").textContent = "Gemt " + new Date().toLocaleTimeString("da-DK");
+  } catch(e) {
+    showToast("❌ Fejl: " + e.message);
   }
 }
 
-/* ── SKIFT PIN ── */
-function skiftPin() {
-  var gammel   = document.getElementById("pin-gammel").value;
-  var ny       = document.getElementById("pin-ny").value;
-  var bekraeft = document.getElementById("pin-bekraeft").value;
-
-  if (gammel !== getPin()) { toast("❌ Nuværende adgangskode er forkert."); return; }
-  if (!ny || ny.length < 4) { toast("❌ Ny adgangskode skal være mindst 4 tegn."); return; }
-  if (ny !== bekraeft) { toast("❌ De to nye koder er ikke ens."); return; }
-
-  localStorage.setItem(PIN_KEY, ny);
-  document.getElementById("pin-gammel").value   = "";
-  document.getElementById("pin-ny").value       = "";
-  document.getElementById("pin-bekraeft").value = "";
-  toast("✅ Adgangskode skiftet!");
+/* ── Skift PIN ── */
+function changePIN() {
+  const n1 = document.getElementById("a-pin-new").value;
+  const n2 = document.getElementById("a-pin-confirm").value;
+  if (!n1 || n1.length < 4) { showToast("❌ PIN skal være mindst 4 tegn."); return; }
+  if (n1 !== n2) { showToast("❌ PIN-koderne er ikke ens."); return; }
+  localStorage.setItem(PIN_KEY, n1);
+  document.getElementById("a-pin-new").value = "";
+  document.getElementById("a-pin-confirm").value = "";
+  showToast("✅ PIN-kode ændret!");
 }
 
-/* ── EKSPORTER ── */
-function eksporterBackup() {
-  var data = laesFormular();
-  var blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
-  var url  = URL.createObjectURL(blob);
-  var a    = document.createElement("a");
+/* ── Backup / Import ── */
+function exportJSON() {
+  const data = readForm();
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement("a");
   a.href     = url;
-  a.download = "fe-backup-" + new Date().toISOString().slice(0,10) + ".json";
+  a.download = "finnes-admin-backup-" + new Date().toISOString().slice(0,10) + ".json";
   a.click();
   URL.revokeObjectURL(url);
-  toast("📤 Backup downloadet!");
+  showToast("📤 Backup downloadet!");
 }
 
-/* ── IMPORTER ── */
-function importerBackup(input) {
-  var fil = input.files[0];
-  if (!fil) return;
-  var reader = new FileReader();
-  reader.onload = function(e) {
+function importJSON(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
     try {
-      var data = JSON.parse(e.target.result);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-      populerFormular();
-      toast("✅ Backup importeret og gemt!");
-    } catch (err) {
-      toast("❌ Ugyldig JSON-fil: " + err.message);
+      const data = JSON.parse(e.target.result);
+      localStorage.setItem(KEY, JSON.stringify(data));
+      populateForm();
+      showToast("✅ Backup importeret og gemt!");
+    } catch(err) {
+      showToast("❌ Ugyldig JSON-fil: " + err.message);
     }
   };
-  reader.readAsText(fil);
+  reader.readAsText(file);
   input.value = "";
 }
 
-/* ── NULSTIL ── */
-function nulstilAllt() {
-  if (!confirm("Er du sikker på, at du vil nulstille ALLE indstillinger til standard?\n\nDenne handling kan ikke fortrydes.")) return;
-  localStorage.removeItem(STORAGE_KEY);
-  populerFormular();
-  toast("🔄 Nulstillet til standardværdier.");
+function resetAll() {
+  if (!confirm("Nulstil ALLE admin-ændringer til standard?\n\nDette kan ikke fortrydes.")) return;
+  localStorage.removeItem(KEY);
+  populateForm();
+  showToast("🔄 Nulstillet til standardværdier.");
 }
 
-/* ── TOAST ── */
-var toastTimer;
-function toast(msg) {
-  var el = document.getElementById("statusbar");
-  el.textContent = msg;
-  el.classList.add("show");
+/* ── Toast ── */
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById("admin-toast");
+  t.textContent = msg;
+  t.classList.add("show");
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(function() { el.classList.remove("show"); }, 2800);
+  toastTimer = setTimeout(() => t.classList.remove("show"), 2800);
 }
-
-/* Enter til login */
-window.addEventListener("keydown", function(e) {
-  if (e.key === "Enter" && document.getElementById("login-screen").style.display !== "none") {
-    doLogin();
-  }
-});
 </script>
 </body>
 </html>
