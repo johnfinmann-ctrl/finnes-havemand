@@ -253,8 +253,9 @@
       }
     }
 
-    if (options.openCalc && window.HandymanCalculators && window.HandymanCalculators.openTab) {
-      window.HandymanCalculators.openTab(options.openCalc);
+    if (options.openCalc) {
+      // Brug picker-flow: vis beregner-view EFTER view-transition
+      setTimeout(() => { window._openCalcPanel(options.openCalc); }, 80);
     }
   }
 
@@ -281,6 +282,115 @@
     const initialView = initialHash && document.getElementById(initialHash) ? initialHash : HOME_VIEW;
     showView(initialView, { replace: true });
   }
+
+
+  /* ─── Hamburger menu ─── */
+  function initHamburger() {
+    const btn = document.getElementById("hamburger-btn");
+    const overlay = document.getElementById("nav-overlay");
+    const closeBtn = document.getElementById("nav-close");
+    const backdrop = document.getElementById("nav-backdrop");
+    if (!btn || !overlay) return;
+
+    function open() {
+      overlay.classList.add("open");
+      btn.setAttribute("aria-expanded", "true");
+      btn.style.display = "none";
+      overlay.removeAttribute("aria-hidden");
+      document.body.style.overflow = "hidden";
+    }
+    function close() {
+      overlay.classList.remove("open");
+      btn.setAttribute("aria-expanded", "false");
+      btn.style.display = "";
+      overlay.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+    btn.addEventListener("click", open);
+    if (closeBtn) closeBtn.addEventListener("click", close);
+    if (backdrop) backdrop.addEventListener("click", close);
+
+    // Nav-links i drawer
+    overlay.querySelectorAll(".nav-link-btn[data-go-view]").forEach(el => {
+      el.addEventListener("click", () => {
+        close();
+        const viewId = el.dataset.goView;
+        showView("view-" + viewId.replace(/^view-/, ""));
+      });
+    });
+  }
+
+  /* ─── Beregner-picker ─── */
+  function initCalcPicker() {
+    const picker = document.getElementById("calc-picker");
+    const wrap   = document.getElementById("calc-active-wrap");
+    const backBtn= document.getElementById("calc-back-btn");
+    if (!picker) return;
+
+    document.querySelectorAll(".calc-pick-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const panel = btn.dataset.pick;
+        // Aktivér korrekt tab
+        document.querySelectorAll(".calc-tab").forEach(t => {
+          t.classList.toggle("active", t.dataset.panel === panel);
+        });
+        document.querySelectorAll(".calc-panel").forEach(p => {
+          p.classList.toggle("active", p.id === panel);
+        });
+        // Vis beregner, skjul picker
+        picker.style.display = "none";
+        if (wrap) wrap.style.display = "block";
+        // Scroll til toppen af beregner-view
+        const viewEl = document.getElementById("view-prisberegner");
+        if (viewEl) viewEl.scrollTop = 0;
+        // Fremhæv valgt knap
+        document.querySelectorAll(".calc-pick-btn").forEach(b => b.classList.remove("selected"));
+        btn.classList.add("selected");
+      });
+    });
+
+    if (backBtn) {
+      backBtn.addEventListener("click", () => {
+        if (wrap) wrap.style.display = "none";
+        picker.style.display = "";
+        document.querySelectorAll(".calc-pick-btn").forEach(b => b.classList.remove("selected"));
+      });
+    }
+  }
+
+  /* ─── Sommerhus-card klik ─── */
+  function initSommerhusCard() {
+    const card = document.querySelector(".sommerhus-card");
+    if (!card) return;
+    const go = () => {
+      showView("view-prisberegner");
+      // Åbn summer-beregneren via picker-logik
+      setTimeout(() => {
+        const sumBtn = document.querySelector('.calc-pick-btn[data-pick="summer"]');
+        if (sumBtn) sumBtn.click();
+      }, 150);
+    };
+    card.addEventListener("click", go);
+    card.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") go(); });
+  }
+
+  /* ─── openCalcFromIcon: åbn beregner-view + specifik tab via calc-picker ─── */
+  window._openCalcPanel = function(panelId) {
+    showView("view-prisberegner");
+    setTimeout(() => {
+      const btn = document.querySelector(`.calc-pick-btn[data-pick="${panelId}"]`);
+      if (btn) btn.click();
+      else {
+        // Fallback: aktivér tab direkte
+        const tabBtn = document.querySelector(`.calc-tab[data-panel="${panelId}"]`);
+        if (tabBtn) tabBtn.click();
+        const picker = document.getElementById("calc-picker");
+        const wrap   = document.getElementById("calc-active-wrap");
+        if (picker) picker.style.display = "none";
+        if (wrap)   wrap.style.display   = "block";
+      }
+    }, 100);
+  };
 
   window.AppNav = { goTo: (viewId) => showView("view-" + viewId.replace(/^view-/, "")) };
 
@@ -399,6 +509,9 @@
   document.addEventListener("DOMContentLoaded", () => {
     applyAdminOverrides();
     applyTheme();
+    initHamburger();
+    initCalcPicker();
+    initSommerhusCard();
     applyHeroImageOverride();
     applyContactLinks();
     renderServices();

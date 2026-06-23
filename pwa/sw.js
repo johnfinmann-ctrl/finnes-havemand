@@ -12,16 +12,15 @@
  * ============================================================
  */
 
-const CACHE = "finnes-v4-20260623";
+const CACHE = "finnes-v5-20260623";
 const SCOPE = self.registration.scope;
 
 /* Statiske assets der præ-caches (billeder og ikoner) */
 const PRECACHE = [
-  SCOPE + "assets/icons/icon-192.png",
-  SCOPE + "assets/icons/icon-512.png",
-  SCOPE + "assets/icons/apple-touch-icon.png",
-  SCOPE + "pwa/manifest.json",
-  SCOPE + "assets/images/hero-placeholder.jpg"
+  "../assets/icons/icon-192.png",
+  "../assets/icons/icon-512.png",
+  "../assets/icons/apple-touch-icon.png",
+  "./manifest.json"
 ];
 
 /* Stier der aldrig caches (indeholder query-params eller er dynamiske) */

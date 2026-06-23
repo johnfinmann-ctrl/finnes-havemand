@@ -61,6 +61,34 @@
 </script>
 </head>
 <body>
+<!-- ═══ HAMBURGER MENU ═══ -->
+<button class="hamburger" id="hamburger-btn" aria-label="Åbn menu" aria-expanded="false">
+  <span></span><span></span><span></span>
+</button>
+
+<div class="nav-overlay" id="nav-overlay" aria-hidden="true">
+  <div class="nav-drawer">
+    <div class="nav-drawer-header">
+      <span class="nav-drawer-logo" data-company-name>Finnes Entreprise</span>
+      <button class="nav-drawer-close" id="nav-close" aria-label="Luk menu">✕</button>
+    </div>
+    <nav class="nav-drawer-links" aria-label="Navigationslinks">
+      <button class="nav-link-btn" data-go-view="home">🏠 Forside</button>
+      <button class="nav-link-btn" data-go-view="ydelser">🌿 Ydelser</button>
+      <button class="nav-link-btn" data-go-view="prisberegner">💰 Prisberegner</button>
+      <button class="nav-link-btn" data-go-view="om-os" data-scroll-after="service-sommerhus">🏡 Sommerhusservice</button>
+      <button class="nav-link-btn" data-go-view="galleri">🖼️ Galleri</button>
+      <button class="nav-link-btn" data-go-view="kontakt">📞 Kontakt</button>
+      <a href="admin.html" class="nav-link-btn nav-admin-link">⚙️ Admin</a>
+    </nav>
+    <div class="nav-drawer-footer">
+      <a href="#" data-tel class="btn btn-primary">📞 Ring nu</a>
+      <a href="#" data-sms class="btn btn-outline">💬 SMS</a>
+    </div>
+  </div>
+  <div class="nav-backdrop" id="nav-backdrop"></div>
+</div>
+
 
 <!-- ============================================================
      FORSIDE — kort app-lignende startmenu (view-home)
@@ -68,13 +96,15 @@
 <div class="app-view home-view" id="view-home">
 
   <div class="home-hero">
-    <img class="home-logo" src="assets/logo/finnes-entreprise-mark.png" alt="Finnes Entreprise logo" width="76" height="76">
+    <button type="button" class="home-logo-btn" data-go-view="home" aria-label="Til forsiden">
+      <img class="home-logo" src="assets/logo/finnes-entreprise-mark.png" alt="Finnes Entreprise logo" width="76" height="76">
+    </button>
     <h1 data-company-name>Finnes Entreprise</h1>
     <p class="home-intro">Professionel have- og graveservice til private, erhverv og sommerhuse.</p>
     <div class="home-actions">
       <a href="#" data-tel class="btn btn-primary" aria-label="Ring til os">📞 Ring</a>
       <a href="#" data-sms class="btn btn-outline" aria-label="Send SMS">💬 SMS</a>
-      <button type="button" class="btn btn-accent" data-go-view="kontakt">📩 Få tilbud</button>
+      <button type="button" class="btn btn-accent" data-go-view="kontakt">📩 Få uforpligtende tilbud</button>
     </div>
   </div>
 
@@ -107,6 +137,10 @@
       <span class="icon-emoji">💰</span>
       <span class="icon-label">Prisberegner</span>
     </button>
+    <button type="button" class="icon-menu-btn" data-go-view="prisberegner" data-open-calc="summer">
+      <span class="icon-emoji">🏡</span>
+      <span class="icon-label">Sommerhus</span>
+    </button>
     <button type="button" class="icon-menu-btn" data-go-view="galleri">
       <span class="icon-emoji">🖼️</span>
       <span class="icon-label">Galleri</span>
@@ -121,7 +155,17 @@
     </button>
   </nav>
 
-  <p class="home-footer-note">CVR <span data-cvr-text>46557557</span> · Momsregistreret</p>
+  <!-- Sommerhus-highlight -->
+  <div class="sommerhus-card" data-go-view="prisberegner" data-open-calc="summer" role="button" tabindex="0">
+    <span class="sommerhus-ico">🏡</span>
+    <div>
+      <strong>Sommerhusservice</strong>
+      <p>Til ejere, der bor langt væk — græsslåning, tilsyn, klargøring og løbende vedligehold.</p>
+    </div>
+    <span class="sommerhus-arrow">→</span>
+  </div>
+
+  <p class="home-footer-note">CVR <span data-cvr-text>46557557</span> · Momsregistreret · <a href="admin.html" class="admin-link">⚙️ Admin</a></p>
 </div>
 
 <!-- ============================================================
@@ -162,7 +206,26 @@
         <p>Alle priser beregnes live ud fra dine valg, inkl. kørsel — ingen forpligtelse, ingen skjulte tillæg.</p>
       </div>
 
-      <div class="calc-tabs" role="tablist">
+      <!-- BEREGNER-OVERSIGT: store valgknapper -->
+      <div class="calc-picker" id="calc-picker">
+        <p class="calc-picker-label">Vælg beregner</p>
+        <div class="calc-picker-grid">
+          <button type="button" class="calc-pick-btn" data-pick="grass">🌿<span>Græsslåning</span></button>
+          <button type="button" class="calc-pick-btn" data-pick="hedge">✂️<span>Hækklipning</span></button>
+          <button type="button" class="calc-pick-btn" data-pick="excavator">🚜<span>Minigraver</span></button>
+          <button type="button" class="calc-pick-btn" data-pick="cleanup">🍂<span>Haveoprydning</span></button>
+          <button type="button" class="calc-pick-btn" data-pick="earth">⛏️<span>Jordarbejde</span></button>
+          <button type="button" class="calc-pick-btn" data-pick="paving">🪨<span>Belægning</span></button>
+          <button type="button" class="calc-pick-btn" data-pick="summer">🏡<span>Sommerhus</span></button>
+          <button type="button" class="calc-pick-btn" data-pick="subscription">📅<span>Fast aftale</span></button>
+        </div>
+      </div>
+
+      <!-- BEREGNER-PANEL (skjult indtil valg) -->
+      <div class="calc-active-wrap" id="calc-active-wrap" style="display:none">
+        <button type="button" class="calc-back-btn" id="calc-back-btn">← Alle beregnere</button>
+
+      <div class="calc-tabs" role="tablist" style="display:none">
         <button type="button" class="calc-tab active" data-panel="grass">🌿 Græsslåning</button>
         <button type="button" class="calc-tab" data-panel="hedge">✂️ Hæk</button>
         <button type="button" class="calc-tab" data-panel="excavator">🚜 Minigraver</button>
@@ -411,18 +474,23 @@
         </div>
       </div>
 
+      </div><!-- end calc-active-wrap -->
+
     </section>
 
-    <!-- EKSTRA FUNKTION: Tag et billede af opgaven -->
+    <!-- BILLEDER: SMS-vejledning (ingen upload — kan ikke sendes via mailto) -->
     <section>
       <div class="photo-cta">
-        <h2>Har du en opgave, vi skal se?</h2>
-        <p>Tag et billede af opgaven, så får du et mere præcist tilbud — upload direkte herfra.</p>
-        <label class="upload-zone" id="task-photo-zone" style="max-width:420px; margin:0 auto; display:block;">
-          <span class="upload-label-text">📷 Klik for at tage/uploade billede</span>
-          <input type="file" id="task-photo-input" accept="image/*" capture="environment" multiple>
-        </label>
-        <div class="upload-preview" id="task-photo-preview" style="justify-content:center; margin-top:16px;"></div>
+        <h2>📷 Hav du billeder af opgaven?</h2>
+        <p>Billeder giver os det bedste grundlag for et præcist tilbud.</p>
+        <div class="photo-sms-box">
+          <span class="photo-sms-ico">📱</span>
+          <div>
+            <strong>Send billeder direkte på SMS</strong>
+            <p>Send billeder til <span class="photo-sms-nr" data-phone-text>40 13 73 70</span> — skriv blot "Billeder til tilbud" i beskeden.</p>
+            <a href="#" data-sms class="btn btn-primary btn-sm photo-sms-btn">💬 Åbn SMS nu</a>
+          </div>
+        </div>
       </div>
     </section>
   </div>
@@ -661,7 +729,7 @@
         </div>
         <div class="footer-bottom">
           <span>© <span data-year>2026</span> <span data-company-name>Finnes Entreprise</span> · CVR <span data-cvr-text>46557557</span></span>
-          <span>Bygget af Nordic Operations · nordicoperations.dk</span>
+          <span>Bygget af Nordic Operations · <a href="admin.html" style="color:rgba(255,255,255,.5); text-decoration:none;">⚙️ Admin</a></span>
         </div>
       </div>
     </footer>
@@ -714,7 +782,7 @@
 
 <!-- SW opdateringsbesked -->
 <style>
-#sw-update-banner { display:none; position:fixed; top:16px; left:16px; right:16px; background:#1F4D2C; color:#fff; padding:14px 18px; border-radius:14px; font-size:.88rem; font-weight:600; box-shadow:0 6px 24px rgba(0,0,0,.3); align-items:center; gap:12px; z-index:1000; }
+#sw-update-banner { display:none; position:fixed; top:70px; left:16px; right:16px; background:#1F4D2C; color:#fff; padding:14px 18px; border-radius:14px; font-size:.88rem; font-weight:600; box-shadow:0 6px 24px rgba(0,0,0,.3); align-items:center; gap:12px; z-index:1000; }
 #sw-update-banner.show { display:flex; }
 #sw-update-banner button { background:rgba(255,255,255,.2); border:none; color:#fff; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:.8rem; font-weight:700; white-space:nowrap; }
 </style>

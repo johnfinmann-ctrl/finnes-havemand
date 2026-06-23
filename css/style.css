@@ -749,3 +749,199 @@ h3 { font-size: clamp(1.3rem, 2vw, 1.6rem); }
   flex-shrink: 0;
   margin-top: 2px;
 }
+
+/* ════════════════════════════════════════════════════
+   V5 TILFØJELSER — hamburger, calc-picker,
+   sommerhus-card, foto-SMS, admin-link
+   ════════════════════════════════════════════════════ */
+
+/* ── Hamburger-knap ── */
+.hamburger {
+  position: fixed;
+  top: 14px; right: 16px;
+  z-index: 510;
+  background: var(--color-primary, #2E6F40);
+  border: none;
+  border-radius: 10px;
+  width: 42px; height: 42px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 5px; cursor: pointer;
+  box-shadow: 0 3px 12px rgba(0,0,0,.2);
+  transition: background .15s;
+}
+.hamburger:hover { background: var(--color-primary-dark, #1F4D2C); }
+.hamburger span {
+  display: block; width: 20px; height: 2px;
+  background: #fff; border-radius: 2px;
+  transition: transform .2s, opacity .2s;
+}
+
+/* ── Nav overlay ── */
+.nav-overlay {
+  position: fixed; inset: 0; z-index: 505;
+  pointer-events: none;
+}
+.nav-overlay.open { pointer-events: all; }
+
+.nav-backdrop {
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,.45);
+  opacity: 0; transition: opacity .25s;
+  z-index: 1; /* under drawer */
+}
+.nav-overlay.open .nav-backdrop { opacity: 1; }
+
+.nav-drawer {
+  position: absolute; top: 0; right: 0; bottom: 0;
+  width: min(300px, 80vw);
+  background: #fff;
+  transform: translateX(100%);
+  transition: transform .3s cubic-bezier(.4,0,.2,1);
+  display: flex; flex-direction: column;
+  box-shadow: -8px 0 32px rgba(0,0,0,.15);
+  overflow-y: auto;
+  z-index: 2; /* over backdrop */
+}
+.nav-overlay.open .nav-drawer { transform: translateX(0); }
+
+.nav-drawer-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 18px 14px;
+  background: var(--color-primary, #2E6F40);
+  color: #fff;
+}
+.nav-drawer-logo { font-size: 1rem; font-weight: 700; }
+.nav-drawer-close {
+  background: rgba(255,255,255,.2); border: none; color: #fff;
+  width: 32px; height: 32px; border-radius: 8px;
+  font-size: 1rem; cursor: pointer; display: flex;
+  align-items: center; justify-content: center;
+}
+
+.nav-drawer-links {
+  display: flex; flex-direction: column; padding: 12px 8px; flex: 1;
+}
+.nav-link-btn {
+  display: flex; align-items: center; gap: 10px;
+  padding: 13px 14px;
+  border: none; background: transparent;
+  font-size: .95rem; font-weight: 600; color: var(--color-text-primary, #1A2018);
+  text-align: left; cursor: pointer; border-radius: 10px;
+  text-decoration: none; transition: background .15s;
+}
+.nav-link-btn:hover { background: var(--color-primary-tint, #EAF3EC); }
+.nav-admin-link { color: var(--color-text-muted, #666); font-size: .88rem; margin-top: auto; }
+
+.nav-drawer-footer {
+  padding: 16px;
+  display: flex; gap: 10px;
+  border-top: 1px solid var(--color-border, #e0e8dc);
+}
+.nav-drawer-footer .btn { flex: 1; justify-content: center; }
+
+/* ── Calc-picker ── */
+.calc-picker { padding: 8px 0 16px; }
+.calc-picker-label {
+  font-size: .82rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .05em; color: var(--color-text-muted, #666);
+  margin-bottom: 12px;
+}
+.calc-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+.calc-pick-btn {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 5px;
+  padding: 14px 6px;
+  background: var(--color-surface, #fff);
+  border: 1.5px solid var(--color-border, #e0e8dc);
+  border-radius: 14px;
+  font-size: .72rem; font-weight: 700;
+  color: var(--color-text-primary, #1A2018);
+  cursor: pointer;
+  transition: border-color .15s, background .15s, transform .1s;
+  -webkit-tap-highlight-color: transparent;
+}
+.calc-pick-btn span:first-child { font-size: 1.6rem; line-height: 1; }
+.calc-pick-btn:active, .calc-pick-btn.selected {
+  border-color: var(--color-primary, #2E6F40);
+  background: var(--color-primary-tint, #EAF3EC);
+  transform: scale(.96);
+}
+.calc-back-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: none; border: none;
+  font-size: .85rem; font-weight: 700;
+  color: var(--color-primary, #2E6F40);
+  cursor: pointer; padding: 6px 0 12px;
+  text-decoration: underline; text-underline-offset: 2px;
+}
+.calc-back-btn:hover { color: var(--color-primary-dark, #1F4D2C); }
+
+/* ── Sommerhus-card på forsiden ── */
+.sommerhus-card {
+  margin: 0 16px 12px;
+  display: flex; align-items: center; gap: 14px;
+  background: linear-gradient(135deg, #1F4D2C, #2E6F40);
+  color: #fff;
+  border-radius: 16px;
+  padding: 16px 18px;
+  cursor: pointer;
+  transition: transform .12s, box-shadow .15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.sommerhus-card:active { transform: scale(.98); }
+.sommerhus-ico { font-size: 2.2rem; flex-shrink: 0; }
+.sommerhus-card strong { display: block; font-size: 1rem; margin-bottom: 3px; }
+.sommerhus-card p { font-size: .82rem; opacity: .88; line-height: 1.4; margin: 0; }
+.sommerhus-arrow { font-size: 1.3rem; opacity: .7; margin-left: auto; flex-shrink: 0; }
+
+/* ── Logo-knap til forsiden ── */
+.home-logo-btn {
+  background: none; border: none; cursor: pointer; padding: 0;
+  display: block; margin: 0 auto 12px;
+}
+.home-logo-btn .home-logo { margin: 0 auto; }
+
+/* ── Foto SMS-box ── */
+.photo-sms-box {
+  display: flex; align-items: flex-start; gap: 14px;
+  background: var(--color-primary-tint, #EAF3EC);
+  border: 1.5px solid var(--color-primary, #2E6F40);
+  border-radius: 14px;
+  padding: 16px 18px;
+  margin: 12px auto; max-width: 480px;
+}
+.photo-sms-ico { font-size: 2rem; flex-shrink: 0; }
+.photo-sms-box strong { display: block; font-size: .95rem; color: var(--color-primary, #2E6F40); margin-bottom: 4px; }
+.photo-sms-box p { font-size: .88rem; color: var(--color-text-muted, #555); margin: 0 0 10px; }
+.photo-sms-nr { font-weight: 700; }
+.photo-sms-btn { display: inline-flex; align-items: center; gap: 6px; }
+
+/* ── Admin-link i footer-note ── */
+.admin-link {
+  color: rgba(255,255,255,.45);
+  text-decoration: none;
+  font-size: .78rem;
+  margin-left: 8px;
+}
+.admin-link:hover { color: rgba(255,255,255,.7); }
+
+/* ── Responsive: picker ved tablet ── */
+@media (min-width: 500px) {
+  .calc-picker-grid { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 380px) {
+  .calc-picker-grid { grid-template-columns: repeat(3, 1fr); }
+  .calc-pick-btn span:first-child { font-size: 1.4rem; }
+}
+
+/* Skjul hamburger når nav er åben */
+.nav-overlay.open ~ * .hamburger,
+body:has(.nav-overlay.open) .hamburger {
+  display: none;
+}
