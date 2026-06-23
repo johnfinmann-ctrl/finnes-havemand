@@ -214,11 +214,11 @@
       <div class="calc-picker" id="calc-picker">
         <p class="calc-picker-label">Vælg beregner</p>
         <div class="calc-picker-grid">
-          <button type="button" class="calc-pick-btn" data-pick="grass">🌿<span>Græsslåning</span></button>
-          <button type="button" class="calc-pick-btn" data-pick="hedge">✂️<span>Hækklipning</span></button>
+          <button type="button" class="calc-pick-btn" data-pick="grass">🌿<span>Græs</span></button>
+          <button type="button" class="calc-pick-btn" data-pick="hedge">✂️<span>Hæk</span></button>
           <button type="button" class="calc-pick-btn" data-pick="excavator">🚜<span>Minigraver</span></button>
-          <button type="button" class="calc-pick-btn" data-pick="cleanup">🍂<span>Haveoprydning</span></button>
-          <button type="button" class="calc-pick-btn" data-pick="earth">⛏️<span>Jordarbejde</span></button>
+          <button type="button" class="calc-pick-btn" data-pick="cleanup">🍂<span>Oprydning</span></button>
+          <button type="button" class="calc-pick-btn" data-pick="earth">⛏️<span>Jord</span></button>
           <button type="button" class="calc-pick-btn" data-pick="paving">🪨<span>Belægning</span></button>
           <button type="button" class="calc-pick-btn" data-pick="summer">🏡<span>Sommerhus</span></button>
           <button type="button" class="calc-pick-btn" data-pick="subscription">📅<span>Fast aftale</span></button>
@@ -485,12 +485,12 @@
     <!-- BILLEDER: Tag op til 3 fotos og vedhæft i mail -->
     <section>
       <div class="photo-cta">
-        <h2>📷 Tag et billede af opgaven</h2>
-        <p>Vælg op til 3 billeder — så sender du dem med din tilbudsforespørgsel.</p>
+        <h2>Send billeder af opgaven</h2>
+        <p>Tag op til 3 billeder, så vi lettere kan give et præcist tilbud.</p>
         <button type="button" class="upload-zone" id="task-photo-zone" aria-label="Vælg billeder af opgaven">
           <span class="upload-ico">📸</span>
-          <strong class="upload-label-text">Tag billeder til tilbud</strong>
-          <span class="upload-sub">Tryk for at vælge eller fotografere — maks. 3 billeder</span>
+          <strong class="upload-label-text">Vælg eller tag billeder</strong>
+          <span class="upload-sub">Billederne bruges kun til at vurdere opgaven.</span>
           <input type="file" id="task-photo-input" accept="image/*" multiple style="display:none">
         </button>
         <div class="upload-preview" id="task-photo-preview"></div>
@@ -749,7 +749,7 @@
         </div>
         <div class="footer-bottom">
           <span>© <span data-year>2026</span> <span data-company-name>Finnes Entreprise</span> · CVR <span data-cvr-text>46557557</span></span>
-          <span>Bygget af Nordic Operations · <a href="admin.html" style="color:rgba(255,255,255,.5); text-decoration:none;">⚙️ Admin</a></span>
+          <span>Digital løsning leveret af <strong>Nordic Operations</strong> · <a href="admin.html" style="color:rgba(255,255,255,.45); text-decoration:none; font-weight:normal;">⚙️ Admin</a></span>
         </div>
       </div>
     </footer>
@@ -760,9 +760,9 @@
      FAST MOBIL-KONTAKTBAR (vises på alle views)
      ============================================================ -->
 <div class="mobile-contact-bar">
-  <a href="#" data-tel><span class="icon">📞</span>Ring</a>
-  <a href="#" data-sms><span class="icon">💬</span>SMS</a>
-  <button type="button" data-go-view="kontakt"><span class="icon">📩</span>Tilbud</button>
+  <a href="#" data-tel class="mcb-btn mcb-green"><span class="mcb-ico">📞</span>Ring</a>
+  <a href="#" data-sms class="mcb-btn mcb-green"><span class="mcb-ico">💬</span>SMS</a>
+  <button type="button" data-go-view="kontakt" class="mcb-btn mcb-orange"><span class="mcb-ico">📋</span>Tilbud</button>
 </div>
 
 <!-- ============================================================

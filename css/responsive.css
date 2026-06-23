@@ -62,3 +62,76 @@
 @media (min-width: 1400px) {
   .container { max-width: 1320px; }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILFIX v5 — 390px og under
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── 1. Prisberegner header: clamp font-size ── */
+.calculators-section .section-head h2 {
+  font-size: clamp(1.1rem, 5vw, 1.6rem);
+  line-height: 1.25;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+.calculators-section .section-head p {
+  font-size: clamp(.82rem, 3.5vw, 1rem);
+  max-width: 100%;
+}
+
+/* ── 2. Calc-picker-grid: 2 kolonner på mobil ── */
+@media (max-width: 600px) {
+  .calc-picker-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px;
+  }
+  .calc-pick-btn {
+    padding: 14px 8px;
+    font-size: .8rem;
+    border-radius: 12px;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    text-align: center;
+  }
+  .calc-pick-btn span:first-child {
+    font-size: 1.7rem;
+  }
+}
+
+/* ── 3. Foto-sektion: ryddelig tekst ── */
+.photo-cta h2 {
+  font-size: clamp(1rem, 4.5vw, 1.4rem);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.photo-cta p {
+  font-size: clamp(.84rem, 3.8vw, 1rem);
+  color: var(--color-text-muted, #555);
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+/* ── 4+5: Se style.css (mobile-contact-bar + chatbot-toggle) ── */
+
+/* ── 6. Nordic Operations footer credit ── */
+.footer-bottom strong {
+  color: #fff;
+  font-weight: 700;
+}
+.footer-bottom span:last-child {
+  font-size: .8rem;
+  opacity: .75;
+}
+
+/* ── Global sikring: ingen elementer bredere end viewport ── */
+.section-head h2,
+.section-head p,
+.calc-picker-label,
+.photo-cta h2,
+.photo-cta p {
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
