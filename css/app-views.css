@@ -8,6 +8,7 @@
 /* ---------- View show/hide ---------- */
 .app-view {
   display: none;
+  overflow-x: hidden;
 }
 
 .app-view.active {
@@ -193,6 +194,7 @@ body.is-home-view {
   padding: 24px 20px 48px;
   max-width: var(--container-width);
   margin: 0 auto;
+  overflow-x: hidden;
 }
 
 @media (min-width: 768px) {

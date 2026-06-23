@@ -1,3 +1,21 @@
+/* ═══════════════════════════════════════════════════
+   GLOBAL OVERFLOW FIX — ingen horisontal scroll
+   ═══════════════════════════════════════════════════ */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+body {
+  overflow-x: hidden;
+  max-width: 100%;
+  width: 100%;
+}
+
 /* ==========================================================
    STYLE.CSS — Handyman Engine
    Kerne-stylesheet. Farver hentes fra CSS custom properties,
@@ -781,6 +799,8 @@ h3 { font-size: clamp(1.3rem, 2vw, 1.6rem); }
 .nav-overlay {
   position: fixed; inset: 0; z-index: 505;
   pointer-events: none;
+  overflow: hidden; /* Forhindrer .nav-drawer i at skabe horisontal scroll */
+  clip: rect(0, auto, auto, 0); /* Gammel Safari fallback */
 }
 .nav-overlay.open { pointer-events: all; }
 
@@ -849,22 +869,27 @@ h3 { font-size: clamp(1.3rem, 2vw, 1.6rem); }
 }
 .calc-picker-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
+  grid-template-columns: repeat(4, minmax(0, 1fr)); /* minmax(0,1fr) forhindrer overflow */
+  gap: 6px;
+  width: 100%;
+  max-width: 100%;
 }
 .calc-pick-btn {
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  gap: 5px;
-  padding: 14px 6px;
+  gap: 4px;
+  padding: 12px 4px;
+  min-width: 0; /* Tillader grid-kolonner at krympe */
+  width: 100%;  /* Fylder sin grid-celle */
   background: var(--color-surface, #fff);
   border: 1.5px solid var(--color-border, #e0e8dc);
-  border-radius: 14px;
-  font-size: .72rem; font-weight: 700;
+  border-radius: 12px;
+  font-size: .68rem; font-weight: 700;
   color: var(--color-text-primary, #1A2018);
   cursor: pointer;
   transition: border-color .15s, background .15s, transform .1s;
   -webkit-tap-highlight-color: transparent;
+  overflow: hidden; /* Tekst må ikke brue ud over knappen */
 }
 .calc-pick-btn span:first-child { font-size: 1.6rem; line-height: 1; }
 .calc-pick-btn:active, .calc-pick-btn.selected {
@@ -936,8 +961,12 @@ h3 { font-size: clamp(1.3rem, 2vw, 1.6rem); }
   .calc-picker-grid { grid-template-columns: repeat(4, 1fr); }
 }
 @media (max-width: 380px) {
-  .calc-picker-grid { grid-template-columns: repeat(3, 1fr); }
-  .calc-pick-btn span:first-child { font-size: 1.4rem; }
+  .calc-picker-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 5px;
+  }
+  .calc-pick-btn { padding: 10px 2px; font-size: .62rem; border-radius: 10px; }
+  .calc-pick-btn span:first-child { font-size: 1.3rem; }
 }
 
 /* Skjul hamburger når nav er åben */
