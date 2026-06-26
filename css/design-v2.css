@@ -1,0 +1,623 @@
+/* ════════════════════════════════════════════════════════════════
+   DESIGN-V2.CSS — Finnes Entreprise v5.1 (20260626)
+   Designløft: ro, luft, cards, knapper, typografi, animationer.
+   Ændrer ALDRIG funktionalitet — kun visuel lag ovenpå style.css.
+   ════════════════════════════════════════════════════════════════ */
+
+/* ── Importér Google Fonts (mere udtrykfuldt) ── */
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600;700&display=swap');
+
+/* ══════════════════════════════════════════════
+   1. TYPOGRAFI — ro og luft
+   ══════════════════════════════════════════════ */
+:root {
+  --font-display: 'DM Serif Display', 'Fraunces', Georgia, serif;
+  --font-body:    'DM Sans', 'Inter', -apple-system, sans-serif;
+  --radius-card:  20px;
+  --radius-btn:   50px;
+  --ease-out:     cubic-bezier(.16, 1, .3, 1);
+  --transition:   .22s var(--ease-out);
+}
+
+body { font-family: var(--font-body); letter-spacing: -.01em; }
+
+h1 { font-size: clamp(2rem, 6vw, 3.6rem); font-weight: 400; letter-spacing: -.02em; }
+h2 { font-size: clamp(1.4rem, 4vw, 2.4rem); font-weight: 400; letter-spacing: -.015em; }
+h3 { font-size: clamp(1.1rem, 3vw, 1.5rem); }
+p  { max-width: 60ch; line-height: 1.7; }
+
+/* ══════════════════════════════════════════════
+   2. HERO — rolig forside
+   ══════════════════════════════════════════════ */
+.home-hero {
+  position: relative;
+  min-height: 52vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px 40px;
+  text-align: center;
+  background:
+    linear-gradient(160deg,
+      rgba(31,77,44,.92) 0%,
+      rgba(46,111,64,.85) 60%,
+      rgba(31,77,44,.94) 100%),
+    url('../assets/images/hero-placeholder.jpg') center/cover no-repeat;
+  color: #fff;
+  overflow: hidden;
+}
+
+/* Subtil grøn radial lysning bagerst */
+.home-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(80,160,90,.25), transparent);
+  pointer-events: none;
+}
+
+.home-logo { border-radius: 50%; border: 3px solid rgba(255,255,255,.3); }
+.home-logo-btn { display: block; margin: 0 auto 16px; }
+
+.home-hero h1 {
+  color: #fff;
+  font-size: clamp(1.8rem, 5.5vw, 3rem);
+  margin-bottom: 8px;
+  text-shadow: 0 2px 16px rgba(0,0,0,.18);
+}
+
+.home-intro {
+  font-size: clamp(.9rem, 2.8vw, 1.1rem);
+  opacity: .88;
+  margin: 0 auto 28px;
+  max-width: 36ch;
+  color: rgba(255,255,255,.9);
+}
+
+/* Ét primær CTA + to sekundære */
+.home-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+/* ══════════════════════════════════════════════
+   3. KNAPPER — ens radius, hover, aktiv
+   ══════════════════════════════════════════════ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 13px 24px;
+  border-radius: var(--radius-btn);
+  font-size: .92rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  letter-spacing: -.01em;
+  cursor: pointer;
+  border: none;
+  transition:
+    background var(--transition),
+    transform var(--transition),
+    box-shadow var(--transition),
+    opacity var(--transition);
+  -webkit-tap-highlight-color: transparent;
+  white-space: nowrap;
+}
+
+.btn:hover  { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,.15); }
+.btn:active { transform: scale(.97); box-shadow: none; }
+
+.btn-primary {
+  background: var(--color-primary, #2E6F40);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(46,111,64,.35);
+}
+.btn-primary:hover { background: var(--color-primary-dark, #234F30); }
+
+.btn-accent {
+  background: var(--color-accent, #F28C28);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(242,140,40,.35);
+}
+.btn-accent:hover { background: var(--color-accent-dark, #C96F12); }
+
+.btn-outline {
+  background: transparent;
+  color: #fff;
+  border: 2px solid rgba(255,255,255,.55);
+}
+.btn-outline:hover { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.8); }
+
+.btn-block  { width: 100%; justify-content: center; }
+.btn-lg     { padding: 16px 32px; font-size: 1rem; }
+
+/* ══════════════════════════════════════════════
+   4. ICON-MENU — forside-gitter
+   ══════════════════════════════════════════════ */
+.icon-menu {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  padding: 20px 16px;
+  background: var(--color-background, #fff);
+}
+
+@media (max-width: 480px) {
+  .icon-menu { grid-template-columns: repeat(4, 1fr); gap: 8px; padding: 16px 12px; }
+}
+@media (max-width: 360px) {
+  .icon-menu { grid-template-columns: repeat(3, 1fr); }
+}
+
+.icon-menu-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 14px 6px 12px;
+  background: var(--color-surface, #FAF9F7);
+  border: 1.5px solid var(--color-border, #E4E1DA);
+  border-radius: var(--radius-card);
+  font-size: .68rem;
+  font-weight: 600;
+  color: var(--color-text-primary, #2F3437);
+  transition: background var(--transition), border-color var(--transition), transform var(--transition);
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+  min-width: 0;
+  overflow: hidden;
+  text-align: center;
+}
+
+.icon-emoji { font-size: 1.55rem; line-height: 1; }
+.icon-label { font-size: .65rem; font-weight: 600; line-height: 1.2; word-break: break-word; }
+
+.icon-menu-btn:hover  { background: var(--color-primary-tint, #EAF3EC); border-color: var(--color-primary, #2E6F40); }
+.icon-menu-btn:active { transform: scale(.94); }
+.icon-menu-btn.is-primary {
+  background: var(--color-primary, #2E6F40);
+  color: #fff;
+  border-color: var(--color-primary, #2E6F40);
+}
+
+/* ══════════════════════════════════════════════
+   5. SOMMERHUS-CARD — fremhævet card
+   ══════════════════════════════════════════════ */
+.sommerhus-card {
+  margin: 0 16px 20px;
+  border-radius: var(--radius-card);
+  padding: 20px 22px;
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition);
+  box-shadow: var(--shadow-md);
+}
+.sommerhus-card:hover  { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.sommerhus-card:active { transform: scale(.98); }
+
+/* ══════════════════════════════════════════════
+   6. SECTION-HEADS — luft og hierarki
+   ══════════════════════════════════════════════ */
+.section-head {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 0 20px;
+}
+.section-head h2 { margin-bottom: 8px; color: var(--color-secondary, #2F3437); }
+.section-head p  { margin: 0 auto; color: var(--color-text-muted, #6B7270); font-size: .95rem; }
+
+/* ══════════════════════════════════════════════
+   7. SERVICE-CARDS (ydelser)
+   ══════════════════════════════════════════════ */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 0 20px;
+}
+
+.service-card {
+  background: var(--color-surface, #FAF9F7);
+  border: 1.5px solid var(--color-border, #E4E1DA);
+  border-radius: var(--radius-card);
+  padding: 28px 24px;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--color-primary, #2E6F40);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+.service-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--color-primary, #2E6F40); }
+.service-card:hover::before { opacity: 1; }
+
+.service-icon { font-size: 2.2rem; margin-bottom: 14px; }
+.service-card h3 { font-size: 1.1rem; margin-bottom: 8px; color: var(--color-secondary, #2F3437); }
+.service-card p  { font-size: .88rem; color: var(--color-text-muted, #6B7270); line-height: 1.6; margin-bottom: 16px; max-width: none; }
+.service-card .card-link {
+  font-size: .84rem;
+  font-weight: 600;
+  color: var(--color-primary, #2E6F40);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: gap var(--transition);
+}
+.service-card:hover .card-link { gap: 8px; }
+
+/* ══════════════════════════════════════════════
+   8. GALLERI — ensartede billeder
+   ══════════════════════════════════════════════ */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+  padding: 0 20px;
+}
+
+.gallery-item {
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition), box-shadow var(--transition);
+  cursor: pointer;
+}
+.gallery-item:hover { transform: scale(1.02); box-shadow: var(--shadow-md); }
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  loading: lazy;
+  transition: transform .4s var(--ease-out);
+}
+.gallery-item:hover img { transform: scale(1.04); }
+
+/* ══════════════════════════════════════════════
+   9. TILBUDSFORMULAR — elegant
+   ══════════════════════════════════════════════ */
+.contact-form-wrap {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+#contact-form {
+  background: var(--color-surface, #FAF9F7);
+  border: 1.5px solid var(--color-border, #E4E1DA);
+  border-radius: var(--radius-card);
+  padding: 32px 28px;
+  box-shadow: var(--shadow-sm);
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+.form-group label {
+  display: block;
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 6px;
+  letter-spacing: .01em;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1.5px solid var(--color-border, #E4E1DA);
+  border-radius: 12px;
+  background: var(--color-background, #fff);
+  color: var(--color-text-primary);
+  font-size: .92rem;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  -webkit-appearance: none;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--color-primary, #2E6F40);
+  box-shadow: 0 0 0 3px rgba(46,111,64,.12);
+}
+.form-group textarea { resize: vertical; min-height: 110px; }
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+@media (max-width: 540px) { .form-row { grid-template-columns: 1fr; } }
+
+.form-status {
+  margin-top: 14px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: .88rem;
+  font-weight: 600;
+  display: none;
+}
+.form-status.success { display: block; background: #d4edda; color: #155724; }
+.form-status.error   { display: block; background: #f8d7da; color: #721c24; }
+
+/* SMS-hint i formularen */
+.contact-sms-hint {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--color-primary-tint, #EAF3EC);
+  border-left: 4px solid var(--color-primary, #2E6F40);
+  border-radius: 0 12px 12px 0;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  font-size: .88rem;
+}
+.contact-sms-hint strong { color: var(--color-primary, #2E6F40); }
+
+/* ══════════════════════════════════════════════
+   10. KONTAKT-CARDS
+   ══════════════════════════════════════════════ */
+.contact-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+  padding: 0 20px;
+  margin-bottom: 40px;
+}
+
+.contact-card {
+  background: var(--color-surface, #FAF9F7);
+  border: 1.5px solid var(--color-border, #E4E1DA);
+  border-radius: var(--radius-card);
+  padding: 22px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+}
+.contact-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-primary, #2E6F40);
+}
+.contact-card:active { transform: scale(.98); }
+.contact-card-ico {
+  font-size: 1.8rem;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary-tint, #EAF3EC);
+  border-radius: 14px;
+  flex-shrink: 0;
+}
+.contact-card-label { font-size: .75rem; color: var(--color-text-muted); margin-bottom: 2px; }
+.contact-card-value { font-size: .95rem; font-weight: 700; }
+
+/* ══════════════════════════════════════════════
+   11. ANMELDELSES-CARDS
+   ══════════════════════════════════════════════ */
+.review-card {
+  background: var(--color-surface, #FAF9F7);
+  border: 1.5px solid var(--color-border, #E4E1DA);
+  border-radius: var(--radius-card);
+  padding: 24px 22px;
+  box-shadow: var(--shadow-sm);
+}
+.review-stars { font-size: 1.1rem; margin-bottom: 10px; color: var(--color-accent, #F28C28); }
+.review-text  { font-size: .9rem; color: var(--color-text-muted); line-height: 1.7; font-style: italic; margin-bottom: 12px; }
+.review-author { font-size: .82rem; font-weight: 700; color: var(--color-text-primary); }
+
+/* ══════════════════════════════════════════════
+   12. PRISBEREGNER — picker og receipt
+   ══════════════════════════════════════════════ */
+.calc-picker-label {
+  font-size: .75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--color-text-muted, #6B7270);
+  margin-bottom: 14px;
+}
+
+.calc-pick-btn {
+  background: var(--color-surface, #FAF9F7);
+  border: 1.5px solid var(--color-border, #E4E1DA);
+  border-radius: 16px;
+  transition: background var(--transition), border-color var(--transition), transform var(--transition);
+}
+.calc-pick-btn:hover {
+  background: var(--color-primary-tint, #EAF3EC);
+  border-color: var(--color-primary, #2E6F40);
+}
+.calc-pick-btn.selected {
+  background: var(--color-primary, #2E6F40);
+  color: #fff;
+  border-color: var(--color-primary, #2E6F40);
+}
+
+.calc-receipt {
+  background: var(--color-surface, #FAF9F7);
+  border: 1.5px solid var(--color-border, #E4E1DA);
+  border-radius: var(--radius-card);
+  padding: 24px 22px;
+  box-shadow: var(--shadow-sm);
+  animation: fadeSlideUp .3s var(--ease-out) both;
+}
+
+.calc-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--color-border, #E4E1DA);
+  font-size: .88rem;
+}
+.calc-line:last-of-type { border-bottom: none; }
+.calc-line-label { color: var(--color-text-muted); }
+.calc-line-value { font-weight: 600; text-align: right; }
+.calc-line-total { padding-top: 12px; border-top: 2px solid var(--color-secondary, #2F3437); margin-top: 4px; }
+.calc-line-total .calc-line-label { font-weight: 700; font-size: .9rem; color: var(--color-text-primary); }
+.calc-total-amount { font-size: 1.5rem; font-weight: 700; color: var(--color-primary, #2E6F40); }
+.calc-badge { display: inline-block; background: var(--color-primary, #2E6F40); color: #fff; font-size: .72rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-bottom: 12px; }
+.calc-disclaimer { font-size: .78rem; color: var(--color-text-muted); font-style: italic; margin-top: 10px; }
+.calc-tilbud-btn { margin-top: 16px; }
+
+/* ══════════════════════════════════════════════
+   13. FOOTER — moderniseret
+   ══════════════════════════════════════════════ */
+.site-footer {
+  background: var(--color-secondary, #2F3437);
+  color: rgba(255,255,255,.75);
+  padding: 56px 0 0;
+  margin-top: 0;
+  border-radius: 0 !important;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 48px;
+}
+
+@media (max-width: 640px) {
+  .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+}
+
+.footer-brand .logo { font-size: 1.2rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
+.footer-brand p      { font-size: .85rem; opacity: .65; line-height: 1.55; max-width: 28ch; }
+
+.footer-col h4 { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: rgba(255,255,255,.45); margin-bottom: 14px; font-family: var(--font-body); }
+.footer-col ul { display: flex; flex-direction: column; gap: 8px; }
+.footer-col li { font-size: .85rem; }
+.footer-link-btn { background: none; border: none; color: rgba(255,255,255,.7); cursor: pointer; padding: 0; font-size: .85rem; font-family: inherit; transition: color var(--transition); text-align: left; }
+.footer-link-btn:hover { color: #fff; }
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,.1);
+  padding: 20px 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  font-size: .78rem;
+  color: rgba(255,255,255,.45);
+}
+.footer-bottom strong { color: rgba(255,255,255,.7); font-weight: 600; }
+.footer-bottom a:hover { color: rgba(255,255,255,.7); }
+
+/* Footer GDPR-links */
+.footer-gdpr {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 16px 0 24px;
+  border-top: 1px solid rgba(255,255,255,.07);
+  margin-top: 0;
+}
+.footer-gdpr a {
+  font-size: .75rem;
+  color: rgba(255,255,255,.4);
+  transition: color var(--transition);
+}
+.footer-gdpr a:hover { color: rgba(255,255,255,.7); }
+
+/* ══════════════════════════════════════════════
+   14. FADE-IN ANIMATION (diskret)
+   ══════════════════════════════════════════════ */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .5s var(--ease-out), transform .5s var(--ease-out);
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ══════════════════════════════════════════════
+   15. MOBILVISNING — bundbar og chatbot
+   ══════════════════════════════════════════════ */
+.mobile-contact-bar {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: rgba(31,44,37,.96) !important;
+  border-top: 1px solid rgba(255,255,255,.08) !important;
+  box-shadow: 0 -4px 24px rgba(0,0,0,.18);
+}
+.mcb-btn { letter-spacing: .01em; font-size: .7rem; }
+.mcb-ico { font-size: 1.15rem; }
+
+/* ══════════════════════════════════════════════
+   16. CHATBOT — løftet stil
+   ══════════════════════════════════════════════ */
+.chatbot-toggle {
+  box-shadow: 0 8px 28px rgba(46,111,64,.4);
+  font-size: 1.4rem;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.chatbot-toggle:hover { transform: scale(1.08); box-shadow: 0 12px 36px rgba(46,111,64,.45); }
+
+.chatbot-window {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+.chatbot-header { border-radius: 0; }
+
+/* ══════════════════════════════════════════════
+   17. DIVERSE FORBEDRINGER
+   ══════════════════════════════════════════════ */
+
+/* Smooth view-skift */
+.app-view { transition: opacity .2s var(--ease-out); }
+.app-view:not(.active) { opacity: 0; pointer-events: none; }
+.app-view.active { opacity: 1; }
+
+/* Diskret scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,.18); border-radius: 3px; }
+
+/* Bedre focus-ring */
+:focus-visible {
+  outline: 2.5px solid var(--color-accent, #F28C28);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Upload-zone hover-forbedring */
+.upload-zone:hover, .upload-zone:focus-within {
+  border-color: var(--color-primary, #2E6F40);
+  background: var(--color-primary-tint, #EAF3EC);
+}
+
+/* Foto-hint */
+.upload-mail-hint { border-radius: var(--radius-card); }
+
+/* Security headers meta (non-visual men god praksis) */
+

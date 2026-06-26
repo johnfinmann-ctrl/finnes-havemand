@@ -1,7 +1,7 @@
 /**
  * ============================================================
  * sw.js — Finnes Entreprise
- * Auto-version: 20260623
+ * Auto-version: 20260626
  * ============================================================
  * DU SKAL ALDRIG SELV ÆNDRE DENNE FIL.
  * Claude opdaterer CACHE_NAME automatisk ved hver ny ZIP.
@@ -12,7 +12,7 @@
  * ============================================================
  */
 
-const CACHE = "finnes-v5-20260623";
+const CACHE = "finnes-v5-20260626";
 const SCOPE = self.registration.scope;
 
 /* Statiske assets der præ-caches (billeder og ikoner) */

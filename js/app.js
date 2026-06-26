@@ -524,7 +524,7 @@
 
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
-        navigator.serviceWorker.register("pwa/sw.js?v=20260623")
+        navigator.serviceWorker.register("pwa/sw.js?v=20260626")
           .then(reg => {
             reg.addEventListener("updatefound", () => {
               const nw = reg.installing;

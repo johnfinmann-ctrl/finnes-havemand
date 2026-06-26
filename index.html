@@ -35,12 +35,22 @@
 <!-- SEO -->
 <link rel="canonical" href="https://www.finnesentreprise.dk/">
 
+<!-- Security headers (meta fallback) -->
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
+
+<!-- Preconnect fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
 <!-- Styles -->
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/calculator.css">
 <link rel="stylesheet" href="css/app-views.css">
 <link rel="stylesheet" href="css/admin.css">
 <link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/design-v2.css">
 
 <!-- Schema.org: LocalBusiness -->
 <script type="application/ld+json">
@@ -97,7 +107,7 @@
 
   <div class="home-hero">
     <button type="button" class="home-logo-btn" data-go-view="home" aria-label="Til forsiden">
-      <img class="home-logo" src="assets/logo/finnes-entreprise-mark.png" alt="Finnes Entreprise logo" width="76" height="76">
+      <img class="home-logo" src="assets/logo/finnes-entreprise-mark.png" alt="Finnes Entreprise logo" width="76" height="76" loading="eager">
     </button>
     <h1 data-company-name>Finnes Entreprise</h1>
     <p class="home-intro">Professionel have- og graveservice til private, erhverv og sommerhuse.</p>
@@ -534,7 +544,7 @@
 
 <div class="lightbox" id="lightbox">
   <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Luk">✕</button>
-  <img src="" alt="" id="lightbox-img">
+  <img loading='lazy' src="" alt="" id="lightbox-img">
 </div>
 
 <!-- ============================================================
@@ -747,9 +757,16 @@
             </ul>
           </div>
         </div>
+        <!-- GDPR & Links -->
+        <div class="footer-gdpr container">
+          <a href="#" onclick="event.preventDefault()">Privatlivspolitik</a>
+          <a href="#" onclick="event.preventDefault()">Cookiepolitik</a>
+          <a href="#" onclick="event.preventDefault()">GDPR</a>
+          <a href="#" data-go-view="kontakt">Kontakt</a>
+        </div>
         <div class="footer-bottom">
-          <span>© <span data-year>2026</span> <span data-company-name>Finnes Entreprise</span> · CVR <span data-cvr-text>46557557</span></span>
-          <span>Digital løsning leveret af <strong>Nordic Operations</strong> · <a href="admin.html" style="color:rgba(255,255,255,.45); text-decoration:none; font-weight:normal;">⚙️ Admin</a></span>
+          <span>© <span data-year>2026</span> <span data-company-name>Finnes Entreprise</span> · CVR <span data-cvr-text>46557557</span> · v5.1 · 20260626</span>
+          <span>Digital løsning leveret af <strong>Nordic Operations</strong> · <a href="admin.html" style="color:rgba(255,255,255,.35); text-decoration:none; font-weight:normal;">⚙️ Admin</a></span>
         </div>
       </div>
     </footer>
@@ -810,6 +827,32 @@
   <span style="flex:1">🔄 <strong>Ny version klar</strong> — luk og åbn appen igen</span>
   <button onclick="document.getElementById('sw-update-banner').classList.remove('show')">✕ Luk</button>
 </div>
+
+
+<!-- Fade-in animation via IntersectionObserver -->
+<script>
+(function() {
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  function initFade() {
+    document.querySelectorAll('.service-card, .review-card, .gallery-item, .contact-card, .sommerhus-card').forEach(function(el) {
+      el.classList.add('fade-in');
+      obs.observe(el);
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFade);
+  } else {
+    initFade();
+  }
+})();
+</script>
 
 </body>
 </html>
