@@ -40,9 +40,11 @@
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
 
-<!-- Preconnect fonts -->
+<!-- Preconnect + Fonts (pålidelig <link> frem for CSS @import) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600;700&display=swap"></noscript>
 
 <!-- Styles -->
 <link rel="stylesheet" href="css/style.css">
@@ -544,7 +546,7 @@
 
 <div class="lightbox" id="lightbox">
   <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Luk">✕</button>
-  <img loading='lazy' src="" alt="" id="lightbox-img">
+  <img loading="lazy" src="" alt="" id="lightbox-img">
 </div>
 
 <!-- ============================================================
